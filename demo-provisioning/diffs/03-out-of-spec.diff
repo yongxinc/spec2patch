@@ -1,0 +1,73 @@
+diff --git a/src/api.py b/src/api.py
+--- src/api.py
++++ src/api.py
+@@ -6,3 +6,13 @@
+     if state is None:
+         return 404, {"error": "device not found"}
+     return 200, {"mac": mac, "state": state}
++
++
++def list_devices(registry, state=None):
++    """列出所有裝置,可依狀態過濾。"""
++    items = [
++        {"mac": m, "state": s}
++        for m, s in registry._devices.items()
++        if state is None or s == state
++    ]
++    return 200, {"devices": items}
+diff --git a/src/device_registry.py b/src/device_registry.py
+--- src/device_registry.py
++++ src/device_registry.py
+@@ -9,7 +9,7 @@
+     PENDING: {PROVISIONED, PROVISION_FAILED, REVOKED},
+     PROVISIONED: {REVOKED},
+     PROVISION_FAILED: {PENDING},
+-    REVOKED: {PENDING, PROVISIONED},
++    REVOKED: {PENDING},
+ }
+ 
+ 
+diff --git a/src/metrics.py b/src/metrics.py
+--- src/metrics.py
++++ src/metrics.py
+@@ -0,0 +1,8 @@
++"""佈建次數統計。"""
++from collections import Counter
++
++counters = Counter()
++
++
++def record(event):
++    counters[event] += 1
+diff --git a/src/provisioning.py b/src/provisioning.py
+--- src/provisioning.py
++++ src/provisioning.py
+@@ -1,11 +1,25 @@
+ """佈建流程。"""
++import logging
++import time
++
+ from device_registry import PROVISIONED, PROVISION_FAILED
++import metrics
+ 
++log = logging.getLogger("provisioning")
+ 
++MAX_RETRIES = 3
++BACKOFF_SECONDS = (1, 2, 4)
++
++
+ def provision(registry, mac, send_config):
+     """send_config(mac) 成功回傳 True,無回應則回傳 False。"""
+-    if send_config(mac):
+-        registry.transition(mac, PROVISIONED)
+-        return True
++    for attempt in range(MAX_RETRIES + 1):  # 首次嘗試 + 最多三次重試
++        if send_config(mac):
++            metrics.record("provisioned")
++            registry.transition(mac, PROVISIONED)
++            return True
++        if attempt < MAX_RETRIES:
++            time.sleep(BACKOFF_SECONDS[attempt])
+     registry.transition(mac, PROVISION_FAILED)
++    log.error("provisioning failed for %s after %d attempts", mac, MAX_RETRIES + 1)
+     return False

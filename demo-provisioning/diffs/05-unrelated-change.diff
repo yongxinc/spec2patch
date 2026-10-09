@@ -1,0 +1,20 @@
+diff --git a/src/api.py b/src/api.py
+--- src/api.py
++++ src/api.py
+@@ -1,4 +1,4 @@
+-"""最小化的查詢 API(不依賴框架)。"""
++"""最小化的查詢 API。回傳 (status_code, body)。"""
+ 
+ 
+ def get_device(registry, mac):
+diff --git a/src/device_registry.py b/src/device_registry.py
+--- src/device_registry.py
++++ src/device_registry.py
+@@ -31,6 +31,7 @@
+         self._devices[mac] = PENDING
+ 
+     def get_state(self, mac):
++        """回傳裝置目前狀態,不存在則為 None。"""
+         return self._devices.get(mac)
+ 
+     def transition(self, mac, new_state):

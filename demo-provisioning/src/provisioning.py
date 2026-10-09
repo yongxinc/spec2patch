@@ -1,0 +1,23 @@
+"""佈建流程。"""
+import logging
+import time
+
+from device_registry import PROVISIONED, PROVISION_FAILED
+
+log = logging.getLogger("provisioning")
+
+MAX_RETRIES = 3
+BACKOFF_SECONDS = (1, 2, 4)
+
+
+def provision(registry, mac, send_config):
+    """send_config(mac) 成功回傳 True,無回應則回傳 False。"""
+    for attempt in range(MAX_RETRIES + 1):  # 首次嘗試 + 最多三次重試
+        if send_config(mac):
+            registry.transition(mac, PROVISIONED)
+            return True
+        if attempt < MAX_RETRIES:
+            time.sleep(BACKOFF_SECONDS[attempt])
+    registry.transition(mac, PROVISION_FAILED)
+    log.error("provisioning failed for %s after %d attempts", mac, MAX_RETRIES + 1)
+    return False
