@@ -1,0 +1,16 @@
+{
+  "id": "V11",
+  "kind": "violation",
+  "files": [
+    "crypto/ecies.py"
+  ],
+  "summary": "Profile B 的臨時公鑰不做點壓縮(compressed=False)",
+  "target_req": "REQ-013",
+  "expected": "應指出 REQ-013:Profile B 的臨時公鑰必須是壓縮點(33 octets),diff 改成 compressed=False。",
+  "upstream_tests_failed": 83,
+  "upstream_failing_test_files": [
+    "tests/test_roundtrip.py",
+    "tests/test_suci_vectors.py"
+  ],
+  "source_commit": "4f8f2b6"
+}

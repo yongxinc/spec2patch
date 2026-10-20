@@ -1,0 +1,15 @@
+diff --git a/crypto/ecies.py b/crypto/ecies.py
+--- a/crypto/ecies.py
++++ b/crypto/ecies.py
+@@ -166,10 +166,10 @@
+     eph_pub, ciphertext, received_mac = split_scheme_output(profile, scheme_output)
+     z = _shared_secret(profile, hn_private_key, eph_pub)
+     enc_key, icb, mac_key = _derive_keys(z, eph_pub)
++    plaintext = _aes128_ctr(enc_key, icb, ciphertext)
+     expected_mac = _mac(mac_key, ciphertext)
+     # Not constant time on purpose: side-channel resistance is out of scope (README).
+     if expected_mac != received_mac:
+         raise EciesMacFailure(f"MAC tag mismatch: received {received_mac.hex()}")
+-    plaintext = _aes128_ctr(enc_key, icb, ciphertext)
+     return EciesTrace(profile.name, eph_pub, z, enc_key, icb, mac_key,
+                       plaintext, ciphertext, received_mac)

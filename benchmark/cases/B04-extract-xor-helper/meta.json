@@ -1,0 +1,13 @@
+{
+  "id": "B04",
+  "kind": "benign",
+  "files": [
+    "udm/arpf.py"
+  ],
+  "summary": "把兩處 bytes(a ^ b ...) 抽成 _xor 輔助函式(重構,行為不變)",
+  "target_req": null,
+  "expected": null,
+  "upstream_tests_failed": 0,
+  "upstream_failing_test_files": [],
+  "source_commit": "4f8f2b6"
+}

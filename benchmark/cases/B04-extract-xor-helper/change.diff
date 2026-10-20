@@ -1,0 +1,32 @@
+diff --git a/udm/arpf.py b/udm/arpf.py
+--- a/udm/arpf.py
++++ b/udm/arpf.py
+@@ -8,6 +8,10 @@
+ from crypto import kdf, milenage
+ from errors import AutsMacFailure
+ from formats.autn import AMF_RESYNC, build_autn, separation_bit
++
++
++def _xor(a: bytes, b: bytes) -> bytes:
++    return bytes(x ^ y for x, y in zip(a, b))
+ 
+ 
+ @dataclass(frozen=True)
+@@ -37,7 +41,7 @@
+         rand = os.urandom(16)
+     sqn_bytes = sqn.to_bytes(6, "big")
+     out = milenage.milenage(k, opc, rand, sqn_bytes, amf)
+-    sqn_xor_ak = bytes(a ^ b for a, b in zip(sqn_bytes, out.ak))
++    sqn_xor_ak = _xor(sqn_bytes, out.ak)
+     autn = build_autn(sqn_xor_ak, amf, out.mac_a)
+     xres_star = kdf.derive_res_star(out.ck, out.ik, serving_network_name, rand, out.res)
+     kausf = kdf.derive_kausf(out.ck, out.ik, serving_network_name, sqn_xor_ak)
+@@ -60,7 +64,7 @@
+     if len(auts) != 14:
+         raise ValueError("AUTS must be 14 octets")
+     ak_star = milenage.f5star(k, opc, rand)
+-    sqn_ms_bytes = bytes(a ^ b for a, b in zip(auts[:6], ak_star))
++    sqn_ms_bytes = _xor(auts[:6], ak_star)
+     _, xmac_s = milenage.f1_f1star(k, opc, rand, sqn_ms_bytes, AMF_RESYNC)
+     if xmac_s != auts[6:]:
+         raise AutsMacFailure(f"XMAC-S {xmac_s.hex()} != MAC-S {auts[6:].hex()}")

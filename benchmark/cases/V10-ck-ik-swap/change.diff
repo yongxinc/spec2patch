@@ -1,0 +1,14 @@
+diff --git a/crypto/milenage.py b/crypto/milenage.py
+--- a/crypto/milenage.py
++++ b/crypto/milenage.py
+@@ -94,8 +94,8 @@
+         mac_s=mac_s,
+         res=out2[8:16],
+         ak=out2[0:6],
+-        ck=out3,
+-        ik=out4,
++        ck=out4,
++        ik=out3,
+         ak_star=out5[0:6],
+     )
+ 

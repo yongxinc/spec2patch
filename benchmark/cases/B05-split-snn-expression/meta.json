@@ -1,0 +1,13 @@
+{
+  "id": "B05",
+  "kind": "benign",
+  "files": [
+    "formats/snn.py"
+  ],
+  "summary": "把 SNN 字串拆成 network_id 與前綴兩步組合(重構,行為不變)",
+  "target_req": null,
+  "expected": null,
+  "upstream_tests_failed": 0,
+  "upstream_failing_test_files": [],
+  "source_commit": "4f8f2b6"
+}

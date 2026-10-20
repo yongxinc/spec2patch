@@ -1,0 +1,15 @@
+{
+  "id": "V08",
+  "kind": "violation",
+  "files": [
+    "crypto/milenage.py"
+  ],
+  "summary": "OPc 推導漏掉與 OP 的 XOR,直接回傳 E[OP]K",
+  "target_req": "REQ-008",
+  "expected": "應指出 REQ-008:OPc = OP xor E[OP]K,diff 只回傳 E[OP]K。",
+  "upstream_tests_failed": 21,
+  "upstream_failing_test_files": [
+    "tests/test_milenage_vectors.py"
+  ],
+  "source_commit": "4f8f2b6"
+}

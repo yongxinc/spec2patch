@@ -1,0 +1,23 @@
+diff --git a/ue/auth.py b/ue/auth.py
+--- a/ue/auth.py
++++ b/ue/auth.py
+@@ -54,15 +54,15 @@
+     ak = milenage.f5(k, opc, rand)
+     sqn_bytes = bytes(a ^ b for a, b in zip(sqn_xor_ak, ak))
+     out = milenage.milenage(k, opc, rand, sqn_bytes, amf)
+-    # Not constant time on purpose: side-channel resistance is out of scope (README).
+-    if out.mac_a != mac:
+-        raise AutnMacFailure(f"XMAC {out.mac_a.hex()} != MAC {mac.hex()}")
+-
+     sqn = int.from_bytes(sqn_bytes, "big")
+     if not (sqn_ms < sqn <= sqn_ms + delta):
+         raise SynchronisationFailure(
+             f"SQN {sqn:#014x} not in ({sqn_ms:#014x}, {sqn_ms + delta:#014x}]",
+             auts=build_auts(k, opc, rand, sqn_ms), sqn_ms=sqn_ms, sqn_received=sqn)
++
++    # Not constant time on purpose: side-channel resistance is out of scope (README).
++    if out.mac_a != mac:
++        raise AutnMacFailure(f"XMAC {out.mac_a.hex()} != MAC {mac.hex()}")
+ 
+     if separation_bit(amf) != 1:
+         raise AmfSeparationBitNotSet(f"AMF {amf.hex()} has separation bit 0")

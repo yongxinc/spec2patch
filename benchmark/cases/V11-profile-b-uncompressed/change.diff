@@ -1,0 +1,12 @@
+diff --git a/crypto/ecies.py b/crypto/ecies.py
+--- a/crypto/ecies.py
++++ b/crypto/ecies.py
+@@ -138,7 +138,7 @@
+     if eph_private_key is None:
+         eph_private_key = generate_private_key(profile)
+     # Profile A has no point compression; Profile B always sends the compressed point.
+-    eph_pub = public_key(profile, eph_private_key, compressed=True)
++    eph_pub = public_key(profile, eph_private_key, compressed=False)
+     z = _shared_secret(profile, eph_private_key, hn_public_key)
+     enc_key, icb, mac_key = _derive_keys(z, eph_pub)
+     ciphertext = _aes128_ctr(enc_key, icb, plaintext)

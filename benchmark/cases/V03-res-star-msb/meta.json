@@ -1,0 +1,15 @@
+{
+  "id": "V03",
+  "kind": "violation",
+  "files": [
+    "crypto/kdf.py"
+  ],
+  "summary": "RES* 取 KDF 輸出的前 128 bits(最高位)而非後 128 bits(最低位)",
+  "target_req": "REQ-003",
+  "expected": "應指出 REQ-003:(X)RES* 是輸出的 128 least significant bits,diff 改取 [:16]。",
+  "upstream_tests_failed": 13,
+  "upstream_failing_test_files": [
+    "tests/test_kdf_vectors.py"
+  ],
+  "source_commit": "4f8f2b6"
+}

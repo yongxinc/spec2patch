@@ -1,0 +1,12 @@
+diff --git a/crypto/milenage.py b/crypto/milenage.py
+--- a/crypto/milenage.py
++++ b/crypto/milenage.py
+@@ -14,7 +14,7 @@
+ C3 = bytes(15) + b"\x02"
+ C4 = bytes(15) + b"\x04"
+ C5 = bytes(15) + b"\x08"
+-R1, R2, R3, R4, R5 = 64, 0, 32, 64, 96
++R1, R2, R3, R4, R5 = 64, 0, 64, 64, 96
+ 
+ 
+ def _e(k: bytes, block: bytes) -> bytes:

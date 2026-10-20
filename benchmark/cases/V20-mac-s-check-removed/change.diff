@@ -1,0 +1,10 @@
+diff --git a/udm/arpf.py b/udm/arpf.py
+--- a/udm/arpf.py
++++ b/udm/arpf.py
+@@ -62,6 +62,4 @@
+     ak_star = milenage.f5star(k, opc, rand)
+     sqn_ms_bytes = bytes(a ^ b for a, b in zip(auts[:6], ak_star))
+     _, xmac_s = milenage.f1_f1star(k, opc, rand, sqn_ms_bytes, AMF_RESYNC)
+-    if xmac_s != auts[6:]:
+-        raise AutsMacFailure(f"XMAC-S {xmac_s.hex()} != MAC-S {auts[6:].hex()}")
+     return ResyncResult(ak_star, int.from_bytes(sqn_ms_bytes, "big"), xmac_s)

@@ -1,0 +1,15 @@
+{
+  "id": "V02",
+  "kind": "violation",
+  "files": [
+    "crypto/kdf.py"
+  ],
+  "summary": "K_SEAF 推導的 FC 值由 0x6C 改成 0x6D(K_AMF 的 FC)",
+  "target_req": "REQ-005",
+  "expected": "應指出 REQ-005:K_SEAF 的 FC 必須是 0x6C,diff 把它改成 0x6D。",
+  "upstream_tests_failed": 11,
+  "upstream_failing_test_files": [
+    "tests/test_kdf_vectors.py"
+  ],
+  "source_commit": "4f8f2b6"
+}

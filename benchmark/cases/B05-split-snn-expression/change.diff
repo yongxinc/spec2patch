@@ -1,0 +1,10 @@
+diff --git a/formats/snn.py b/formats/snn.py
+--- a/formats/snn.py
++++ b/formats/snn.py
+@@ -12,4 +12,5 @@
+         raise ValueError("MCC must be 3 digits")
+     if not (mnc.isdigit() and len(mnc) in (2, 3)):
+         raise ValueError("MNC must be 2 or 3 digits")
+-    return f"5G:mnc{mnc.zfill(3)}.mcc{mcc}.3gppnetwork.org"
++    network_id = f"mnc{mnc.zfill(3)}.mcc{mcc}.3gppnetwork.org"
++    return f"5G:{network_id}"

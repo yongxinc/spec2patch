@@ -1,0 +1,17 @@
+{
+  "id": "V10",
+  "kind": "violation",
+  "files": [
+    "crypto/milenage.py"
+  ],
+  "summary": "f3/f4 輸出對調:CK 取 OUT4、IK 取 OUT3",
+  "target_req": "REQ-011",
+  "expected": "應指出 REQ-011:CK = OUT3、IK = OUT4,diff 把兩者對調。",
+  "upstream_tests_failed": 34,
+  "upstream_failing_test_files": [
+    "tests/test_cli_web.py",
+    "tests/test_kdf_vectors.py",
+    "tests/test_milenage_vectors.py"
+  ],
+  "source_commit": "4f8f2b6"
+}

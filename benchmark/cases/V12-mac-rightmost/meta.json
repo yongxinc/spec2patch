@@ -1,0 +1,17 @@
+{
+  "id": "V12",
+  "kind": "violation",
+  "files": [
+    "crypto/ecies.py"
+  ],
+  "summary": "ECIES MAC tag 取 HMAC 輸出的最右 8 octets 而非最左 8 octets",
+  "target_req": "REQ-017",
+  "expected": "應指出 REQ-017:MAC tag 是 HMAC-SHA-256 最左 64 bits,diff 改取 [-MAC_LEN:]。",
+  "upstream_tests_failed": 12,
+  "upstream_failing_test_files": [
+    "tests/test_cli_web.py",
+    "tests/test_crosscheck_free5gc_suci.py",
+    "tests/test_suci_vectors.py"
+  ],
+  "source_commit": "4f8f2b6"
+}

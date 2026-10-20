@@ -1,0 +1,12 @@
+diff --git a/crypto/milenage.py b/crypto/milenage.py
+--- a/crypto/milenage.py
++++ b/crypto/milenage.py
+@@ -75,7 +75,7 @@
+     _check("SQN", sqn, 6)
+     _check("AMF", amf, 2)
+     temp = _temp(k, opc, rand)
+-    in1 = sqn + amf + sqn + amf
++    in1 = amf + sqn + amf + sqn
+     out1 = _xor(_e(k, _xor(_xor(temp, _rot(_xor(in1, opc), R1)), C1)), opc)
+     return out1[:8], out1[8:]
+ 

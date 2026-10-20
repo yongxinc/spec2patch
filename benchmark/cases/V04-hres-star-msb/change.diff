@@ -1,0 +1,12 @@
+diff --git a/crypto/kdf.py b/crypto/kdf.py
+--- a/crypto/kdf.py
++++ b/crypto/kdf.py
+@@ -47,7 +47,7 @@
+ 
+ def derive_hres_star(rand: bytes, res_star: bytes) -> bytes:
+     """TS 33.501 A.5. H(X)RES* = 128 least significant bits of SHA-256(RAND || (X)RES*)."""
+-    return hashlib.sha256(rand + res_star).digest()[16:]
++    return hashlib.sha256(rand + res_star).digest()[:16]
+ 
+ 
+ def derive_kseaf(kausf: bytes, serving_network_name: str) -> bytes:

@@ -1,0 +1,12 @@
+diff --git a/crypto/milenage.py b/crypto/milenage.py
+--- a/crypto/milenage.py
++++ b/crypto/milenage.py
+@@ -43,7 +43,7 @@
+     """OPc = OP xor E[OP]K (TS 35.206 4.1)."""
+     _check("K", k, 16)
+     _check("OP", op, 16)
+-    return _xor(op, _e(k, op))
++    return _e(k, op)
+ 
+ 
+ @dataclass(frozen=True)

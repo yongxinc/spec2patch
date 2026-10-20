@@ -1,0 +1,12 @@
+diff --git a/crypto/kdf.py b/crypto/kdf.py
+--- a/crypto/kdf.py
++++ b/crypto/kdf.py
+@@ -42,7 +42,7 @@
+         raise ValueError("RAND must be 16 octets")
+     if not 4 <= len(res) <= 16:
+         raise ValueError("RES must be 4 to 16 octets")
+-    return kdf(ck + ik, FC_RES_STAR, _snn(serving_network_name), rand, res)[16:]
++    return kdf(ck + ik, FC_RES_STAR, _snn(serving_network_name), rand, res)[:16]
+ 
+ 
+ def derive_hres_star(rand: bytes, res_star: bytes) -> bytes:

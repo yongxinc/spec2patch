@@ -1,0 +1,15 @@
+{
+  "crypto/kdf.py": ["REQ-001", "REQ-002", "REQ-003", "REQ-004", "REQ-005", "REQ-006"],
+  "formats/snn.py": ["REQ-007"],
+  "crypto/milenage.py": ["REQ-008", "REQ-009", "REQ-010", "REQ-011"],
+  "crypto/ecies.py": ["REQ-012", "REQ-013", "REQ-014", "REQ-015", "REQ-016", "REQ-017", "REQ-018", "REQ-019"],
+  "formats/suci.py": ["REQ-020", "REQ-021", "REQ-022"],
+  "formats/supi.py": ["REQ-023", "REQ-024"],
+  "ue/suci.py": ["REQ-025", "REQ-026"],
+  "formats/autn.py": ["REQ-027", "REQ-028"],
+  "udm/arpf.py": ["REQ-029", "REQ-030"],
+  "udm/sidf.py": ["REQ-019"],
+  "ue/auth.py": ["REQ-031", "REQ-032", "REQ-033", "REQ-034", "REQ-035"],
+  "ausf/ausf.py": ["REQ-036", "REQ-037"],
+  "seaf/seaf.py": ["REQ-038"]
+}

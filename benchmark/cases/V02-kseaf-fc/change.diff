@@ -1,0 +1,12 @@
+diff --git a/crypto/kdf.py b/crypto/kdf.py
+--- a/crypto/kdf.py
++++ b/crypto/kdf.py
+@@ -8,7 +8,7 @@
+ 
+ FC_KAUSF = 0x6A          # TS 33.501 A.2
+ FC_RES_STAR = 0x6B       # TS 33.501 A.4
+-FC_KSEAF = 0x6C          # TS 33.501 A.6
++FC_KSEAF = 0x6D          # TS 33.501 A.6
+ 
+ 
+ def kdf(key: bytes, fc: int, *params: bytes) -> bytes:

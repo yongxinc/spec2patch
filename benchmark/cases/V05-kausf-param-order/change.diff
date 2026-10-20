@@ -1,0 +1,12 @@
+diff --git a/crypto/kdf.py b/crypto/kdf.py
+--- a/crypto/kdf.py
++++ b/crypto/kdf.py
+@@ -33,7 +33,7 @@
+     """TS 33.501 A.2. KEY = CK || IK, P0 = SNN, P1 = SQN xor AK."""
+     if len(sqn_xor_ak) != 6:
+         raise ValueError("SQN xor AK must be 6 octets")
+-    return kdf(ck + ik, FC_KAUSF, _snn(serving_network_name), sqn_xor_ak)
++    return kdf(ck + ik, FC_KAUSF, sqn_xor_ak, _snn(serving_network_name))
+ 
+ 
+ def derive_res_star(ck: bytes, ik: bytes, serving_network_name: str, rand: bytes, res: bytes) -> bytes:

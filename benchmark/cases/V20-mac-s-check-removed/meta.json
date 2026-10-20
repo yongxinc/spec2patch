@@ -1,0 +1,15 @@
+{
+  "id": "V20",
+  "kind": "violation",
+  "files": [
+    "udm/arpf.py"
+  ],
+  "summary": "重同步時移除 MAC-S 驗證",
+  "target_req": "REQ-030",
+  "expected": "應指出 REQ-030:重同步必須驗證 AUTS 的 MAC-S,diff 移除了比對與拒絕。",
+  "upstream_tests_failed": 1,
+  "upstream_failing_test_files": [
+    "tests/test_negative.py"
+  ],
+  "source_commit": "4f8f2b6"
+}

@@ -1,0 +1,12 @@
+diff --git a/seaf/seaf.py b/seaf/seaf.py
+--- a/seaf/seaf.py
++++ b/seaf/seaf.py
+@@ -9,7 +9,7 @@
+ 
+ def verify_res_star(rand: bytes, res_star: bytes, hxres_star: bytes) -> bytes:
+     """Returns HRES*. Raises if HRES* != HXRES*."""
+-    hres_star = kdf.derive_hres_star(rand, res_star)
++    hres_star = kdf.derive_hres_star(res_star, rand)
+     # Not constant time on purpose: side-channel resistance is out of scope (README).
+     if hres_star != hxres_star:
+         raise ResStarMismatch(f"HRES* {hres_star.hex()} != HXRES* {hxres_star.hex()}",

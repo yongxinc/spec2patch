@@ -1,0 +1,13 @@
+{
+  "id": "B03",
+  "kind": "benign",
+  "files": [
+    "seaf/seaf.py"
+  ],
+  "summary": "把區域變數 hres_star 改名為 computed_hres_star(純改名)",
+  "target_req": null,
+  "expected": null,
+  "upstream_tests_failed": 0,
+  "upstream_failing_test_files": [],
+  "source_commit": "4f8f2b6"
+}

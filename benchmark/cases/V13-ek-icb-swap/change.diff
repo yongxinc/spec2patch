@@ -1,0 +1,12 @@
+diff --git a/crypto/ecies.py b/crypto/ecies.py
+--- a/crypto/ecies.py
++++ b/crypto/ecies.py
+@@ -105,7 +105,7 @@
+         length=ENC_KEY_LEN + ICB_LEN + MAC_KEY_LEN,
+         sharedinfo=eph_public_key,
+     ).derive(shared_key)
+-    return k[:ENC_KEY_LEN], k[ENC_KEY_LEN:ENC_KEY_LEN + ICB_LEN], k[-MAC_KEY_LEN:]
++    return k[ENC_KEY_LEN:ENC_KEY_LEN + ICB_LEN], k[:ENC_KEY_LEN], k[-MAC_KEY_LEN:]
+ 
+ 
+ def _aes128_ctr(enc_key: bytes, icb: bytes, data: bytes) -> bytes:

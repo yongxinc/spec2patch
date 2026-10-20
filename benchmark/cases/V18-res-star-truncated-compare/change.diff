@@ -1,0 +1,12 @@
+diff --git a/ausf/ausf.py b/ausf/ausf.py
+--- a/ausf/ausf.py
++++ b/ausf/ausf.py
+@@ -33,7 +33,7 @@
+ def confirm(context: AusfContext, res_star: bytes) -> bytes:
+     """Steps 11-12: compare RES* with the stored XRES*; release K_SEAF only on success."""
+     # Not constant time on purpose: side-channel resistance is out of scope (README).
+-    if res_star != context.xres_star:
++    if res_star[:8] != context.xres_star[:8]:
+         raise ResStarMismatch("RES* does not equal XRES*", node="AUSF",
+                               spec_ref="TS 33.501 6.1.3.2 step 11, 6.1.3.2.2")
+     return context.kseaf
