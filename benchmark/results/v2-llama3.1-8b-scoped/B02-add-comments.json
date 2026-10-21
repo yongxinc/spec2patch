@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "id": "B02",
+    "kind": "benign",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "在 authenticate 內加兩行說明註解(純註解)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B02",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 5,
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 0.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B02-add-comments/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B02-add-comments/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "61-61",
+            "side": "new"
+          }
+        ],
+        "reason": "這段改動未落在任何需求的程式碼錨點內。",
+        "needs": ""
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "71-71",
+            "side": "new"
+          }
+        ],
+        "reason": "這段改動未落在任何需求的程式碼錨點內。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

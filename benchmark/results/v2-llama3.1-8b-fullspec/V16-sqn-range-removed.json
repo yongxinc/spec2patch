@@ -1,0 +1,317 @@
+{
+  "meta": {
+    "id": "V16",
+    "kind": "violation",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "移除 UE 的 SQN 範圍(新鮮度)檢查",
+    "target_req": "REQ-032",
+    "expected": "應指出 REQ-032:UE 必須檢查 SQN 在 (SQN_MS, SQN_MS+DELTA] 內,diff 移除了這段檢查。",
+    "needs_context": false,
+    "upstream_tests_failed": 5,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V16",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 36,
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 17.4
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/requirements/ts33501-subset.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V16-sqn-range-removed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-007",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-008",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-012",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-020",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-021",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-022",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-023",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-024",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-025",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-026",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-027",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-028",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-029",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-030",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-031",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "62-65(old)",
+            "side": "old"
+          }
+        ],
+        "reason": "SQN 大於 stored SQN_MS; SQN 不超過 DELTA",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "59-60",
+            "side": "new"
+          }
+        ],
+        "reason": "AUTN MAC 首先驗證,然後才檢查 SQN 的新鮮度; 在 AUTN MAC 驗證失敗時,不評估 SQN",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-036",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-037",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-038",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

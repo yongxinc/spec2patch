@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "id": "B05",
+    "kind": "benign",
+    "files": [
+      "formats/snn.py"
+    ],
+    "summary": "把 SNN 字串拆成 network_id 與前綴兩步組合(重構,行為不變)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B05",
+    "kind": "benign",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-007",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "class": "false_alarm",
+    "false_alarm_strict": true,
+    "false_alarm_lenient": true,
+    "seconds": 13.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-007",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "15(old)",
+            "side": "old"
+          },
+          {
+            "file": "formats/snn.py",
+            "lines": "15(new)",
+            "side": "new"
+          }
+        ],
+        "reason": "MNC 總是三位數,但在 15 行的實作中 MNC 只被 zfill(3) 處理,與需求矛盾。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

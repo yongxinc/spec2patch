@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "id": "V20",
+    "kind": "violation",
+    "files": [
+      "udm/arpf.py"
+    ],
+    "summary": "重同步時移除 MAC-S 驗證",
+    "target_req": "REQ-030",
+    "expected": "應指出 REQ-030:重同步必須驗證 AUTS 的 MAC-S,diff 移除了比對與拒絕。",
+    "needs_context": false,
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V20",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 1,
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 10.5
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V20-mac-s-check-removed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V20-mac-s-check-removed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-029",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-030",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "64-65",
+            "side": "new"
+          }
+        ],
+        "reason": "AUTS 中的 SQN_MS = (SQN_MS xor AK*) xor AK* 被正確計算; 驗證 MAC-S 與 dummy AMF 0x0000 匹配",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

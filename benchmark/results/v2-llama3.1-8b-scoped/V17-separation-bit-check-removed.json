@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "V17",
+    "kind": "violation",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "移除 ME 對 AMF separation bit 的檢查",
+    "target_req": "REQ-034",
+    "expected": "應指出 REQ-034:ME 必須檢查 AMF separation bit 為 1,diff 移除了這段檢查。",
+    "needs_context": false,
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V17",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 4,
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 12.5
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V17-separation-bit-check-removed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V17-separation-bit-check-removed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "67-68",
+            "side": "old"
+          }
+        ],
+        "reason": "AMF 分離位元 (TS 33.501 6.1.3.2 步驟 7):ME 檢查 AUTN 中的 AMF 分離位元是否為 1;若為 0 則驗證被拒絕",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

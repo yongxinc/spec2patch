@@ -33,6 +33,8 @@ SPEC2PATCH_BACKEND=claude-cli SPEC2PATCH_MODEL=sonnet python -m spec2patch <規�
 
 ## 完整範例
 
+> ⚠️ 這個範例與下方「手動案例結果」是 **v1 流程**(對每條需求問「有沒有實作」,輸出 covered/missing)產生的。v2 之後的流程與狀態見「系統設計」,v2 的量化結果見 `benchmark/`。
+
 **規格**(`demo-provisioning/specs/sprint-retry.md`)
 
 ```markdown
@@ -63,24 +65,27 @@ SPEC2PATCH_BACKEND=claude-cli SPEC2PATCH_MODEL=sonnet python -m spec2patch <規�
 JSON schema(每一項):
 
 ```json
-{"requirement": "REQ-003", "status": "covered | missing | out-of-spec | unrelated",
+{"requirement": "REQ-003", "status": "covered | violated | insufficient_context | not_applicable | unrelated | out-of-spec",
  "evidence": [{"file": "src/provisioning.py", "lines": "1-23"}], "reason": "..."}
 ```
 
 ## 系統設計
 
-LangGraph 四個節點,線性串接,全部唯讀:
+LangGraph 五個節點,線性串接,全部唯讀:
 
 ```text
-load_spec ──► load_diff ──► analyze ──► report
+load_spec ──► load_diff ──► scope ──► analyze ──► report
 ```
 
 | 節點 | 做什麼 |
 | --- | --- |
-| `load_spec` | `read_file` + `list_requirements`,抓出 `## REQ-xxx` 條目 |
-| `load_diff` | `read_file` + `parse_diff`,切出檔案、hunk 與新檔行號(行號直接標進 prompt,避免模型自己數) |
-| `analyze` | 每條需求各呼叫一次 LLM(小模型一次判多條容易混淆),再一次找規格外改動 |
-| `report` | 驗證 schema:丟棄未知編號、補上 LLM 漏回的需求(保守標 missing 並警告)、輸出 JSON 與文字 |
+| `load_spec` | `read_file` + `list_requirements`,抓出 `## REQ-xxx` 條目與選填的 `Code:` 錨點(檔案、符號、行號) |
+| `load_diff` | `read_file` + `parse_diff`,切出檔案、hunk、每個變更行的新/舊行號與所在函式 |
+| `scope` | **不呼叫 LLM。** 用錨點與變更行的檔案、符號、行號交集,判斷 diff 碰到哪些需求;沒碰到的標 `not_applicable` |
+| `analyze` | 只對被碰到的需求問 LLM:這個改動**違反**還是**滿足**?要看 diff 以外的程式碼時回 `insufficient_context` 並說明需要什麼,不猜 |
+| `report` | 驗證 schema:丟棄未知編號、補上 LLM 漏回的需求(標 `insufficient_context`,不猜)、輸出 JSON 與文字 |
+
+沒有 `Code:` 錨點的需求無法做機械式判斷,一律詢問 LLM(雜訊會回到 v1 的程度)。錨點是人寫的「需求 → 實作位置」對照表,品質直接決定範圍限縮的效果。
 
 LLM 失敗(Ollama 沒開、回傳壞 JSON)時會重試一次,仍失敗則在 `warnings` 記錄,不會崩潰。
 
@@ -99,6 +104,20 @@ LLM 失敗(Ollama 沒開、回傳壞 JSON)時會重試一次,仍失敗則在 `wa
 結論:同一套流程與 prompt,換成較強的模型後 5 個案例都符合預期,8B 本地模型則約只有 2 個符合(04、05;其中 05 是因為兩條本來就沒被實作)。表示在這組案例上瓶頸主要是模型能力。8B 模型的典型錯誤是理由與結論自相矛盾,因此人工複核時要看理由,不能只看狀態。
 
 過程中的一個發現:第一輪 Claude 判 REQ-003 為 missing,理由是「重試三次」應為首次 + 3 次重試共 4 次嘗試,而我的 demo 程式只嘗試 3 次——這是 demo 程式本身的 bug,不是誤判。已修正 demo 與 diff。
+
+## 基準測試(v2)
+
+`benchmark/` 在一個真實專案(依 3GPP Rel-17 實作的 SUCI / 5G-AKA)上植入 20 個各違反一條規格的修改與 5 個無害修改,並用該專案自己的 399 個測試確認標準答案(19/20 違規會讓上游測試失敗)。評分規則與限制見 `benchmark/README.md`。llama3.1:8b 的結果(每格只跑一次,25 個案例,不可外推):
+
+| | v1 | v2(範圍限縮 + 違反/滿足) |
+| --- | --- | --- |
+| 真陽性(目標條文被判違反) | 8/20 | 10/20 |
+| 漏報(目標被確定地判為 covered) | 3/20 | 9/20 |
+| 宣告上下文不足 | - | 0/20 |
+| 假警報(嚴格) | 3/5 | 1/5 |
+| 需求層級 LLM 呼叫 | 114 | 38 |
+
+v2 把假警報與成本降下來,但沒有讓模型更會分辨對錯:它常常複述需求並判 covered(見 `benchmark/results/`)。
 
 ## 目前的限制
 

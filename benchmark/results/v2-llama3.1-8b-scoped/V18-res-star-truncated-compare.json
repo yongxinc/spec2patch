@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "id": "V18",
+    "kind": "violation",
+    "files": [
+      "ausf/ausf.py"
+    ],
+    "summary": "AUSF 比對 RES* 與 XRES* 時只比對前 8 octets",
+    "target_req": "REQ-037",
+    "expected": "應指出 REQ-037:必須比對 RES* 與 XRES* 的完整長度,diff 只比對前 8 octets。",
+    "needs_context": false,
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V18",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 1,
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 9.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V18-res-star-truncated-compare/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V18-res-star-truncated-compare/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-036",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-037",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ausf/ausf.py",
+            "lines": "34, 36",
+            "side": "new"
+          }
+        ],
+        "reason": "比較 RES* 與 XRES* 的全長; 釋放 K_SEAF 只在 RES* 等於 XRES* 時",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

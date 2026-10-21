@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "id": "V05",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "K_AUSF 推導的參數順序對調(P0=SQN xor AK, P1=SNN)",
+    "target_req": "REQ-002",
+    "expected": "應指出 REQ-002:P0 必須是 SNN、P1 必須是 SQN xor AK,diff 把順序對調。",
+    "needs_context": false,
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V05",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-001",
+        "violated"
+      ],
+      [
+        "REQ-002",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 3,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 1,
+    "class": "TP",
+    "seconds": 22.5
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36(old)",
+            "side": "old"
+          }
+        ],
+        "reason": "被刪除的行 36 原本正確實作 KDF 輸入編碼,與需求矛盾。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36(new)",
+            "side": "new"
+          }
+        ],
+        "reason": "K_AUSF 的 P1 參數 SQN xor AK 順序被改成與需求相反。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36(new)",
+            "side": "new"
+          }
+        ],
+        "reason": "TS 33.220 B.2.1.2 中 KDF 的輸入參數編碼為 UTF-8; Serving network name 在 KDF 輸入中的位置",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

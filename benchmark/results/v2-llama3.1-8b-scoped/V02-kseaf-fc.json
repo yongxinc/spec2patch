@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "id": "V02",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "K_SEAF 推導的 FC 值由 0x6C 改成 0x6D(K_AMF 的 FC)",
+    "target_req": "REQ-005",
+    "expected": "應指出 REQ-005:K_SEAF 的 FC 必須是 0x6C,diff 把它改成 0x6D。",
+    "needs_context": false,
+    "upstream_tests_failed": 11,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V02",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-005",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 5,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 6.8
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "11(new)",
+            "side": "new"
+          }
+        ],
+        "reason": "FC_KSEAF 被改成 0x6D,與需求的 0x6C 值矛盾。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "id": "V12",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "ECIES MAC tag 取 HMAC 輸出的最右 8 octets 而非最左 8 octets",
+    "target_req": "REQ-017",
+    "expected": "應指出 REQ-017:MAC tag 是 HMAC-SHA-256 最左 64 bits,diff 改取 [-MAC_LEN:]。",
+    "needs_context": false,
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_crosscheck_free5gc_suci.py",
+      "tests/test_suci_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V12",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 7,
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 5.6
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V12-mac-rightmost/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V12-mac-rightmost/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "130(new)",
+            "side": "new"
+          }
+        ],
+        "reason": "MAC tag 是 HMAC-SHA-256 的 64 個左邊位元 (8 個八位元)",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

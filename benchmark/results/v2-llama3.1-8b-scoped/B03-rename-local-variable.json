@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "id": "B03",
+    "kind": "benign",
+    "files": [
+      "seaf/seaf.py"
+    ],
+    "summary": "把區域變數 hres_star 改名為 computed_hres_star(純改名)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B03",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 9.9
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-038",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "seaf/seaf.py",
+            "lines": "12(new), 14(new), 17(new)",
+            "side": "new"
+          }
+        ],
+        "reason": "HRES* 的計算使用相同的函式; 驗證 HRES* 與 HXRES* 是否相等",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

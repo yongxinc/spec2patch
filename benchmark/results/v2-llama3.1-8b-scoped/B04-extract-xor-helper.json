@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "B04",
+    "kind": "benign",
+    "files": [
+      "udm/arpf.py"
+    ],
+    "summary": "把兩處 bytes(a ^ b ...) 抽成 _xor 輔助函式(重構,行為不變)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B04",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 27.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-029",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "13",
+            "side": "new"
+          },
+          {
+            "file": "udm/arpf.py",
+            "lines": "44",
+            "side": "new"
+          },
+          {
+            "file": "udm/arpf.py",
+            "lines": "67",
+            "side": "new"
+          }
+        ],
+        "reason": "ARPF 生成的 5G 驗證向量中,AMF 分離位元 (separation bit) 設定為 1:新增行為 _xor",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-030",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "13, 44, 67",
+            "side": "new"
+          }
+        ],
+        "reason": "AUTS 中 SQN_MS = (SQN_MS xor AK*) xor AK* 的計算正確; 驗證 MAC-S 與 dummy AMF 0x0000 的正確性",
+        "needs": ""
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "13-14",
+            "side": "new"
+          }
+        ],
+        "reason": "這段改動未落在任何需求的程式碼錨點內。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

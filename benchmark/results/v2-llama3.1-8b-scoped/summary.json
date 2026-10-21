@@ -1,0 +1,442 @@
+{
+  "summary": {
+    "violations": 20,
+    "TP": 10,
+    "partial": 1,
+    "miss": 9,
+    "abstain": 0,
+    "abstain_expected": 0,
+    "benign": 5,
+    "false_alarm_strict": 1,
+    "false_alarm_lenient": 1,
+    "benign_with_abstain": 0,
+    "tp_with_extra_flags": 3,
+    "target_missing_no_evidence": 0,
+    "cases_with_llm_failures": 0,
+    "avg_not_applicable": 3.0,
+    "config": {
+      "backend": "ollama",
+      "model": "llama3.1:8b",
+      "spec2patch_commit": "b9fed82"
+    }
+  },
+  "rows": [
+    {
+      "id": "V01",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 5,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 13.9
+    },
+    {
+      "id": "V02",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-005",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 5,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "TP",
+      "seconds": 6.8
+    },
+    {
+      "id": "V03",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-001",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "partial",
+      "seconds": 21.0
+    },
+    {
+      "id": "V04",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 5,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 5.8
+    },
+    {
+      "id": "V05",
+      "kind": "violation",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-001",
+          "violated"
+        ],
+        [
+          "REQ-002",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "TP",
+      "seconds": 22.5
+    },
+    {
+      "id": "V06",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-007",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 0,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "TP",
+      "seconds": 6.9
+    },
+    {
+      "id": "V07",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 8.3
+    },
+    {
+      "id": "V08",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 5.9
+    },
+    {
+      "id": "V09",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-010",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "TP",
+      "seconds": 8.1
+    },
+    {
+      "id": "V10",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-011",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "TP",
+      "seconds": 6.8
+    },
+    {
+      "id": "V11",
+      "kind": "violation",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-013",
+          "violated"
+        ],
+        [
+          "REQ-018",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 6,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "TP",
+      "seconds": 13.9
+    },
+    {
+      "id": "V12",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 7,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 5.6
+    },
+    {
+      "id": "V13",
+      "kind": "violation",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-014",
+          "violated"
+        ],
+        [
+          "REQ-015",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 6,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "TP",
+      "seconds": 17.5
+    },
+    {
+      "id": "V14",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-019",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 6,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "TP",
+      "seconds": 21.5
+    },
+    {
+      "id": "V15",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-033",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "TP",
+      "seconds": 25.5
+    },
+    {
+      "id": "V16",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 3,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 18.2
+    },
+    {
+      "id": "V17",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 4,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 12.5
+    },
+    {
+      "id": "V18",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 1,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 9.0
+    },
+    {
+      "id": "V19",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-038",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 0,
+      "llm_failures": 0,
+      "target_status": "violated",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "TP",
+      "seconds": 12.5
+    },
+    {
+      "id": "V20",
+      "kind": "violation",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 1,
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 0,
+      "class": "miss",
+      "seconds": 10.5
+    },
+    {
+      "id": "B01",
+      "kind": "benign",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 1,
+      "llm_failures": 0,
+      "class": "clean",
+      "false_alarm_strict": false,
+      "false_alarm_lenient": false,
+      "seconds": 81.8
+    },
+    {
+      "id": "B02",
+      "kind": "benign",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 5,
+      "llm_failures": 0,
+      "class": "clean",
+      "false_alarm_strict": false,
+      "false_alarm_lenient": false,
+      "seconds": 0.0
+    },
+    {
+      "id": "B03",
+      "kind": "benign",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 0,
+      "llm_failures": 0,
+      "class": "clean",
+      "false_alarm_strict": false,
+      "false_alarm_lenient": false,
+      "seconds": 9.9
+    },
+    {
+      "id": "B04",
+      "kind": "benign",
+      "n_flags": 0,
+      "flagged": [],
+      "abstained": [],
+      "n_not_applicable": 0,
+      "llm_failures": 0,
+      "class": "clean",
+      "false_alarm_strict": false,
+      "false_alarm_lenient": false,
+      "seconds": 27.0
+    },
+    {
+      "id": "B05",
+      "kind": "benign",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "REQ-007",
+          "violated"
+        ]
+      ],
+      "abstained": [],
+      "n_not_applicable": 0,
+      "llm_failures": 0,
+      "class": "false_alarm",
+      "false_alarm_strict": true,
+      "false_alarm_lenient": true,
+      "seconds": 13.1
+    }
+  ]
+}
