@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "id": "B01",
+    "kind": "benign",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "把私有函式 _snn 改名為 _encode_snn(純改名)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B01",
+    "kind": "benign",
+    "n_flags": 3,
+    "flagged": [
+      [
+        "REQ-001",
+        "missing"
+      ],
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "class": "false_alarm",
+    "false_alarm_strict": true,
+    "false_alarm_lenient": true,
+    "seconds": 137.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27-28,33-36"
+          }
+        ],
+        "reason": "有實作 KDF 輸入編碼,但缺少每個 Pi 長度 Li 編碼為 2-octet big-endian 整數。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "K_AUSF = KDF(CK || IK):有 KDF 呼叫; FC = 0x6A:diff 中沒有任何 FC = 0x6A 的設定; P0 = serving network name:有 _encode_snn 函數; P1 = SQN xor AK (6 octets):有 len(sqn_xor_ak) == 6 的檢查"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "24-27, 33-36, 42-45"
+          }
+        ],
+        "reason": "有實作 KDF(CK || IK),但缺少 FC = 0x6B、P2 = (X)RES 和 128 least significant bits of the output are (X)RES*。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "H(X)RES* 計算順序:RAND || (X)RES*, diff 中 RAND || (X)RES*; H(X)RES* 計算 hash 算法:SHA-256, diff 中使用 SHA-256; H(X)RES* 取 128 個最低位元:diff 中取 128 個最低位元"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "有實作 K_AUSF、FC = 0x6C、P0 = serving network name 和 KDF(K_AUSF, ...),但缺少輸出長度檢查。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27, 29"
+          }
+        ],
+        "reason": "TS 33.220 B.2.1.2: character strings are encoded to octets with UTF-8.:有實作 UTF-8 編碼"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "24-27"
+          }
+        ],
+        "reason": "新增 UTF-8 編碼函數,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

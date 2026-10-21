@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "id": "V05",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "K_AUSF 推導的參數順序對調(P0=SQN xor AK, P1=SNN)",
+    "target_req": "REQ-002",
+    "expected": "應指出 REQ-002:P0 必須是 SNN、P1 必須是 SQN xor AK,diff 把順序對調。",
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V05",
+    "kind": "violation",
+    "n_flags": 3,
+    "flagged": [
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ],
+      [
+        "REQ-006",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "partial",
+    "seconds": 70.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "KDF 輸入編碼:有 FC_KAUSF = '000102030405060708090a0b0c0d0e0f10'; P0 長度 L0 編碼:有 _snn(serving_network_name) 的長度被正確計算為 2-octet big-endian integer; P1 長度 L1 編碼:有 sqn_xor_ak 的長度被正確檢查為 6 octets"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "K_AUSF = KDF(CK || IK):crypto/kdf.py line 33; FC = 0x6A:crypto/kdf.py line 34; P0 = serving network name:crypto/kdf.py line 36; P1 = SQN xor AK (6 octets):crypto/kdf.py line 35"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "有實作 KDF 函數,但缺少明確指定 P2 = XRES 和提到輸出的位元組數量或位置。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "H(X)RES* 計算順序正確:RAND || (X)RES*; SHA-256 hash 128 個最低位元正確:diff 中使用 SHA-256"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "有實作 K_SEAF 但缺少正確的 FC 值和 P0 順序。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "有實作加入伺服器網路名稱,但缺少將其編碼為 UTF-8。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "與任何需求無關的新增 KDF 函式輸入順序變更。"
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "id": "V08",
+    "kind": "violation",
+    "files": [
+      "crypto/milenage.py"
+    ],
+    "summary": "OPc 推導漏掉與 OP 的 XOR,直接回傳 E[OP]K",
+    "target_req": "REQ-008",
+    "expected": "應指出 REQ-008:OPc = OP xor E[OP]K,diff 只回傳 E[OP]K。",
+    "upstream_tests_failed": 21,
+    "upstream_failing_test_files": [
+      "tests/test_milenage_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V08",
+    "kind": "violation",
+    "n_flags": 4,
+    "flagged": [
+      [
+        "REQ-008",
+        "missing"
+      ],
+      [
+        "REQ-009",
+        "missing"
+      ],
+      [
+        "REQ-010",
+        "missing"
+      ],
+      [
+        "REQ-011",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "TP",
+    "seconds": 59.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V08-opc-no-xor/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V08-opc-no-xor/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-008",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "43-46"
+          }
+        ],
+        "reason": "有實作 OPc = E[OP]K,但缺少 XOR 操作和 AES 加密模式/金鑰長度的指定。"
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "43-46"
+          }
+        ],
+        "reason": "缺少 MILENAGE 常數和旋轉的實作。"
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "43-46"
+          }
+        ],
+        "reason": "缺少 RAND、SQN、AMF、TEMP、IN1、r1、c1 的實作。"
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "43-46"
+          }
+        ],
+        "reason": "有實作 E[OP]K,但缺少 TEMP xor OPc 和 ROT 8 位元的實作。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "43-46"
+          }
+        ],
+        "reason": "新增 OPc 計算邏輯,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

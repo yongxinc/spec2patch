@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "id": "V01",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "RES* 推導的 FC 值由 0x6B 改成 0x6A(K_AUSF 的 FC)",
+    "target_req": "REQ-003",
+    "expected": "應指出 REQ-003:RES*/XRES* 的 FC 必須是 0x6B,diff 把它改成 0x6A。",
+    "upstream_tests_failed": 13,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V01",
+    "kind": "violation",
+    "n_flags": 4,
+    "flagged": [
+      [
+        "REQ-002",
+        "missing"
+      ],
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ],
+      [
+        "REQ-006",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "TP",
+    "seconds": 63.4
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V01-res-star-fc/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V01-res-star-fc/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "7-10"
+          }
+        ],
+        "reason": "KDF input string S 的格式正確; 每個 Li 的編碼正確 (2-octet big-endian integer); HMAC-SHA-256 的使用正確"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "7-10"
+          }
+        ],
+        "reason": "有實作 K_AUSF = KDF(CK || IK, FC = 0x6A),但缺少 P0 和 P1 的實作。"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "7-10"
+          }
+        ],
+        "reason": "有實作 KDF,但缺少 FC = 0x6B、P0 = serving network name、P1 = RAND (16 octets) 和 (X)RES*。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "7-10"
+          }
+        ],
+        "reason": "H(X)RES* 計算順序正確:RAND || (X)RES*; SHA-256 hash 運算正確:使用 RAND || (X)RES* 作為輸入"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "7-10"
+          }
+        ],
+        "reason": "缺少 K_AUSF 和 P0 的計算。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "7-13"
+          }
+        ],
+        "reason": "有實作 KDF 參數,但缺少 UTF-8 編碼。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "7-10"
+          }
+        ],
+        "reason": "新增 HMAC-SHA-256 實作,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "V15",
+    "kind": "violation",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "UE 先檢查 SQN 再驗證 AUTN 的 MAC(順序顛倒)",
+    "target_req": "REQ-033",
+    "expected": "應指出 REQ-033:必須先驗 AUTN MAC 再檢查 SQN,diff 把 SQN 檢查移到 MAC 檢查之前。",
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V15",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 63.9
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V15-sqn-before-mac/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V15-sqn-before-mac/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "AUTN MAC 檢查:有 XMAC 計算; AUTN MAC 檢查:有 MAC 比較"
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "SQN 大於 stored SQN_MS:diff 中有 sqn_ms < sqn 的檢查; SQN 不超過 DELTA ahead of stored SQN_MS:diff 中有 sqn <= sqn_ms + delta 的檢查"
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "AUTN MAC 首先被驗證,然後才檢查 SQN 的新鮮度:diff 中的 AUTN MAC 驗證在 SQN 驗證之前; AUTN MAC 失敗時不評估 SQN:diff 中的 AUTN MAC 驗證失敗會直接報錯,而不是繼續檢查 SQN"
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "TS 33.501 6.1.3.2 step 7: AMF 分離位元 (separation bit) 檢查"
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "SQN_MS 設定為接受的 SQN:diff 中有設定 sqn = accepted_sqn"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "與任何需求無關的變更,新增 milenage 模組,但未實作需求相關功能。"
+      }
+    ],
+    "warnings": []
+  }
+}

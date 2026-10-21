@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "id": "V09",
+    "kind": "violation",
+    "files": [
+      "crypto/milenage.py"
+    ],
+    "summary": "f1 的 IN1 組成由 SQN||AMF||SQN||AMF 改成 AMF||SQN||AMF||SQN",
+    "target_req": "REQ-010",
+    "expected": "應指出 REQ-010:IN1 = SQN || AMF || SQN || AMF,diff 把 SQN 與 AMF 順序對調。",
+    "upstream_tests_failed": 34,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_kdf_vectors.py",
+      "tests/test_milenage_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V09",
+    "kind": "violation",
+    "n_flags": 3,
+    "flagged": [
+      [
+        "REQ-008",
+        "missing"
+      ],
+      [
+        "REQ-009",
+        "missing"
+      ],
+      [
+        "REQ-011",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "partial",
+    "seconds": 70.8
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V09-f1-in1-order/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V09-f1-in1-order/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-008",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "75-81"
+          }
+        ],
+        "reason": "有實作 OPc = OP xor E[OP]K,但缺少明確的 AES-128 加密實作。"
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "75-78"
+          }
+        ],
+        "reason": "缺少 MILENAGE 常數和旋轉的實作。"
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "75-78"
+          }
+        ],
+        "reason": "IN1 順序正確:diff 中 IN1 = amf + sqn + amf + sqn; IN1 次數正確:diff 中 IN1 有 4 個 sqn 和 3 個 amf"
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "75-78"
+          }
+        ],
+        "reason": "有實作部分 MILENAGE f2-f5* output mapping,但缺少多個細節。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "75-78"
+          }
+        ],
+        "reason": "與任何需求無關的變更,新增 _check 函式。"
+      }
+    ],
+    "warnings": []
+  }
+}

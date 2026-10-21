@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "id": "V03",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "RES* 取 KDF 輸出的前 128 bits(最高位)而非後 128 bits(最低位)",
+    "target_req": "REQ-003",
+    "expected": "應指出 REQ-003:(X)RES* 是輸出的 128 least significant bits,diff 改取 [:16]。",
+    "upstream_tests_failed": 13,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V03",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-001",
+        "missing"
+      ],
+      [
+        "REQ-006",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 2,
+    "class": "partial",
+    "seconds": 49.6
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V03-res-star-msb/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V03-res-star-msb/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "有實作 KDF 輸入編碼,但缺少每個 Li 編碼為 2-octet big-endian 整數的細節。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "K_AUSF = KDF(CK || IK):crypto/kdf.py line 42-45; FC = 0x6A:crypto/kdf.py line 43; P0 = serving network name:crypto/kdf.py line 44; P1 = SQN xor AK (6 octets):crypto/kdf.py line 45"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "KDF 使用 CK 和 IK:有 kdf(ck + ik); FC = 0x6B:diff 中使用 FC_RES_STAR; P0 = serving network name:有 _snn(serving_network_name); P1 = RAND (16 octets):有 rand,且長度正確; P2 = (X)RES:有 res; 128 個最低位元組為 (X)RES*:diff 中 return kdf[..][:16]"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "H(X)RES* 計算順序正確:RAND || (X)RES*; H(X)RES* hash 長度正確:128 個最低位元"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "K_AUSF:crypto/kdf.py line 42; FC = 0x6C:crypto/kdf.py line 43; P0 = serving network name:_snn(serving_network_name):crypto/kdf.py line 44"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "有實作 KDF 的輸入參數編碼,但缺少 UTF-8 編碼。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "與任何需求無關的變更,新增了對 RAND 和 RES 長度的檢查。"
+      }
+    ],
+    "warnings": []
+  }
+}

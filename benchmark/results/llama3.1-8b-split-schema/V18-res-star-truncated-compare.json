@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "V18",
+    "kind": "violation",
+    "files": [
+      "ausf/ausf.py"
+    ],
+    "summary": "AUSF 比對 RES* 與 XRES* 時只比對前 8 octets",
+    "target_req": "REQ-037",
+    "expected": "應指出 REQ-037:必須比對 RES* 與 XRES* 的完整長度,diff 只比對前 8 octets。",
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V18",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-037",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 41.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V18-res-star-truncated-compare/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V18-res-star-truncated-compare/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-036",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ausf/ausf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "XRES* 存在於 AUSF 中:diff 中有 xres_star 變數; HXRES* 計算:diff 中有 HXRES* 的計算; RAND, AUTN 和 HXRES* 傳送給 SEAF:diff 中有 RAND, AUTN 和 HXRES* 的傳送; 不傳送 XRES* 和 K_AUSF 給 SEAF:diff 中沒有 XRES* 和 K_AUSF 的傳送"
+      },
+      {
+        "requirement": "REQ-037",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ausf/ausf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "有實作比較 RES* 和 XRES*,但缺少比較全長。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "ausf/ausf.py",
+            "lines": "36-38"
+          }
+        ],
+        "reason": "與任何需求無關的變更:新增 confirm 函式,但不影響 AUSF 的 XRES* 和 K_AUSF 的儲存和發送。"
+      }
+    ],
+    "warnings": []
+  }
+}

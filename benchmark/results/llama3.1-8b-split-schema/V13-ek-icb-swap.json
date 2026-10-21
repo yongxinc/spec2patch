@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "id": "V13",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "ECIES 金鑰切分時 EK 與 ICB 對調",
+    "target_req": "REQ-015",
+    "expected": "應指出 REQ-015:EK 是最左 128 bits、ICB 是中間 128 bits,diff 把兩者對調。",
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_crosscheck_free5gc_suci.py",
+      "tests/test_suci_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V13",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-012",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 1,
+    "class": "partial",
+    "seconds": 84.4
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "有實作 X25519 算法,但缺少將 X25519 輸出直接用於共享密鑰 Z 的產生。"
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "使用 secp256r1:; 點壓縮 (33 octets):diff 中的 key 長度為 32; 首位字節 0x02 或 0x03:diff 中的 first octet 是 0x02"
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "使用 ANSI-X9.63-KDF:; 使用 SHA-256 作為 hash 函數:; SharedInfo1 是 ephemeral public key:"
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "EK = leftmost 128 bits:diff 中 EK 長度為 128 位元,正確; ICB = next 128 bits:diff 中 ICB 長度為 128 位元,正確; MAC key MK = rightmost 256 bits:diff 中 MK 長度為 256 位元,正確"
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "使用 AES-128 在 CTR 模式下進行加密:diff 中使用了 AES-128 且模式為 CTR; 使用 EK 作為加密金鑰:diff 中使用了 eph_public_key 作為加密金鑰"
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "使用 HMAC-SHA-256 計算 MAC:diff 中使用了 HMAC-SHA-256; MAC 長度為 64 位元 (8 個八位元組):diff 中的 MAC 長度正確"
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "ephemeral public key:在 output layout 中位於第一位; ciphertext:在 output layout 中位於第二位; MAC tag:在 output layout 中位於第三位"
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "驗證 MAC 前的程式碼:有 mac_tag = compute_mac(shared_key, eph_public_key); 驗證 MAC 時的條件:diff 中沒有任何與 MAC 錯誤相關的程式碼; 驗證 MAC 時的結果:有 return None"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "與任何需求無關的變更,新增了新的 key derivation 方式。"
+      }
+    ],
+    "warnings": []
+  }
+}

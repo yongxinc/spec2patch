@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "id": "V16",
+    "kind": "violation",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "移除 UE 的 SQN 範圍(新鮮度)檢查",
+    "target_req": "REQ-032",
+    "expected": "應指出 REQ-032:UE 必須檢查 SQN 在 (SQN_MS, SQN_MS+DELTA] 內,diff 移除了這段檢查。",
+    "upstream_tests_failed": 5,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V16",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-033",
+        "missing"
+      ],
+      [
+        "REQ-035",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 2,
+    "class": "partial",
+    "seconds": 62.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V16-sqn-range-removed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V16-sqn-range-removed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "59"
+          }
+        ],
+        "reason": "AUTN MAC 驗證:有 XMAC 計算; AUTN MAC 驗證:有 MAC 比較"
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "59-62"
+          }
+        ],
+        "reason": "SQN 大於 stored SQN_MS:diff 中有 sqn > sqn_ms; SQN 不超過 DELTA 領先:diff 中有 sqn <= sqn_ms + delta"
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "59-64"
+          }
+        ],
+        "reason": "有實作 AUTN MAC 檢查,但缺少在檢查前先檢查 SQN,且 AUTN MAC 失敗不會停止評估 SQN。"
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "63-64"
+          }
+        ],
+        "reason": "檢查 AMF 分離位元 (TS 33.501 6.1.3.2 步驟 7):ME 檢查 AUTN 中的 AMF 分離位元是否為 1;若為 0 則驗證被拒絕; 驗證結果:diff 中有實作檢查 AMF 分離位元"
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "59-64"
+          }
+        ],
+        "reason": "驗證成功後 SQN_MS 設定為接受的 SQN,但缺少設定 SQN_MS 的程式碼。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "59-59"
+          }
+        ],
+        "reason": "新增 AutnMacFailure 式,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}
