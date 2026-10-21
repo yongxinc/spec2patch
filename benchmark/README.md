@@ -58,3 +58,7 @@ python benchmark/eval.py --name baseline-llama3.1-8b          # 預設後端(Oll
 ```
 
 結果寫入 `results/<name>/`:每案例的原始 JSON、`summary.json`、`summary.md`。
+
+## 變更紀錄
+
+- **schema 修正(baseline 之後)**:原本 Spec2Patch 把「與任何需求無關的改動」標成 `out-of-spec`,導致重構、改名、註解也被當成違規。現在拆成兩個獨立狀態:`out-of-spec`(違反規格)與 `unrelated`(與需求無關,不是違規)。分析流程目前只會產生 `unrelated`;prompt 的判準沒有改。**評分規則沒有改**:flag 仍然只有 `out-of-spec` 與「有 evidence 的 missing」,所以 `unrelated` 不算 flag。`baseline-llama3.1-8b/` 是修正前的結果,`llama3.1-8b-split-schema/` 是修正後。

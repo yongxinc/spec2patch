@@ -3,17 +3,19 @@ import sys
 
 from .graph import run
 
-ICON = {"covered": "✅ covered", "missing": "❌ missing", "out-of-spec": "⚠️  out-of-spec"}
+ICON = {"covered": "✅ covered", "missing": "❌ missing", "out-of-spec": "🚫 out-of-spec", "unrelated": "⚠️  unrelated"}
 
 
 def format_text(report) -> str:
     out = [f"規格:{report.spec}", f"Diff:{report.diff}", ""]
     covered = [f.requirement for f in report.findings if f.status == "covered"]
     missing = [f.requirement for f in report.findings if f.status == "missing"]
-    extra = [f for f in report.findings if f.status == "out-of-spec"]
+    violating = [f for f in report.findings if f.status == "out-of-spec"]
+    extra = [f for f in report.findings if f.status == "unrelated"]
     out.append(f"涵蓋:{', '.join(covered) or '無'}")
     out.append(f"漏掉:{', '.join(missing) or '無'}")
-    out.append(f"規格外改動:{len(extra)} 處")
+    out.append(f"違反規格的改動:{len(violating)} 處")
+    out.append(f"與需求無關的改動:{len(extra)} 處")
     out.append("")
     for f in report.findings:
         out.append(f"{ICON[f.status]}  {f.requirement}")

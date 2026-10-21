@@ -63,7 +63,7 @@ SPEC2PATCH_BACKEND=claude-cli SPEC2PATCH_MODEL=sonnet python -m spec2patch <規�
 JSON schema(每一項):
 
 ```json
-{"requirement": "REQ-003", "status": "covered | missing | out-of-spec",
+{"requirement": "REQ-003", "status": "covered | missing | out-of-spec | unrelated",
  "evidence": [{"file": "src/provisioning.py", "lines": "1-23"}], "reason": "..."}
 ```
 

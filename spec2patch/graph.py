@@ -71,7 +71,7 @@ def analyze(state: State) -> State:
         d = _json_call(EXTRA_SYSTEM, extra_prompt(state["requirements"], view))
         for x in d.get("extras") or []:
             if isinstance(x, dict):
-                raw.append({"requirement": "-", "status": "out-of-spec",
+                raw.append({"requirement": "-", "status": "unrelated",
                             "evidence": [{"file": x.get("file", ""), "lines": x.get("lines", "")}],
                             "reason": x.get("reason", "")})
     except RuntimeError as e:
@@ -91,7 +91,7 @@ def report(state: State) -> State:
         except ValidationError:
             warnings.append(f"丟棄格式不合的項目:{json.dumps(item, ensure_ascii=False)[:120]}")
             continue
-        if f.status == "out-of-spec":
+        if f.status in ("out-of-spec", "unrelated"):
             f.requirement = "-"
         elif f.requirement not in known:
             warnings.append(f"丟棄未知需求編號:{f.requirement}")
@@ -111,7 +111,7 @@ def report(state: State) -> State:
             if state.get("raw_findings"):
                 warnings.append(f"LLM 漏回 {r['id']}")
     order = {r["id"]: i for i, r in enumerate(state["requirements"])}
-    findings.sort(key=lambda f: (f.status == "out-of-spec", order.get(f.requirement, 0)))
+    findings.sort(key=lambda f: (f.status in ("out-of-spec", "unrelated"), order.get(f.requirement, 0)))
     return {"report": Report(spec=state["spec_path"], diff=state["diff_path"],
                              findings=findings, warnings=warnings)}
 

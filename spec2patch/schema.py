@@ -3,7 +3,9 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
-Status = Literal["covered", "missing", "out-of-spec"]
+# out-of-spec:改動違反規格(與規格矛盾或超出規格允許的範圍)。
+# unrelated:改動與任何一條需求都無關(例如重構、改名、註解);不是違規。
+Status = Literal["covered", "missing", "out-of-spec", "unrelated"]
 
 
 class Evidence(BaseModel):
@@ -22,7 +24,7 @@ class Evidence(BaseModel):
 
 
 class Finding(BaseModel):
-    requirement: str  # REQ-003,或 out-of-spec 時為 "-"
+    requirement: str  # REQ-003,或 out-of-spec / unrelated 時為 "-"
     status: Status
     evidence: list[Evidence] = Field(default_factory=list)
     reason: str = "(LLM 未提供理由)"

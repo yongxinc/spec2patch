@@ -44,3 +44,8 @@ def test_summarize():
     rows = [classify(V, [f("REQ-003", "missing", "crypto/kdf.py")]), classify(V, []), classify(B, [])]
     s = summarize(rows)
     assert (s["TP"], s["miss"], s["partial"], s["false_alarm_strict"]) == (1, 1, 0, 0)
+
+
+def test_unrelated_is_not_a_flag():
+    assert classify(B, [f("-", "unrelated", "crypto/kdf.py")])["class"] == "clean"
+    assert classify(V, [f("-", "unrelated", "crypto/kdf.py")])["class"] == "miss"
