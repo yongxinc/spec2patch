@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "id": "V06",
+    "kind": "violation",
+    "files": [
+      "formats/snn.py"
+    ],
+    "summary": "Serving Network Name 的 MNC 不再補零到三位",
+    "target_req": "REQ-007",
+    "expected": "應指出 REQ-007:MNC 必須補零成三位,diff 移除了 zfill(3)。",
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_formats.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V06",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-007",
+        "missing"
+      ],
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 1,
+    "class": "TP",
+    "seconds": 34.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V06-snn-no-zero-pad/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V06-snn-no-zero-pad/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-007",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "12-15"
+          }
+        ],
+        "reason": "有實作 MNC 和 MCC 檢查,但缺少前置零的實作。"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "12-15"
+          }
+        ],
+        "reason": "修改 SNN 格式,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

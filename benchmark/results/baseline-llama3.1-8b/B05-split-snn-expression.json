@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "id": "B05",
+    "kind": "benign",
+    "files": [
+      "formats/snn.py"
+    ],
+    "summary": "把 SNN 字串拆成 network_id 與前綴兩步組合(重構,行為不變)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B05",
+    "kind": "benign",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "class": "false_alarm",
+    "false_alarm_strict": true,
+    "false_alarm_lenient": false,
+    "seconds": 26.6
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-007",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "12-16"
+          }
+        ],
+        "reason": "SNN 格式正確:MNC 三位數, MCC 三位數; MCC 必定三位數:diff 中有檢查"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "12-14,15-16"
+          }
+        ],
+        "reason": "新增 MCC 和 MNC 號碼驗證,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

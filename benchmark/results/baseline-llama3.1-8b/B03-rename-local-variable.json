@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "id": "B03",
+    "kind": "benign",
+    "files": [
+      "seaf/seaf.py"
+    ],
+    "summary": "把區域變數 hres_star 改名為 computed_hres_star(純改名)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B03",
+    "kind": "benign",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "class": "false_alarm",
+    "false_alarm_strict": true,
+    "false_alarm_lenient": false,
+    "seconds": 28.5
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-038",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "seaf/seaf.py",
+            "lines": "9-17"
+          }
+        ],
+        "reason": "HRES* 由 RAND 和 RES* 計算:有 kdf.derive_hres_star(rand, res_star); HRES* 與 HXRES* 比較:有 if computed_hres_star != hxres_star; 如果 HRES* != HXRES*, 拒絕驗證:有 raise ResStarMismatch"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "seaf/seaf.py",
+            "lines": "10-17"
+          }
+        ],
+        "reason": "新增 verify_res_star 函式,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

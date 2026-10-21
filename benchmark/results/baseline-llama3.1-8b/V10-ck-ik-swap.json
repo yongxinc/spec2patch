@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "V10",
+    "kind": "violation",
+    "files": [
+      "crypto/milenage.py"
+    ],
+    "summary": "f3/f4 輸出對調:CK 取 OUT4、IK 取 OUT3",
+    "target_req": "REQ-011",
+    "expected": "應指出 REQ-011:CK = OUT3、IK = OUT4,diff 把兩者對調。",
+    "upstream_tests_failed": 34,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_kdf_vectors.py",
+      "tests/test_milenage_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V10",
+    "kind": "violation",
+    "n_flags": 4,
+    "flagged": [
+      [
+        "REQ-009",
+        "missing"
+      ],
+      [
+        "REQ-010",
+        "missing"
+      ],
+      [
+        "REQ-011",
+        "missing"
+      ],
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "TP",
+    "seconds": 112.5
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V10-ck-ik-swap/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V10-ck-ik-swap/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-008",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "94-98"
+          }
+        ],
+        "reason": "OPc = OP xor E[OP]K:diff 中實作了 OPc = OP xor E[OP]K; E 是 AES-128 加密:diff 中使用的是 AES-128"
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "94-98"
+          }
+        ],
+        "reason": "缺少 r5 = 96 的實作。"
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "94-98"
+          }
+        ],
+        "reason": "缺少 RAND、SQN、AMF、TEMP、IN1、r1 和 c1 的實作。"
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "94-98"
+          }
+        ],
+        "reason": "有實作 MILENAGE f2-f5* output mapping,但缺少正確的位元位置和順序。"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "94-98"
+          }
+        ],
+        "reason": "新增 milenage 函式,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

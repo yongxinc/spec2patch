@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "id": "V02",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "K_SEAF 推導的 FC 值由 0x6C 改成 0x6D(K_AMF 的 FC)",
+    "target_req": "REQ-005",
+    "expected": "應指出 REQ-005:K_SEAF 的 FC 必須是 0x6C,diff 把它改成 0x6D。",
+    "upstream_tests_failed": 11,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V02",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-006",
+        "missing"
+      ],
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 2,
+    "class": "partial",
+    "seconds": 109.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "8-11"
+          }
+        ],
+        "reason": "KDF輸入字串 S 的 FC 項:有 FC_KAUSF = 0x6A; KDF輸入字串 S 的 P0 項:沒有實作 P0 長度 L0; KDF輸入字串 S 的 P1 項:有 FC_KSEAF = 0x6D"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "8-11"
+          }
+        ],
+        "reason": "K_AUSF 參數順序正確: CK、IK、FC = 0x6A、P0、P1; K_AUSF 參數順序正確: CK、IK、FC = 0x6A、P0、P1"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "8-11"
+          }
+        ],
+        "reason": "KDF 函數輸入 CK、IK、FC = 0x6B; KDF 函數輸入 P0 = serving network name; KDF 函數輸入 P1 = RAND (16 octets); KDF 函數輸入 P2 = (X)RES; 128 個最低位元組為 (X)RES*"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "8-11"
+          }
+        ],
+        "reason": "H(X)RES* 計算順序正確:RAND || (X)RES*; SHA-256 hash 運算正確:使用 RAND || (X)RES* 作為輸入"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "8-11"
+          }
+        ],
+        "reason": "KDF(K_AUSF, FC = 0x6C):FC_KSEAF = 0x6D"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "14"
+          }
+        ],
+        "reason": "有實作 KDF 函式,但缺少 character-string 參數編碼為 UTF-8 的實作。"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "8-11"
+          }
+        ],
+        "reason": "新增 KDF 常數 FC_KSEAF,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

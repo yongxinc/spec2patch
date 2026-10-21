@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "V20",
+    "kind": "violation",
+    "files": [
+      "udm/arpf.py"
+    ],
+    "summary": "重同步時移除 MAC-S 驗證",
+    "target_req": "REQ-030",
+    "expected": "應指出 REQ-030:重同步必須驗證 AUTS 的 MAC-S,diff 移除了比對與拒絕。",
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V20",
+    "kind": "violation",
+    "n_flags": 3,
+    "flagged": [
+      [
+        "REQ-029",
+        "missing"
+      ],
+      [
+        "REQ-030",
+        "missing"
+      ],
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 2,
+    "class": "TP",
+    "seconds": 43.8
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V20-mac-s-check-removed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V20-mac-s-check-removed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-029",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "62-65"
+          }
+        ],
+        "reason": "ARPF 生成 5G 驗證向量時,AMF 分離位未被設定為 1。"
+      },
+      {
+        "requirement": "REQ-030",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "62-65"
+          }
+        ],
+        "reason": "有實作 AUTS 中 SQN_MS 的計算,但缺少驗證 MAC-S 與 dummy AMF 0x0000。"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "62-65"
+          }
+        ],
+        "reason": "新增 milenage 模組,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,641 @@
+{
+  "summary": {
+    "violations": 20,
+    "TP": 8,
+    "partial": 12,
+    "miss": 0,
+    "benign": 5,
+    "false_alarm_strict": 5,
+    "false_alarm_lenient": 3,
+    "tp_with_extra_flags": 8,
+    "target_missing_no_evidence": 0,
+    "cases_with_llm_failures": 0,
+    "config": {
+      "backend": "ollama",
+      "model": "llama3.1:8b",
+      "spec2patch_commit": "ad237e1"
+    }
+  },
+  "rows": [
+    {
+      "id": "V01",
+      "kind": "violation",
+      "n_flags": 5,
+      "flagged": [
+        [
+          "REQ-002",
+          "missing"
+        ],
+        [
+          "REQ-003",
+          "missing"
+        ],
+        [
+          "REQ-005",
+          "missing"
+        ],
+        [
+          "REQ-006",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 4,
+      "class": "TP",
+      "seconds": 75.1
+    },
+    {
+      "id": "V02",
+      "kind": "violation",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-006",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 2,
+      "class": "partial",
+      "seconds": 109.0
+    },
+    {
+      "id": "V03",
+      "kind": "violation",
+      "n_flags": 3,
+      "flagged": [
+        [
+          "REQ-001",
+          "missing"
+        ],
+        [
+          "REQ-006",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 3,
+      "class": "partial",
+      "seconds": 224.9
+    },
+    {
+      "id": "V04",
+      "kind": "violation",
+      "n_flags": 3,
+      "flagged": [
+        [
+          "REQ-001",
+          "missing"
+        ],
+        [
+          "REQ-002",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 3,
+      "class": "partial",
+      "seconds": 139.9
+    },
+    {
+      "id": "V05",
+      "kind": "violation",
+      "n_flags": 4,
+      "flagged": [
+        [
+          "REQ-003",
+          "missing"
+        ],
+        [
+          "REQ-005",
+          "missing"
+        ],
+        [
+          "REQ-006",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 4,
+      "class": "partial",
+      "seconds": 170.3
+    },
+    {
+      "id": "V06",
+      "kind": "violation",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-007",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "TP",
+      "seconds": 34.1
+    },
+    {
+      "id": "V07",
+      "kind": "violation",
+      "n_flags": 3,
+      "flagged": [
+        [
+          "REQ-010",
+          "missing"
+        ],
+        [
+          "REQ-011",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 3,
+      "class": "partial",
+      "seconds": 146.3
+    },
+    {
+      "id": "V08",
+      "kind": "violation",
+      "n_flags": 5,
+      "flagged": [
+        [
+          "REQ-008",
+          "missing"
+        ],
+        [
+          "REQ-009",
+          "missing"
+        ],
+        [
+          "REQ-010",
+          "missing"
+        ],
+        [
+          "REQ-011",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 4,
+      "class": "TP",
+      "seconds": 107.3
+    },
+    {
+      "id": "V09",
+      "kind": "violation",
+      "n_flags": 4,
+      "flagged": [
+        [
+          "REQ-008",
+          "missing"
+        ],
+        [
+          "REQ-009",
+          "missing"
+        ],
+        [
+          "REQ-011",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 4,
+      "class": "partial",
+      "seconds": 122.7
+    },
+    {
+      "id": "V10",
+      "kind": "violation",
+      "n_flags": 4,
+      "flagged": [
+        [
+          "REQ-009",
+          "missing"
+        ],
+        [
+          "REQ-010",
+          "missing"
+        ],
+        [
+          "REQ-011",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 3,
+      "class": "TP",
+      "seconds": 112.5
+    },
+    {
+      "id": "V11",
+      "kind": "violation",
+      "n_flags": 6,
+      "flagged": [
+        [
+          "REQ-013",
+          "missing"
+        ],
+        [
+          "REQ-014",
+          "missing"
+        ],
+        [
+          "REQ-015",
+          "missing"
+        ],
+        [
+          "REQ-017",
+          "missing"
+        ],
+        [
+          "REQ-019",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 5,
+      "class": "TP",
+      "seconds": 117.4
+    },
+    {
+      "id": "V12",
+      "kind": "violation",
+      "n_flags": 6,
+      "flagged": [
+        [
+          "REQ-012",
+          "missing"
+        ],
+        [
+          "REQ-013",
+          "missing"
+        ],
+        [
+          "REQ-015",
+          "missing"
+        ],
+        [
+          "REQ-016",
+          "missing"
+        ],
+        [
+          "REQ-017",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 5,
+      "class": "TP",
+      "seconds": 117.4
+    },
+    {
+      "id": "V13",
+      "kind": "violation",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-012",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 2,
+      "class": "partial",
+      "seconds": 112.9
+    },
+    {
+      "id": "V14",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "partial",
+      "seconds": 108.3
+    },
+    {
+      "id": "V15",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "partial",
+      "seconds": 86.9
+    },
+    {
+      "id": "V16",
+      "kind": "violation",
+      "n_flags": 3,
+      "flagged": [
+        [
+          "REQ-033",
+          "missing"
+        ],
+        [
+          "REQ-035",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 3,
+      "class": "partial",
+      "seconds": 83.8
+    },
+    {
+      "id": "V17",
+      "kind": "violation",
+      "n_flags": 4,
+      "flagged": [
+        [
+          "REQ-031",
+          "missing"
+        ],
+        [
+          "REQ-032",
+          "missing"
+        ],
+        [
+          "REQ-033",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 4,
+      "class": "partial",
+      "seconds": 81.7
+    },
+    {
+      "id": "V18",
+      "kind": "violation",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-037",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "TP",
+      "seconds": 47.3
+    },
+    {
+      "id": "V19",
+      "kind": "violation",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "covered",
+      "target_missing_no_evidence": false,
+      "extra_flags": 1,
+      "class": "partial",
+      "seconds": 21.9
+    },
+    {
+      "id": "V20",
+      "kind": "violation",
+      "n_flags": 3,
+      "flagged": [
+        [
+          "REQ-029",
+          "missing"
+        ],
+        [
+          "REQ-030",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "target_status": "missing",
+      "target_missing_no_evidence": false,
+      "extra_flags": 2,
+      "class": "TP",
+      "seconds": 43.8
+    },
+    {
+      "id": "B01",
+      "kind": "benign",
+      "n_flags": 4,
+      "flagged": [
+        [
+          "REQ-001",
+          "missing"
+        ],
+        [
+          "REQ-003",
+          "missing"
+        ],
+        [
+          "REQ-005",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "class": "false_alarm",
+      "false_alarm_strict": true,
+      "false_alarm_lenient": true,
+      "seconds": 159.5
+    },
+    {
+      "id": "B02",
+      "kind": "benign",
+      "n_flags": 3,
+      "flagged": [
+        [
+          "REQ-031",
+          "missing"
+        ],
+        [
+          "REQ-033",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "class": "false_alarm",
+      "false_alarm_strict": true,
+      "false_alarm_lenient": true,
+      "seconds": 90.9
+    },
+    {
+      "id": "B03",
+      "kind": "benign",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "class": "false_alarm",
+      "false_alarm_strict": true,
+      "false_alarm_lenient": false,
+      "seconds": 28.5
+    },
+    {
+      "id": "B04",
+      "kind": "benign",
+      "n_flags": 2,
+      "flagged": [
+        [
+          "REQ-030",
+          "missing"
+        ],
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "class": "false_alarm",
+      "false_alarm_strict": true,
+      "false_alarm_lenient": true,
+      "seconds": 70.7
+    },
+    {
+      "id": "B05",
+      "kind": "benign",
+      "n_flags": 1,
+      "flagged": [
+        [
+          "-",
+          "out-of-spec"
+        ]
+      ],
+      "llm_failures": 0,
+      "class": "false_alarm",
+      "false_alarm_strict": true,
+      "false_alarm_lenient": false,
+      "seconds": 26.6
+    }
+  ]
+}

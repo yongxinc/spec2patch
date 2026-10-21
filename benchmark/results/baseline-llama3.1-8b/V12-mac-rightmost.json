@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "id": "V12",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "ECIES MAC tag 取 HMAC 輸出的最右 8 octets 而非最左 8 octets",
+    "target_req": "REQ-017",
+    "expected": "應指出 REQ-017:MAC tag 是 HMAC-SHA-256 最左 64 bits,diff 改取 [-MAC_LEN:]。",
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_crosscheck_free5gc_suci.py",
+      "tests/test_suci_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V12",
+    "kind": "violation",
+    "n_flags": 6,
+    "flagged": [
+      [
+        "REQ-012",
+        "missing"
+      ],
+      [
+        "REQ-013",
+        "missing"
+      ],
+      [
+        "REQ-015",
+        "missing"
+      ],
+      [
+        "REQ-016",
+        "missing"
+      ],
+      [
+        "REQ-017",
+        "missing"
+      ],
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 5,
+    "class": "TP",
+    "seconds": 117.4
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V12-mac-rightmost/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V12-mac-rightmost/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "有實作 Profile A key agreement,但缺少直接使用 X25519 輸出產生共享密鑰 Z。"
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "有實作 HMAC-SHA-256,但缺少使用 secp256r1 曲線和點壓縮。"
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "使用 ANSI-X9.63-KDF 產生 ECIES 金鑰; 金鑰材料使用 SHA-256"
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "有實作 EK 和 ICB,但缺少 MAC key MK 的分割。"
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "有實作 HMAC-SHA-256,但缺少 ECIES 加密的 AES-128 在 CTR 模式使用 EK 和 ICB 作為初始計數器區塊。"
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "有實作 HMAC-SHA-256 計算 MAC,但錯誤地取右邊 64 位元。"
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "MAC tag 位於 output layout 的最後; MAC tag 長度為 maclen (TS 33.501 C.3.2)"
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "驗證 MAC 前的計算:有 _mac 函數; 驗證 MAC 時使用 HMAC-SHA-256:diff 中使用了 hmac.new; 驗證 MAC 時取前 MAC_LEN 個字節:diff 中取的是最後 MAC_LEN 個字節"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "127-130"
+          }
+        ],
+        "reason": "與任何需求無關的變更,新增 _mac 函式。"
+      }
+    ],
+    "warnings": []
+  }
+}

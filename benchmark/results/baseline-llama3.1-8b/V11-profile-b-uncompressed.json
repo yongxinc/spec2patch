@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "id": "V11",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "Profile B 的臨時公鑰不做點壓縮(compressed=False)",
+    "target_req": "REQ-013",
+    "expected": "應指出 REQ-013:Profile B 的臨時公鑰必須是壓縮點(33 octets),diff 改成 compressed=False。",
+    "upstream_tests_failed": 83,
+    "upstream_failing_test_files": [
+      "tests/test_roundtrip.py",
+      "tests/test_suci_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V11",
+    "kind": "violation",
+    "n_flags": 6,
+    "flagged": [
+      [
+        "REQ-013",
+        "missing"
+      ],
+      [
+        "REQ-014",
+        "missing"
+      ],
+      [
+        "REQ-015",
+        "missing"
+      ],
+      [
+        "REQ-017",
+        "missing"
+      ],
+      [
+        "REQ-019",
+        "missing"
+      ],
+      [
+        "-",
+        "out-of-spec"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 5,
+    "class": "TP",
+    "seconds": 117.4
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V11-profile-b-uncompressed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V11-profile-b-uncompressed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "Profile A 使用 X25519:; X25519 輸出直接用於共享密鑰 Z 的產生:"
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "有實作 Profile B,但缺少壓縮 ephemeral public key。"
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "diff 中沒有實作使用 ANSI-X9.63-KDF 產生 ECIES 金鑰,或使用 SHA-256 作為金鑰材料。"
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "ECIES 金鑰材料分割,缺少 EK、ICB 和 MK 的實作。"
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "使用 AES-128 在 CTR 模式下進行加密:diff 中使用了 _aes128_ctr; 使用 EK 和 ICB 作為初始計數器區塊:diff 中使用了 _derive_keys 產生的 icb"
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "有實作 ECIES,但缺少使用 HMAC-SHA-256 計算 MAC,以及將 MAC 位於 64 左側 8 個 byte。"
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "scheme output layout:ephemeral public key || ciphertext || MAC tag; MAC tag 位於最後"
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-144"
+          }
+        ],
+        "reason": "有實作 ECIES 加密,但缺少驗證 MAC 的程式碼。"
+      },
+      {
+        "requirement": "-",
+        "status": "out-of-spec",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "138-141"
+          }
+        ],
+        "reason": "新增 Profile A 的點壓縮選項,與任何需求無關。"
+      }
+    ],
+    "warnings": []
+  }
+}
