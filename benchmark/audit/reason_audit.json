@@ -1,0 +1,52 @@
+{
+  "criteria": {
+    "holds": "理由指出的缺陷與標準答案一致或等價,由 diff 中看得到的行支持,沒有自相矛盾或對 diff 的事實錯誤",
+    "partial": "判定方向與位置對,但機制描述含糊、有誤或缺漏",
+    "unsupported": "判定無法由 diff 支持(猜測),或理由與 diff / 自身矛盾",
+    "rater": "單一標註者(Claude,作者本人),非獨立評審;請人工抽查"
+  },
+  "v2-llama3.1-8b-scoped": {
+    "V02": ["holds", "指出 0x6C→0x6D"],
+    "V05": ["holds", "指出 P1 參數順序與需求相反(未明說與 P0 對調,但缺陷描述正確)"],
+    "V06": ["holds", "指出不再補零成三位"],
+    "V09": ["holds", "指出 SQN 被移到 IN1 右側"],
+    "V10": ["holds", "指出 CK、IK 被交換"],
+    "V11": ["holds", "指出臨時公鑰不再壓縮"],
+    "V13": ["holds", "指出 EK 不再是最左 128 bits"],
+    "V14": ["partial", "位置在 decrypt 的 MAC 區段,但理由寫成『不會在驗證 MAC 前檢查標籤』,完全沒提解密被移到驗證之前;機制描述不通"],
+    "V15": ["holds", "指出 MAC 不再最先驗證"],
+    "V19": ["unsupported", "只說『修改了 derive_hres_star 的參數順序,與需求矛盾』;diff 看不到函式簽名,改順序也可能是修正。判定碰巧對,理由是猜的"]
+  },
+  "v2-claude-sonnet-scoped": {
+    "V01": ["holds", "FC 應為 0x6B 卻改為 0x6A,並指出與 FC_KAUSF 相同(該常數在 diff 的上下文中可見)"],
+    "V02": ["holds", "0x6C→0x6D"],
+    "V03": ["holds", "[16:]→[:16],取到最高有效端"],
+    "V04": ["holds", "[16:]→[:16]"],
+    "V05": ["holds", "P0/P1 對調"],
+    "V06": ["holds", "移除 zfill(3)"],
+    "V07": ["holds", "R3 32→64"],
+    "V08": ["holds", "移除 XOR,只回傳 E[OP]K"],
+    "V09": ["holds", "IN1 順序對調"],
+    "V10": ["holds", "CK/IK 對調"],
+    "V11": ["holds", "compressed=False,並引用同行註解矛盾;65 octets 數字正確"],
+    "V12": ["holds", "[:MAC_LEN]→[-MAC_LEN:]"],
+    "V13": ["holds", "回傳順序 (EK,ICB,MK)→(ICB,EK,MK)"],
+    "V14": ["holds", "解密被移到 MAC 驗證之前,失敗時已產生明文"],
+    "V15": ["holds", "MAC 檢查被移到 SQN 之後"],
+    "V16": ["holds", "整段 SQN 範圍檢查被刪;evidence 為舊側 62-65,位置正確"],
+    "V17": ["holds", "separation bit 檢查被刪;evidence 為舊側 67-68,位置正確"],
+    "V18": ["holds", "只比對前 8 octets"]
+  },
+  "extra_flags": {
+    "v2-llama3.1-8b-scoped": {
+      "V05/REQ-001": ["wrong", "稱『被刪除的行原本正確實作 KDF 輸入編碼,與需求矛盾』,自相矛盾"],
+      "V11/REQ-018": ["defensible", "與主要缺陷同源"],
+      "V13/REQ-014": ["wrong", "REQ-014 是 ANSI X9.63 KDF,與金鑰切分順序無關"]
+    },
+    "v2-claude-sonnet-scoped": {
+      "V11/REQ-018": ["wrong", "稱 C.3.2 要求壓縮點,但 REQ-018 只規定三段串接順序;誤歸屬"],
+      "V15/REQ-031": ["defensible", "重排後 MAC 不符且 SQN 超界時會先拋 SynchronisationFailure,確實與『MAC 不符須以 MAC failure 拒絕』衝突"],
+      "V16/REQ-033": ["defensible", "與主要缺陷同源(SQN 檢查被刪),重複歸屬"]
+    }
+  }
+}

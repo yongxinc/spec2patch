@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "B03",
+    "kind": "benign",
+    "files": [
+      "seaf/seaf.py"
+    ],
+    "summary": "把區域變數 hres_star 改名為 computed_hres_star(純改名)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B03",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 9.6
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-038",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "seaf/seaf.py",
+            "lines": "12",
+            "side": "new"
+          },
+          {
+            "file": "seaf/seaf.py",
+            "lines": "14",
+            "side": "new"
+          },
+          {
+            "file": "seaf/seaf.py",
+            "lines": "15-16",
+            "side": "new"
+          },
+          {
+            "file": "seaf/seaf.py",
+            "lines": "17",
+            "side": "new"
+          }
+        ],
+        "reason": "此次改動僅將變數名稱從 hres_star 改為 computed_hres_star，計算函式、比對邏輯及拒絕認證行為均未改變，完全符合需求所有細節。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

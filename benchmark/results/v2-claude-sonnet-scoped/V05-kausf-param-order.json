@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "id": "V05",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "K_AUSF 推導的參數順序對調(P0=SQN xor AK, P1=SNN)",
+    "target_req": "REQ-002",
+    "expected": "應指出 REQ-002:P0 必須是 SNN、P1 必須是 SQN xor AK,diff 把順序對調。",
+    "needs_context": false,
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V05",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-002",
+        "violated"
+      ]
+    ],
+    "abstained": [
+      "REQ-001",
+      "REQ-006"
+    ],
+    "n_not_applicable": 3,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 72.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "insufficient_context",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "old"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "new"
+          }
+        ],
+        "reason": "REQ-001 規範的是 kdf() 函式內部的通用編碼結構，而 diff 僅改動了呼叫 kdf() 時的參數順序，kdf() 本體並未出現在 diff 中，無法從現有資訊判斷通用編碼是否符合需求。",
+        "needs": "kdf() 函式的完整實作，以確認其是否依照 S = FC || P0 || L0 || P1 || L1 || ... 以 2-octet big-endian 長度欄位拼接並以 HMAC-SHA-256 輸出"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "old"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "new"
+          }
+        ],
+        "reason": "改動後 P0 變成 sqn_xor_ak、P1 變成 serving network name，與需求規定的「P0 = serving network name，P1 = SQN xor AK」順序完全相反。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "insufficient_context",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "old"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "new"
+          }
+        ],
+        "reason": "REQ-006 要求字串參數以 UTF-8 編碼，關鍵在 _snn() 的實作，但 diff 中未顯示該函式定義，無法判斷是否符合需求。",
+        "needs": "_snn() 函式的完整定義，以確認其內部是否以 UTF-8 將字串編碼為 octets"
+      }
+    ],
+    "warnings": []
+  }
+}

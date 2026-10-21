@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "id": "V06",
+    "kind": "violation",
+    "files": [
+      "formats/snn.py"
+    ],
+    "summary": "Serving Network Name 的 MNC 不再補零到三位",
+    "target_req": "REQ-007",
+    "expected": "應指出 REQ-007:MNC 必須補零成三位,diff 移除了 zfill(3)。",
+    "needs_context": false,
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_formats.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V06",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-007",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 9.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V06-snn-no-zero-pad/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V06-snn-no-zero-pad/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-007",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "15",
+            "side": "old"
+          },
+          {
+            "file": "formats/snn.py",
+            "lines": "15",
+            "side": "new"
+          }
+        ],
+        "reason": "需求要求 MNC 必須永遠以三位數呈現，兩位數時補前導零，但此改動移除了 zfill(3)，導致兩位數 MNC 直接輸出而不補零，與需求矛盾。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

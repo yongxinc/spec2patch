@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "V16",
+    "kind": "violation",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "移除 UE 的 SQN 範圍(新鮮度)檢查",
+    "target_req": "REQ-032",
+    "expected": "應指出 REQ-032:UE 必須檢查 SQN 在 (SQN_MS, SQN_MS+DELTA] 內,diff 移除了這段檢查。",
+    "needs_context": false,
+    "upstream_tests_failed": 5,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V16",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-032",
+        "violated"
+      ],
+      [
+        "REQ-033",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 3,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 1,
+    "class": "TP",
+    "seconds": 29.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V16-sqn-range-removed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V16-sqn-range-removed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "62-65",
+            "side": "old"
+          }
+        ],
+        "reason": "舊程式碼對 SQN 範圍的完整檢查（`sqn_ms < sqn <= sqn_ms + delta`）及對應的 SynchronisationFailure 回報已全數被刪除，需求要求的 SQN 新鮮度驗證邏輯在 diff 後完全不存在。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "62-65",
+            "side": "old"
+          }
+        ],
+        "reason": "需求要求在 MAC 驗證通過後必須進行 SQN freshness 檢查，但 diff 將整段 SQN 範圍驗證（`sqn_ms < sqn <= sqn_ms + delta`）刪除，SQN 新鮮度不再被檢查，違反「only then checks the freshness of SQN」的規定。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

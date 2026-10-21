@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "id": "V11",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "Profile B 的臨時公鑰不做點壓縮(compressed=False)",
+    "target_req": "REQ-013",
+    "expected": "應指出 REQ-013:Profile B 的臨時公鑰必須是壓縮點(33 octets),diff 改成 compressed=False。",
+    "needs_context": false,
+    "upstream_tests_failed": 83,
+    "upstream_failing_test_files": [
+      "tests/test_roundtrip.py",
+      "tests/test_suci_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V11",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-013",
+        "violated"
+      ],
+      [
+        "REQ-018",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 6,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 1,
+    "class": "TP",
+    "seconds": 65.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V11-profile-b-uncompressed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V11-profile-b-uncompressed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "141",
+            "side": "old"
+          },
+          {
+            "file": "crypto/ecies.py",
+            "lines": "141",
+            "side": "new"
+          }
+        ],
+        "reason": "改動將 compressed 參數由 True 改為 False，導致 ephemeral public key 以未壓縮格式（65 octets）輸出，違反需求所要求的 33 octets point-compressed 格式（0x02/0x03）；且與同一行的注解『Profile B always sends the compressed point』自相矛盾。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "141",
+            "side": "new"
+          }
+        ],
+        "reason": "TS 33.501 C.3.2 Profile B 要求以壓縮點傳送 ephemeral public key，diff 中的注解也明確指出此點，但改動將 compressed=True 改為 compressed=False，導致 Profile B 輸出未壓縮的 65 位元組公鑰，與規範定義的 scheme output 中 ephemeral public key 格式矛盾。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

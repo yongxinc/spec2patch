@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "id": "B05",
+    "kind": "benign",
+    "files": [
+      "formats/snn.py"
+    ],
+    "summary": "把 SNN 字串拆成 network_id 與前綴兩步組合(重構,行為不變)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B05",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 12.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-007",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "15",
+            "side": "new"
+          },
+          {
+            "file": "formats/snn.py",
+            "lines": "16",
+            "side": "new"
+          },
+          {
+            "file": "formats/snn.py",
+            "lines": "15",
+            "side": "old"
+          }
+        ],
+        "reason": "改動僅將單一 return 語句拆成兩行（引入中間變數 network_id），最終回傳字串與舊實作完全相同，前綴 '5G:'、格式及 MNC 三位數補零均未改變。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

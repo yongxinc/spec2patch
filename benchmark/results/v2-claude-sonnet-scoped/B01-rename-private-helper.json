@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "id": "B01",
+    "kind": "benign",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "把私有函式 _snn 改名為 _encode_snn(純改名)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B01",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [
+      "REQ-005"
+    ],
+    "n_not_applicable": 1,
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 94.9
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "24",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27",
+            "side": "old"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "55",
+            "side": "new"
+          }
+        ],
+        "reason": "此改動僅將 _snn 改名為 _encode_snn 並同步更新所有呼叫點，屬純粹重構，未修改任何 KDF 輸入字串組成或 HMAC-SHA-256 計算邏輯，需求所有細節仍然成立。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27",
+            "side": "old"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "34-36",
+            "side": "new"
+          }
+        ],
+        "reason": "此 diff 僅將輔助函式 _snn 改名為 _encode_snn，derive_kausf 的 key 組成、FC 常數、P0/P1 參數順序、6 octets 檢查及完整 256-bit 輸出均未改動，需求所有細節仍成立。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27-29",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45",
+            "side": "new"
+          }
+        ],
+        "reason": "此 diff 僅將內部輔助函式 `_snn` 更名為 `_encode_snn`，derive_res_star 的 key、FC、P0/P1/P2 組合及取後 128 bits 的邏輯均未改變，符合 REQ-003 的每項細節。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "insufficient_context",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "55",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "24",
+            "side": "new"
+          }
+        ],
+        "reason": "diff 僅為函式重新命名，行為未變；但需求要求 FC = 0x6C，而 FC_KSEAF 的定義不在 diff 中，無法確認其值是否符合。",
+        "needs": "FC_KSEAF 常數的定義（其值是否等於 0x6C），該定義不在 diff 中。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "28-29",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45",
+            "side": "new"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "55",
+            "side": "new"
+          }
+        ],
+        "reason": "此改動僅將函式 `_snn` 重新命名為 `_encode_snn`，UTF-8 編碼邏輯與所有呼叫行為完全不變，符合需求要求的 UTF-8 編碼方式。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

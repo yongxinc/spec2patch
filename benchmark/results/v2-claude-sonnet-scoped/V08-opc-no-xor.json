@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "V08",
+    "kind": "violation",
+    "files": [
+      "crypto/milenage.py"
+    ],
+    "summary": "OPc 推導漏掉與 OP 的 XOR,直接回傳 E[OP]K",
+    "target_req": "REQ-008",
+    "expected": "應指出 REQ-008:OPc = OP xor E[OP]K,diff 只回傳 E[OP]K。",
+    "needs_context": false,
+    "upstream_tests_failed": 21,
+    "upstream_failing_test_files": [
+      "tests/test_milenage_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V08",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-008",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 3,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 7.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V08-opc-no-xor/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V08-opc-no-xor/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-008",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "46",
+            "side": "old"
+          },
+          {
+            "file": "crypto/milenage.py",
+            "lines": "46",
+            "side": "new"
+          }
+        ],
+        "reason": "改動刪除了 _xor(op, ...) 呼叫，導致回傳值為 E[OP]K 而非 OP ⊕ E[OP]K，與需求公式 OPc = OP xor E[OP]K 直接矛盾。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

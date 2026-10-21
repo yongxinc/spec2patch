@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "id": "V19",
+    "kind": "violation",
+    "files": [
+      "seaf/seaf.py"
+    ],
+    "summary": "SEAF 計算 HRES* 時 RAND 與 RES* 的順序對調",
+    "target_req": "REQ-038",
+    "expected": "應指出 REQ-038:HRES* 必須用與 HXRES* 相同的函式(RAND || RES*),diff 把參數順序對調。",
+    "needs_context": true,
+    "upstream_tests_failed": 122,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_negative.py",
+      "tests/test_roundtrip.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V19",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [
+      "REQ-038"
+    ],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "target_status": "insufficient_context",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "abstain",
+    "abstain_expected": true,
+    "seconds": 15.9
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V19-hres-arg-swap/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V19-hres-arg-swap/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-038",
+        "status": "insufficient_context",
+        "evidence": [
+          {
+            "file": "seaf/seaf.py",
+            "lines": "12",
+            "side": "old"
+          },
+          {
+            "file": "seaf/seaf.py",
+            "lines": "12",
+            "side": "new"
+          }
+        ],
+        "reason": "SEAF 計算 HRES* 使用與 HXRES* 相同的函式：diff 將呼叫參數順序由 (rand, res_star) 改為 (res_star, rand)，需確認 kdf.derive_hres_star 的參數定義及 HXRES* 的計算呼叫方式才能判斷是否一致; HRES* 與 HXRES* 比較並於不符時拒絕驗證：第 14-15 行的比較與 raise 邏輯未被修改，此部分仍符合需求",
+        "needs": "kdf.derive_hres_star 的函式簽章（參數順序定義），以及 HXRES* 在其他地方呼叫 derive_hres_star 時所使用的參數順序，以判斷兩者是否使用相同的輸入順序。"
+      }
+    ],
+    "warnings": []
+  }
+}

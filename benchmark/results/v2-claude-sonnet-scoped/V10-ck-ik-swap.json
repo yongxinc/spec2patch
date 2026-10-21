@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "V10",
+    "kind": "violation",
+    "files": [
+      "crypto/milenage.py"
+    ],
+    "summary": "f3/f4 輸出對調:CK 取 OUT4、IK 取 OUT3",
+    "target_req": "REQ-011",
+    "expected": "應指出 REQ-011:CK = OUT3、IK = OUT4,diff 把兩者對調。",
+    "needs_context": false,
+    "upstream_tests_failed": 34,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_kdf_vectors.py",
+      "tests/test_milenage_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V10",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-011",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 3,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 8.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V10-ck-ik-swap/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V10-ck-ik-swap/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-008",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "97",
+            "side": "new"
+          },
+          {
+            "file": "crypto/milenage.py",
+            "lines": "98",
+            "side": "new"
+          }
+        ],
+        "reason": "需求規定 CK = OUT3、IK = OUT4，但改動後將兩者對調為 ck=out4、ik=out3，與 TS 35.206 4.1 的輸出對映直接矛盾。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

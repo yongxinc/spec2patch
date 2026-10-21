@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "id": "V14",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "SUCI 解封裝先解密、後驗證 MAC(驗證順序顛倒;結果仍會拒絕,但違反先驗後解)",
+    "target_req": "REQ-019",
+    "expected": "應指出 REQ-019:必須先驗證 MAC 再解密,diff 把解密移到 MAC 驗證之前。",
+    "needs_context": false,
+    "upstream_tests_failed": 4,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V14",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-019",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 6,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 30.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V14-decrypt-before-mac/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V14-decrypt-before-mac/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "169",
+            "side": "new"
+          },
+          {
+            "file": "crypto/ecies.py",
+            "lines": "173",
+            "side": "old"
+          }
+        ],
+        "reason": "AES-128 CTR 模式、enc_key（EK）與 icb（ICB）三項要素在改動後完全保留，REQ-016 所要求的加解密細節均未違反。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "169",
+            "side": "new"
+          },
+          {
+            "file": "crypto/ecies.py",
+            "lines": "173",
+            "side": "old"
+          }
+        ],
+        "reason": "此 diff 將解密操作（`_aes128_ctr`）從 MAC 驗證之後移到之前，導致在 MAC 比對失敗時仍已產生明文，直接違反需求所要求的「先驗 MAC、驗失敗則不得產生任何明文」的順序與保證。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

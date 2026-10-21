@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "id": "V13",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "ECIES 金鑰切分時 EK 與 ICB 對調",
+    "target_req": "REQ-015",
+    "expected": "應指出 REQ-015:EK 是最左 128 bits、ICB 是中間 128 bits,diff 把兩者對調。",
+    "needs_context": false,
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_crosscheck_free5gc_suci.py",
+      "tests/test_suci_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V13",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-015",
+        "violated"
+      ]
+    ],
+    "abstained": [],
+    "n_not_applicable": 6,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 40.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-107",
+            "side": "new"
+          },
+          {
+            "file": "crypto/ecies.py",
+            "lines": "108",
+            "side": "new"
+          }
+        ],
+        "reason": "REQ-014 要求 KDF 為 ANSI-X9.63-KDF（SHA-256）且 SharedInfo1 為 ephemeral public key，這兩點在 diff 中均保持正確，回傳 tuple 順序的調整不屬於本需求規範的細節。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "108",
+            "side": "old"
+          },
+          {
+            "file": "crypto/ecies.py",
+            "lines": "108",
+            "side": "new"
+          }
+        ],
+        "reason": "新程式碼將回傳順序從 (EK, ICB, MK) 改成 (ICB, EK, MK)，導致第一個回傳值變成 ICB 而非需求規定的 EK（leftmost 128 bits），與 TS 33.501 C.3.2 的切割順序矛盾。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

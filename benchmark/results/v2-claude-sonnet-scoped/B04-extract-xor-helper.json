@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "B04",
+    "kind": "benign",
+    "files": [
+      "udm/arpf.py"
+    ],
+    "summary": "把兩處 bytes(a ^ b ...) 抽成 _xor 輔助函式(重構,行為不變)",
+    "target_req": null,
+    "expected": null,
+    "needs_context": false,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B04",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "abstained": [
+      "REQ-029"
+    ],
+    "n_not_applicable": 0,
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 58.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-029",
+        "status": "insufficient_context",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "43-45",
+            "side": "new"
+          }
+        ],
+        "reason": "diff 僅是將 XOR 運算提取為輔助函式的純重構，未觸及任何 AMF 組成邏輯；要判斷 separation bit 是否設為 1，必須查看 diff 以外 `amf` 的建構過程。",
+        "needs": "`amf` 變數的定義位置（該函式的完整參數或區域變數宣告），以及 `separation_bit`（已匯入於 line 10）實際被套用到 `amf` 的程式碼段落，以確認 separation bit 是否確實設為 1。"
+      },
+      {
+        "requirement": "REQ-030",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "13-14",
+            "side": "new"
+          },
+          {
+            "file": "udm/arpf.py",
+            "lines": "67",
+            "side": "new"
+          },
+          {
+            "file": "udm/arpf.py",
+            "lines": "68-70",
+            "side": "new"
+          }
+        ],
+        "reason": "此 diff 僅將重複的內聯 XOR 運算抽取成 _xor 輔助函式，SQN_MS 還原、AMF_RESYNC 使用、MAC-S 比對及失敗時拋出例外等所有行為均與改動前完全一致，未違反需求任何細節。",
+        "needs": ""
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "13-14",
+            "side": "new"
+          }
+        ],
+        "reason": "這段改動未落在任何需求的程式碼錨點內。",
+        "needs": ""
+      }
+    ],
+    "warnings": []
+  }
+}

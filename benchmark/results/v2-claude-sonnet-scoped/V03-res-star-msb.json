@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "id": "V03",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "RES* 取 KDF 輸出的前 128 bits(最高位)而非後 128 bits(最低位)",
+    "target_req": "REQ-003",
+    "expected": "應指出 REQ-003:(X)RES* 是輸出的 128 least significant bits,diff 改取 [:16]。",
+    "needs_context": false,
+    "upstream_tests_failed": 13,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V03",
+    "kind": "violation",
+    "n_flags": 1,
+    "flagged": [
+      [
+        "REQ-003",
+        "violated"
+      ]
+    ],
+    "abstained": [
+      "REQ-001",
+      "REQ-006"
+    ],
+    "n_not_applicable": 3,
+    "llm_failures": 0,
+    "target_status": "violated",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "TP",
+    "seconds": 64.7
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V03-res-star-msb/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V03-res-star-msb/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "insufficient_context",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45",
+            "side": "new"
+          }
+        ],
+        "reason": "此 diff 僅顯示 derive_res_star 對 kdf() 回傳值的切片方式（[16:] → [:16]），REQ-001 所要求的輸入編碼格式與 HMAC-SHA-256 輸出均屬於 kdf() 內部邏輯，而該函式的實作不在 diff 範圍內，無法據此作出判斷。",
+        "needs": "kdf() 函式的完整實作，包含輸入字串 S 的組裝邏輯（FC、Pi、Li 的串接方式）以及所使用的 MAC 演算法定義。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "violated",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45",
+            "side": "old"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45",
+            "side": "new"
+          }
+        ],
+        "reason": "需求明確要求取輸出的 128 least significant bits(最低有效端,即後 16 位元組),舊實作 [16:] 正確截取後半段,新實作改為 [:16] 卻截取前 16 位元組(最高有效端),與規範矛盾。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "not_applicable",
+        "evidence": [],
+        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。",
+        "needs": ""
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "insufficient_context",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45",
+            "side": "new"
+          }
+        ],
+        "reason": "需求要求 serving network name 以 UTF-8 編碼為 octets，但關鍵實作在 `_snn` 函式中，其定義未出現在 diff 內，無法判斷是否符合需求。",
+        "needs": "`_snn` 函式的定義，以確認其是否以 UTF-8 將 serving_network_name 字串轉換為位元組序列。"
+      }
+    ],
+    "warnings": []
+  }
+}
