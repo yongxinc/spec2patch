@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "B04",
+    "kind": "benign",
+    "files": [
+      "udm/arpf.py"
+    ],
+    "summary": "把兩處 bytes(a ^ b ...) 抽成 _xor 輔助函式(重構,行為不變)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B04",
+    "kind": "benign",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-029",
+        "missing"
+      ],
+      [
+        "REQ-030",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "class": "false_alarm",
+    "false_alarm_strict": true,
+    "false_alarm_lenient": true,
+    "seconds": 125.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-029",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "41-47"
+          }
+        ],
+        "reason": "此 diff 僅將內聯 XOR 運算重構為 _xor 輔助函式，並未新增任何將 AMF separation bit 設為 1 的程式碼，需求的核心細節完全未實作。"
+      },
+      {
+        "requirement": "REQ-030",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "udm/arpf.py",
+            "lines": "67-70"
+          }
+        ],
+        "reason": "SQN_MS 解回與 MAC-S 拒絕邏輯均可在 diff 中確認，但需求明定必須使用 dummy AMF 0x0000，diff 只顯示 `AMF_RESYNC` 符號的匯入與使用，其值是否為 0x0000 在 diff 中完全找不到定義，無法驗證此關鍵數值。"
+      }
+    ],
+    "warnings": []
+  }
+}

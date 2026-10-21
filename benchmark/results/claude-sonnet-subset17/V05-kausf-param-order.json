@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "id": "V05",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "K_AUSF 推導的參數順序對調(P0=SQN xor AK, P1=SNN)",
+    "target_req": "REQ-002",
+    "expected": "應指出 REQ-002:P0 必須是 SNN、P1 必須是 SQN xor AK,diff 把順序對調。",
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V05",
+    "kind": "violation",
+    "n_flags": 5,
+    "flagged": [
+      [
+        "REQ-001",
+        "missing"
+      ],
+      [
+        "REQ-002",
+        "missing"
+      ],
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ],
+      [
+        "REQ-006",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 4,
+    "class": "TP",
+    "seconds": 103.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36"
+          }
+        ],
+        "reason": "Diff 僅調換 derive_kausf 呼叫 kdf 時的參數順序，完全未實作 generic KDF 的輸入字串拼接（FC||P0||L0||…）、2-octet big-endian 長度編碼，以及 HMAC-SHA-256 運算等核心細節。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36"
+          }
+        ],
+        "reason": "新增行將 P0 與 P1 的順序對調，變成 P0 = sqn_xor_ak、P1 = serving network name，與規範 TS 33.501 A.2 要求的 P0 = serving network name、P1 = SQN xor AK 相反，參數順序實作錯誤。"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "39"
+          }
+        ],
+        "reason": "diff 只出現 derive_res_star 的函式簽名（第 39 行），函式主體完全不在 diff 中，FC=0x6B、P0/P1/P2 的傳入、以及取 128 LSB 等所有實作細節均無法在 diff 中找到。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "missing",
+        "evidence": [],
+        "reason": "diff 只修正了 KAUSF 推導（A.2）的參數順序，完全未實作 H(X)RES* 所需的 SHA-256(RAND || (X)RES*) 計算及截取 128 個最低有效位元的邏輯。"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "diff 僅修改 K_AUSF 衍生（A.2）函式的參數傳入順序，完全未實作以 K_AUSF 為 key、FC=0x6C、P0=serving network name 的 K_SEAF 衍生函式（A.6）。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36"
+          }
+        ],
+        "reason": "Diff 僅調整 kdf() 呼叫的參數順序，未見任何將 serving network name 以 UTF-8 編碼為 octets 的實作（如 str.encode('utf-8') 或等效呼叫）。需求要求的 UTF-8 編碼細節在此 diff 中完全缺席。"
+      }
+    ],
+    "warnings": []
+  }
+}

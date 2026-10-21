@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "id": "B01",
+    "kind": "benign",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "把私有函式 _snn 改名為 _encode_snn(純改名)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B01",
+    "kind": "benign",
+    "n_flags": 5,
+    "flagged": [
+      [
+        "REQ-001",
+        "missing"
+      ],
+      [
+        "REQ-002",
+        "missing"
+      ],
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-004",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "class": "false_alarm",
+    "false_alarm_strict": true,
+    "false_alarm_lenient": true,
+    "seconds": 191.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "24"
+          }
+        ],
+        "reason": "diff 僅顯示 HMAC-SHA-256 的呼叫及函式改名，未見 S = FC || P0 || L0 || P1 || L1 || ... 的拼接邏輯，也完全缺少將各 Pi 長度以 2-octet big-endian 編碼後附加的實作。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "33-36"
+          }
+        ],
+        "reason": "Diff 中僅以符號 `FC_KAUSF` 引用 FC 值，但該常數的定義未出現在任何新增或修改行，無法從 diff 確認 FC 是否確實為規格要求的 0x6A。"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "42-45"
+          }
+        ],
+        "reason": "除 FC 值外，其餘細節皆可在 diff 中確認。然而 `FC_RES_STAR` 常數的定義與數值（應為 0x6B）未出現在 diff 中，無法核實 FC 欄位是否正確。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "48"
+          }
+        ],
+        "reason": "diff 的所有新增/修改行僅涉及 `_snn` 改名為 `_encode_snn`，並未呈現任何對 SHA-256(RAND ∥ (X)RES*) 的計算，也未呈現截取 128 個最低有效位元的邏輯，`derive_hres_star` 的函式本體完全不在 diff 範圍內。"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "53-55"
+          }
+        ],
+        "reason": "derive_kseaf 的結構與 P0、輸出長度均符合規範，但 FC_KSEAF 常數的定義不在此 diff 中，無法從 diff 確認其值確實為 0x6C。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "27-29"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "36"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45"
+          },
+          {
+            "file": "crypto/kdf.py",
+            "lines": "55"
+          }
+        ],
+        "reason": "diff 中 `_encode_snn` 明確以 UTF-8 將字串轉為 octets，且三處傳入 KDF 的 serving network name 參數皆已套用此編碼，完整實作 TS 33.220 B.2.1.2 的需求。"
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "id": "V02",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "K_SEAF 推導的 FC 值由 0x6C 改成 0x6D(K_AMF 的 FC)",
+    "target_req": "REQ-005",
+    "expected": "應指出 REQ-005:K_SEAF 的 FC 必須是 0x6C,diff 把它改成 0x6D。",
+    "upstream_tests_failed": 11,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V02",
+    "kind": "violation",
+    "n_flags": 5,
+    "flagged": [
+      [
+        "REQ-001",
+        "missing"
+      ],
+      [
+        "REQ-002",
+        "missing"
+      ],
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ],
+      [
+        "REQ-006",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 4,
+    "class": "TP",
+    "seconds": 87.6
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "14"
+          }
+        ],
+        "reason": "diff 只修改了常數 FC_KSEAF 的值（0x6C → 0x6D），並未實作 KDF 輸入字串的組合（FC‖Pi‖Li）、2-octet big-endian 長度編碼，以及 HMAC-SHA-256 計算等核心細節。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "9"
+          }
+        ],
+        "reason": "diff 僅定義了 FC_KAUSF = 0x6A 常數，缺少以 CK‖IK 為金鑰、依序帶入 serving network name 與 SQN xor AK 的完整 K_AUSF 推導函式實作。"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "10"
+          }
+        ],
+        "reason": "diff 僅新增了 FC_RES_STAR = 0x6B 常數定義，未實作任何 (X)RES* 推導函式，包含 CK‖IK 作為金鑰、P0/P1/P2 參數傳入 KDF，以及截取輸出最低有效 128 bits 等核心細節均付之闕如。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "missing",
+        "evidence": [],
+        "reason": "Diff 僅修正 FC_KSEAF 常數值（0x6C → 0x6D，對應 TS 33.501 A.6），完全未實作 REQ-004 所需的 SHA-256(RAND ∥ (X)RES*) 計算及取最低有效 128 bits 的邏輯。"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "11"
+          }
+        ],
+        "reason": "diff 將 FC_KSEAF 設為 0x6D，與 TS 33.501 A.6 規定的 0x6C 相悖，FC 常數值錯誤；此外亦未實作以 K_AUSF 為金鑰、serving network name 為 P0 的 KDF 呼叫及 256-bit 輸出。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "11"
+          }
+        ],
+        "reason": "此 diff 僅修改 FC_KSEAF 常數值，與需求要求的「字串參數須以 UTF-8 編碼為位元組」毫無關聯。整個 diff 中找不到任何 UTF-8 編碼實作。"
+      }
+    ],
+    "warnings": []
+  }
+}

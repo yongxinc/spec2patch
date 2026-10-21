@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "id": "B05",
+    "kind": "benign",
+    "files": [
+      "formats/snn.py"
+    ],
+    "summary": "把 SNN 字串拆成 network_id 與前綴兩步組合(重構,行為不變)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B05",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 26.3
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-007",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "formats/snn.py",
+            "lines": "15-16"
+          }
+        ],
+        "reason": "新增程式碼以 zfill(3) 確保 MNC 永遠為三位數並補前導零,且最終回傳格式完整符合 '5G:mnc{MNC}.mcc{MCC}.3gppnetwork.org' 的規範。"
+      }
+    ],
+    "warnings": []
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "V09",
+    "kind": "violation",
+    "files": [
+      "crypto/milenage.py"
+    ],
+    "summary": "f1 的 IN1 組成由 SQN||AMF||SQN||AMF 改成 AMF||SQN||AMF||SQN",
+    "target_req": "REQ-010",
+    "expected": "應指出 REQ-010:IN1 = SQN || AMF || SQN || AMF,diff 把 SQN 與 AMF 順序對調。",
+    "upstream_tests_failed": 34,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_kdf_vectors.py",
+      "tests/test_milenage_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V09",
+    "kind": "violation",
+    "n_flags": 2,
+    "flagged": [
+      [
+        "REQ-010",
+        "missing"
+      ],
+      [
+        "REQ-011",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 1,
+    "class": "TP",
+    "seconds": 70.2
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V09-f1-in1-order/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V09-f1-in1-order/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-008",
+        "status": "missing",
+        "evidence": [],
+        "reason": "Diff 僅調整 f1 函式中 in1 的 sqn/amf 排列順序，完全沒有實作 OPc = OP xor AES-128(K, OP) 的推導邏輯。"
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "missing",
+        "evidence": [],
+        "reason": "此 diff 僅調整 in1 的 sqn/amf 拼接順序,完全未定義或修改 c1–c5 五個常數及 r1–r5 五個旋轉量的任何數值。REQ-009 所要求的全部十個細節均未在 diff 中實作。"
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "78"
+          }
+        ],
+        "reason": "新增的第 78 行將 IN1 組成順序改為 AMF || SQN || AMF || SQN，與規格要求的 SQN || AMF || SQN || AMF 完全相反，並非修正而是引入錯誤順序。"
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "75-80"
+          }
+        ],
+        "reason": "diff 僅修正 f1/f1* 中 in1 的欄位排列順序，完全未實作 f2–f5* 的 OUTi 計算公式，亦無 RES、AK、CK、IK、AK* 的位元截取邏輯。"
+      }
+    ],
+    "warnings": []
+  }
+}

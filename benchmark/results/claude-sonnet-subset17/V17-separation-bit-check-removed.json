@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "id": "V17",
+    "kind": "violation",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "移除 ME 對 AMF separation bit 的檢查",
+    "target_req": "REQ-034",
+    "expected": "應指出 REQ-034:ME 必須檢查 AMF separation bit 為 1,diff 移除了這段檢查。",
+    "upstream_tests_failed": 1,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V17",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": true,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 81.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V17-separation-bit-check-removed/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V17-separation-bit-check-removed/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "missing",
+        "evidence": [],
+        "reason": "此 diff 僅刪除 AMF separation bit 檢查並新增 KDF 金鑰推導，完全未實作 XMAC 計算、與 AUTN MAC 的比對，以及 MAC failure 的拒絕邏輯。"
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "64-65"
+          }
+        ],
+        "reason": "diff 的 line 64 以開閉區間 (sqn_ms, sqn_ms+delta] 完整表達『SQN 必須嚴格大於 SQN_MS 且不超過 SQN_MS+DELTA』的條件，line 65 在條件不符時呼叫 build_auts 回報同步失敗，完整覆蓋需求的每個細節。"
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "missing",
+        "evidence": [],
+        "reason": "Diff 僅刪除 AMF separation bit 檢查,完全未實作 MAC 驗證優先於 SQN 檢查的順序邏輯,也未見 MAC 失敗時跳過 SQN 評估的程式碼。"
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "missing",
+        "evidence": [],
+        "reason": "此 diff 將原本實作 REQ-034 的 separation bit 檢查與拒絕邏輯完整刪除，新增行中完全找不到對應的替代實作，需求未被覆蓋。"
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "missing",
+        "evidence": [],
+        "reason": "Diff 中沒有任何將 SQN_MS 更新為已接受 SQN 的程式碼（如 sqn_ms = sqn 或等效的持久化呼叫）。需求要求成功認證後必須完成此更新，但 diff 僅涉及金鑰衍生與刪除 AMF 位元檢查，完全未實作該細節。"
+      }
+    ],
+    "warnings": []
+  }
+}

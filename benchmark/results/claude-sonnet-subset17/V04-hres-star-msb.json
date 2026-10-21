@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "id": "V04",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "HXRES* 取 SHA-256 輸出的前 128 bits 而非後 128 bits",
+    "target_req": "REQ-004",
+    "expected": "應指出 REQ-004:H(X)RES* 是 SHA-256 的 128 least significant bits,diff 改取 [:16]。",
+    "upstream_tests_failed": 11,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V04",
+    "kind": "violation",
+    "n_flags": 4,
+    "flagged": [
+      [
+        "REQ-001",
+        "missing"
+      ],
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-004",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "TP",
+    "seconds": 100.5
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V04-hres-star-msb/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V04-hres-star-msb/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "48-50"
+          }
+        ],
+        "reason": "Diff 只修正了 derive_hres_star 的索引錯誤,完全未實作 REQ-001 所要求的 FC||P0||L0||… 輸入字串建構、2-octet big-endian 長度欄位,以及以 KDF key 為金鑰的 HMAC-SHA-256 輸出。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "missing",
+        "evidence": [],
+        "reason": "此 diff 僅修正 derive_hres_star 的位元組切片錯誤,完全未實作 K_AUSF 的 KDF 呼叫、FC=0x6A、P0/P1 參數或 256-bit 輸出等任何細節。"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "48-50"
+          }
+        ],
+        "reason": "diff 修改的是 derive_hres_star（A.5，以 SHA-256 計算），完全未實作 REQ-003 所要求的 A.4 (X)RES* 推導，缺少 KDF(CK‖IK)、FC=0x6B、P0/P1/P2 參數結構與取最低有效 128 位元等所有細節。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "50"
+          }
+        ],
+        "reason": "新增行將切片改為 `[:16]`，取的是 SHA-256 輸出的前 16 bytes（最高有效 128 bits），而需求明確要求取 128 個最低有效位元（即 `digest()[16:]`，bytes 16–31），實作方向錯誤。"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "53"
+          }
+        ],
+        "reason": "diff 中 derive_kseaf 僅出現函式簽名（第 53 行），函式主體完全缺失，無法確認 FC=0x6C、P0=serving_network_name 及完整 256-bit 輸出等每一項需求細節是否實作。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [],
+        "reason": "Diff 中沒有任何對 serving_network_name 進行 UTF-8 編碼的程式碼，需求要求的字串參數 UTF-8 編碼完全未實作。"
+      }
+    ],
+    "warnings": []
+  }
+}

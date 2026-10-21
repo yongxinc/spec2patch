@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "V07",
+    "kind": "violation",
+    "files": [
+      "crypto/milenage.py"
+    ],
+    "summary": "MILENAGE 旋轉常數 r3 由 32 改成 64",
+    "target_req": "REQ-009",
+    "expected": "應指出 REQ-009:r3 必須是 32 bits,diff 改成 64。",
+    "upstream_tests_failed": 34,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_kdf_vectors.py",
+      "tests/test_milenage_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V07",
+    "kind": "violation",
+    "n_flags": 4,
+    "flagged": [
+      [
+        "REQ-008",
+        "missing"
+      ],
+      [
+        "REQ-009",
+        "missing"
+      ],
+      [
+        "REQ-010",
+        "missing"
+      ],
+      [
+        "REQ-011",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "TP",
+    "seconds": 121.6
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V07-milenage-r3/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V07-milenage-r3/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-008",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "20"
+          }
+        ],
+        "reason": "Diff 僅修改旋轉常數 R3（32→64）並顯示 `_e` 函式簽章，沒有任何實作 OPc = OP xor E[OP]K 公式的程式碼。"
+      },
+      {
+        "requirement": "REQ-009",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "17"
+          }
+        ],
+        "reason": "diff 將 R3 從正確的 32 改為 64，與 TS 35.206 規定的 r3 = 32 不符。此外，C1 與 C2 的定義未出現在 diff 中，無法確認是否符合需求。"
+      },
+      {
+        "requirement": "REQ-010",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "17"
+          }
+        ],
+        "reason": "diff 僅將 R3 由 32 改為 64，屬 f3 相關常數，與 f1/f1* 使用的 r1 無關；TEMP、IN1、OUT1 的完整計算流程及 MAC-A／MAC-S 的擷取邏輯均未在 diff 中出現。"
+      },
+      {
+        "requirement": "REQ-011",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/milenage.py",
+            "lines": "17"
+          }
+        ],
+        "reason": "diff 僅修改旋轉常數，且將 R3 由正確的 32 改為 64（TS 35.206 Table 3 規定 r3=32），不但錯誤，亦完全缺少 OUTi 公式實作及 RES/AK/CK/IK/AK* 的輸出對應。"
+      }
+    ],
+    "warnings": []
+  }
+}

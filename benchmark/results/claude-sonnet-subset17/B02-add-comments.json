@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "id": "B02",
+    "kind": "benign",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "在 authenticate 內加兩行說明註解(純註解)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B02",
+    "kind": "benign",
+    "n_flags": 3,
+    "flagged": [
+      [
+        "REQ-032",
+        "missing"
+      ],
+      [
+        "REQ-033",
+        "missing"
+      ],
+      [
+        "REQ-035",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "class": "false_alarm",
+    "false_alarm_strict": true,
+    "false_alarm_lenient": true,
+    "seconds": 166.0
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B02-add-comments/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B02-add-comments/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "missing",
+        "evidence": [],
+        "reason": "本 diff 新增的兩行皆為注解，並無任何新增或修改的程式碼行實作 XMAC 計算與比對邏輯。MAC 比較相關程式碼（第 58–59 行）為既有 context 行，不屬於本 diff 的實作範圍。"
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "61"
+          },
+          {
+            "file": "ue/auth.py",
+            "lines": "71"
+          }
+        ],
+        "reason": "diff 僅新增兩行註解，所有 SQN freshness 判斷邏輯（lines 62-64）均為既有 context line，並非此 diff 所實作；此外 SynchronisationFailure 是否攜帶 AUTS 在 diff 中無法確認。"
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "61"
+          },
+          {
+            "file": "ue/auth.py",
+            "lines": "71"
+          }
+        ],
+        "reason": "本次 diff 新增的行僅為兩行注釋（lines 61、71），並未新增或修改任何程式碼；MAC 優先於 SQN 驗證的實際執行順序及失敗時立即 raise 的邏輯，均屬既有上下文行，不算 diff 所實作的內容。"
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "68-69"
+          }
+        ],
+        "reason": "diff 在第 68 行檢查 separation bit 是否等於 1，若不等於（即為 0）則於第 69 行拋出例外拒絕認證，完整實作需求的每個細節。"
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "62-63"
+          }
+        ],
+        "reason": "diff 只計算並驗證 SQN，並未在驗證成功後將 SQN_MS 更新為已接受的 SQN，缺少如 `sqn_ms = sqn` 的賦值實作。"
+      },
+      {
+        "requirement": "-",
+        "status": "unrelated",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "71"
+          }
+        ],
+        "reason": "純粹是關於金鑰推導順序的註解，金鑰推導（res_star、kausf、kseaf）不屬於 REQ-031 至 REQ-035 任何一條需求的範圍。"
+      }
+    ],
+    "warnings": []
+  }
+}

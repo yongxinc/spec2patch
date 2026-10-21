@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "id": "V14",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "SUCI 解封裝先解密、後驗證 MAC(驗證順序顛倒;結果仍會拒絕,但違反先驗後解)",
+    "target_req": "REQ-019",
+    "expected": "應指出 REQ-019:必須先驗證 MAC 再解密,diff 把解密移到 MAC 驗證之前。",
+    "upstream_tests_failed": 4,
+    "upstream_failing_test_files": [
+      "tests/test_negative.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V14",
+    "kind": "violation",
+    "n_flags": 4,
+    "flagged": [
+      [
+        "REQ-015",
+        "missing"
+      ],
+      [
+        "REQ-017",
+        "missing"
+      ],
+      [
+        "REQ-018",
+        "missing"
+      ],
+      [
+        "REQ-019",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 3,
+    "class": "TP",
+    "seconds": 180.1
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V14-decrypt-before-mac/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V14-decrypt-before-mac/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "missing",
+        "evidence": [],
+        "reason": "diff 的唯一實質變更是調整 `plaintext` 解密行的位置，與 REQ-012 所要求的『Profile A 採用 X25519 且其輸出直接作為共享秘密 Z』完全無關，沒有任何新增或修改行能證明 X25519 的選用及直接使用。"
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "missing",
+        "evidence": [],
+        "reason": "此 diff 僅將 `plaintext = _aes128_ctr(...)` 提前至 MAC 驗證之前，屬程式碼順序調整，與 REQ-013 要求的 secp256r1 點壓縮公鑰（33 bytes、0x02/0x03 前綴）完全無關，所有細節均未實作。"
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "missing",
+        "evidence": [],
+        "reason": "此 diff 僅將 `_aes128_ctr` 呼叫從 MAC 驗證之後移到之前，屬執行順序調整，完全沒有新增或修改任何關於 ANSI-X9.63-KDF（SHA-256）及 SharedInfo1 等於 ephemeral public key 的實作細節。"
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "168-169"
+          }
+        ],
+        "reason": "diff 的實質變更僅是重新排列 _aes128_ctr 呼叫的位置，完全未實作將衍生密鑰 K 依 128/128/256 位元分割為 EK、ICB、MK 的邏輯。"
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "168-169"
+          }
+        ],
+        "reason": "第 169 行明確以 `enc_key`（EK）與 `icb`（ICB）呼叫 `_aes128_ctr`，完整實作了以 AES-128 CTR 模式、使用 EK 及 ICB 作為初始計數器區塊進行加解密的需求。"
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "169"
+          }
+        ],
+        "reason": "diff 的新增/修改行只將 AES 解密呼叫往前搬移，並未實作 HMAC-SHA-256 計算及取最左 64 bits（8 octets）的 MAC tag 邏輯。`_mac` 函式的實作未出現在 diff 中，需求所有細節均無法從本次變更中確認。"
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "169"
+          }
+        ],
+        "reason": "diff 的實際變更僅是將 plaintext 解密移到 MAC 驗證之前，與 REQ-018 所要求的輸出串接順序（ephemeral public key || ciphertext || MAC tag）完全無關。split_scheme_output 的具體實作（定義輸出佈局的關鍵程式碼）未出現在 diff 中，無法確認佈局需求已被實作。"
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "169-173"
+          }
+        ],
+        "reason": "diff 將解密（line 169 +）移到 MAC 驗證（line 170-173）之前，與需求要求「先驗證 MAC 再解密」相反，且 MAC 失敗時明文已被計算，違反「不得產生任何明文」的規定。"
+      }
+    ],
+    "warnings": []
+  }
+}

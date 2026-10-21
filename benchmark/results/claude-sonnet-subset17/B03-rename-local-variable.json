@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "id": "B03",
+    "kind": "benign",
+    "files": [
+      "seaf/seaf.py"
+    ],
+    "summary": "把區域變數 hres_star 改名為 computed_hres_star(純改名)",
+    "target_req": null,
+    "expected": null,
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "B03",
+    "kind": "benign",
+    "n_flags": 0,
+    "flagged": [],
+    "llm_failures": 0,
+    "class": "clean",
+    "false_alarm_strict": false,
+    "false_alarm_lenient": false,
+    "seconds": 36.7
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-038",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "seaf/seaf.py",
+            "lines": "10-17"
+          }
+        ],
+        "reason": "Diff 完整實作了以 derive_hres_star(rand, res_star) 計算 HRES*、與 HXRES* 比較，以及不一致時拋出例外拒絕認證的全部細節，純屬變數命名重構，邏輯與需求完全吻合。"
+      }
+    ],
+    "warnings": []
+  }
+}

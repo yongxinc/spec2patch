@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "id": "V13",
+    "kind": "violation",
+    "files": [
+      "crypto/ecies.py"
+    ],
+    "summary": "ECIES 金鑰切分時 EK 與 ICB 對調",
+    "target_req": "REQ-015",
+    "expected": "應指出 REQ-015:EK 是最左 128 bits、ICB 是中間 128 bits,diff 把兩者對調。",
+    "upstream_tests_failed": 12,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_crosscheck_free5gc_suci.py",
+      "tests/test_suci_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V13",
+    "kind": "violation",
+    "n_flags": 6,
+    "flagged": [
+      [
+        "REQ-012",
+        "missing"
+      ],
+      [
+        "REQ-014",
+        "missing"
+      ],
+      [
+        "REQ-015",
+        "missing"
+      ],
+      [
+        "REQ-016",
+        "missing"
+      ],
+      [
+        "REQ-017",
+        "missing"
+      ],
+      [
+        "REQ-019",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 5,
+    "class": "TP",
+    "seconds": 262.7
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-012",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "Diff 僅更改了推導金鑰的回傳順序,未展示 X25519 金鑰交換的實作,也未能證明 X25519 輸出被直接作為共享秘密 Z 傳入金鑰推導函式,需求的兩個核心細節均無法從 diff 中確認。"
+      },
+      {
+        "requirement": "REQ-013",
+        "status": "missing",
+        "evidence": [],
+        "reason": "此 diff 僅調整 KDF 回傳值的順序（交換 enc_key 與 ICB 的位置），與 ephemeral public key 的 point compression（33 octets，首位 0x02/0x03）及放入 scheme output 完全無關，需求的每一個細節均未實作。"
+      },
+      {
+        "requirement": "REQ-014",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "105-108"
+          }
+        ],
+        "reason": "diff 的唯一新增/修改行僅調整了衍生金鑰的回傳順序，未明確實作 ANSI-X9.63-KDF 與 SHA-256；SharedInfo1 使用暫時公鑰雖見於上下文行，但並非本次 diff 新增或修改的內容。"
+      },
+      {
+        "requirement": "REQ-015",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "108"
+          }
+        ],
+        "reason": "各切片範圍本身正確，但新程式碼第 108 行將回傳順序改為 (ICB, EK, MK)，與規範要求的 (EK, ICB, MK) 相反，EK 與 ICB 位置對調。"
+      },
+      {
+        "requirement": "REQ-016",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "108"
+          }
+        ],
+        "reason": "Diff 僅修改金鑰衍生函式的回傳順序，_aes128_ctr 的函式本體與呼叫端均不在 diff 中，無法確認 AES-128 CTR 模式的實作細節，以及 EK 與 ICB 是否被正確對應使用。"
+      },
+      {
+        "requirement": "REQ-017",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "108"
+          }
+        ],
+        "reason": "此 diff 僅調換 key derivation 回傳值中 enc_key 與 icb 的順序，並未實作任何 HMAC-SHA-256 計算、MAC key 的使用、對密文的運算，以及取最左 64 bits 的截斷邏輯，REQ-017 的每一個細節均未實現。"
+      },
+      {
+        "requirement": "REQ-018",
+        "status": "missing",
+        "evidence": [],
+        "reason": "diff 僅調換 KDF 回傳 tuple 內部 enc_key 與 icb 的順序，屬於金鑰衍生的內部細節，並未實作 'ephemeral public key ∥ ciphertext ∥ MAC tag' 的最終輸出串接佈局。"
+      },
+      {
+        "requirement": "REQ-019",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/ecies.py",
+            "lines": "108"
+          }
+        ],
+        "reason": "此 diff 僅交換金鑰衍生函式的回傳值順序（enc_key 與 icb 對調），完全未實作「解密前重新計算並比對 MAC tag、不符即拒絕且不輸出任何明文」的核心邏輯。"
+      }
+    ],
+    "warnings": []
+  }
+}

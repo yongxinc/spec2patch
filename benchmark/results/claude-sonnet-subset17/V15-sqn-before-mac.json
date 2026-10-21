@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "V15",
+    "kind": "violation",
+    "files": [
+      "ue/auth.py"
+    ],
+    "summary": "UE 先檢查 SQN 再驗證 AUTN 的 MAC(順序顛倒)",
+    "target_req": "REQ-033",
+    "expected": "應指出 REQ-033:必須先驗 AUTN MAC 再檢查 SQN,diff 把 SQN 檢查移到 MAC 檢查之前。",
+    "upstream_tests_failed": 0,
+    "upstream_failing_test_files": [],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V15",
+    "kind": "violation",
+    "n_flags": 3,
+    "flagged": [
+      [
+        "REQ-032",
+        "missing"
+      ],
+      [
+        "REQ-033",
+        "missing"
+      ],
+      [
+        "REQ-035",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 2,
+    "class": "TP",
+    "seconds": 132.3
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V15-sqn-before-mac/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V15-sqn-before-mac/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-031",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "Diff 保留了以 RAND、已還原之 SQN 及 AMF 計算 XMAC 的呼叫，並在新位置明確比較 out.mac_a 與 mac，不符時拋出 AutnMacFailure，完整實作 REQ-031 所有細節。"
+      },
+      {
+        "requirement": "REQ-032",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "57-65"
+          }
+        ],
+        "reason": "SQN freshness 邏輯（sqn_ms < sqn ≤ sqn_ms + delta）與 AUTS 同步失敗回報均已正確實作，但需求明確規定須在 MAC 檢查成功之後才執行 SQN 驗證；diff 卻將 MAC 檢查（lines 63–65）移至 SQN 檢查（lines 58–61）之後，執行順序與規範相反。"
+      },
+      {
+        "requirement": "REQ-033",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "57-65"
+          }
+        ],
+        "reason": "Diff 將 MAC 檢查從 SQN 檢查之前移到之後（新檔第 63-65 行），導致 SQN freshness 先被評估，與 TS 33.102 6.3.3 要求 MAC 優先且 MAC 失敗時不得觸及 SQN 完全相反。"
+      },
+      {
+        "requirement": "REQ-034",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "67-68"
+          }
+        ],
+        "reason": "diff 在第 67–68 行明確檢查 AMF separation bit 是否為 1，不為 1 時拋出 AmfSeparationBitNotSet 拒絕認證，完整涵蓋需求的每個細節。"
+      },
+      {
+        "requirement": "REQ-035",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "ue/auth.py",
+            "lines": "54-65"
+          }
+        ],
+        "reason": "diff 僅調整了 MAC 檢查與 SQN 範圍檢查的執行順序，完全沒有實作「成功認證後將 sqn_ms 設為接受的 SQN 值」的賦值邏輯。"
+      }
+    ],
+    "warnings": []
+  }
+}

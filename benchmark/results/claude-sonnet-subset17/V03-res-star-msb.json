@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "id": "V03",
+    "kind": "violation",
+    "files": [
+      "crypto/kdf.py"
+    ],
+    "summary": "RES* 取 KDF 輸出的前 128 bits(最高位)而非後 128 bits(最低位)",
+    "target_req": "REQ-003",
+    "expected": "應指出 REQ-003:(X)RES* 是輸出的 128 least significant bits,diff 改取 [:16]。",
+    "upstream_tests_failed": 13,
+    "upstream_failing_test_files": [
+      "tests/test_kdf_vectors.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V03",
+    "kind": "violation",
+    "n_flags": 6,
+    "flagged": [
+      [
+        "REQ-001",
+        "missing"
+      ],
+      [
+        "REQ-002",
+        "missing"
+      ],
+      [
+        "REQ-003",
+        "missing"
+      ],
+      [
+        "REQ-004",
+        "missing"
+      ],
+      [
+        "REQ-005",
+        "missing"
+      ],
+      [
+        "REQ-006",
+        "missing"
+      ]
+    ],
+    "llm_failures": 0,
+    "target_status": "missing",
+    "target_missing_no_evidence": false,
+    "extra_flags": 5,
+    "class": "TP",
+    "seconds": 155.7
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V03-res-star-msb/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V03-res-star-msb/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-001",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45"
+          }
+        ],
+        "reason": "此 diff 僅修正回傳值的切片方向（[16:] → [:16]），完全未實作 S = FC || P0 || L0 || ... 的串接邏輯、2-octet big-endian 長度欄位，以及 HMAC-SHA-256 的計算。"
+      },
+      {
+        "requirement": "REQ-002",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45"
+          }
+        ],
+        "reason": "此 diff 僅修正 RES* 推導函式的輸出截取方式（[16:] 改為 [:16]），完全未實作 K_AUSF 推導函式，缺少 FC=0x6A、P1=SQN xor AK 及 256-bit 完整輸出等所有核心細節。"
+      },
+      {
+        "requirement": "REQ-003",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45"
+          }
+        ],
+        "reason": "TS 33.501 A.4 要求取輸出的 128 least significant bits，即 32-byte HMAC-SHA-256 結果的後 16 bytes（[16:]）。diff 卻將其改為 [:16]，取的是最高有效 128 bits，實作方向錯誤。"
+      },
+      {
+        "requirement": "REQ-004",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45"
+          }
+        ],
+        "reason": "diff 修改的函式使用 KDF（ck+ik 為金鑰）而非 SHA-256(RAND || RES*)，並非 HRES* 的推導邏輯；且 [:16] 取的是最高有效 128 bits，與需求要求的「128 least significant bits」相反。"
+      },
+      {
+        "requirement": "REQ-005",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45"
+          }
+        ],
+        "reason": "此 diff 修改的是 RES* 推導函式（使用 FC_RES_STAR 與 ck+ik），完全未實作 K_SEAF 所需的 KDF(K_AUSF, FC=0x6C, P0=serving_network_name) 邏輯，亦無輸出完整 256-bit K_SEAF 的程式碼。"
+      },
+      {
+        "requirement": "REQ-006",
+        "status": "missing",
+        "evidence": [
+          {
+            "file": "crypto/kdf.py",
+            "lines": "45"
+          }
+        ],
+        "reason": "Diff 僅修正了回傳值的切片索引（[16:] → [:16]），與需求要求的「以 UTF-8 將字串參數編碼為位元組」完全無關。Diff 中找不到任何 UTF-8 編碼的實作或修改。"
+      }
+    ],
+    "warnings": []
+  }
+}

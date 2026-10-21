@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "id": "V19",
+    "kind": "violation",
+    "files": [
+      "seaf/seaf.py"
+    ],
+    "summary": "SEAF 計算 HRES* 時 RAND 與 RES* 的順序對調",
+    "target_req": "REQ-038",
+    "expected": "應指出 REQ-038:HRES* 必須用與 HXRES* 相同的函式(RAND || RES*),diff 把參數順序對調。",
+    "upstream_tests_failed": 122,
+    "upstream_failing_test_files": [
+      "tests/test_cli_web.py",
+      "tests/test_negative.py",
+      "tests/test_roundtrip.py"
+    ],
+    "source_commit": "4f8f2b6"
+  },
+  "result": {
+    "id": "V19",
+    "kind": "violation",
+    "n_flags": 0,
+    "flagged": [],
+    "llm_failures": 0,
+    "target_status": "covered",
+    "target_missing_no_evidence": false,
+    "extra_flags": 0,
+    "class": "miss",
+    "seconds": 24.8
+  },
+  "report": {
+    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V19-hres-arg-swap/spec.md",
+    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V19-hres-arg-swap/change.diff",
+    "findings": [
+      {
+        "requirement": "REQ-038",
+        "status": "covered",
+        "evidence": [
+          {
+            "file": "seaf/seaf.py",
+            "lines": "12-15"
+          }
+        ],
+        "reason": "Diff 修正了 derive_hres_star 的參數順序（由原本的 rand, res_star 改為 res_star, rand），並完整實作了 HRES* 的計算、與 HXRES* 的比對，以及不符時拋出例外以拒絕認證，符合 REQ-038 的所有要求。"
+      }
+    ],
+    "warnings": []
+  }
+}
