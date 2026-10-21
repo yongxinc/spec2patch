@@ -7,6 +7,7 @@
   "summary": "HXRES* 取 SHA-256 輸出的前 128 bits 而非後 128 bits",
   "target_req": "REQ-004",
   "expected": "應指出 REQ-004:H(X)RES* 是 SHA-256 的 128 least significant bits,diff 改取 [:16]。",
+  "needs_context": false,
   "upstream_tests_failed": 11,
   "upstream_failing_test_files": [
     "tests/test_kdf_vectors.py"

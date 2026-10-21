@@ -7,6 +7,7 @@
   "summary": "移除 ME 對 AMF separation bit 的檢查",
   "target_req": "REQ-034",
   "expected": "應指出 REQ-034:ME 必須檢查 AMF separation bit 為 1,diff 移除了這段檢查。",
+  "needs_context": false,
   "upstream_tests_failed": 1,
   "upstream_failing_test_files": [
     "tests/test_negative.py"

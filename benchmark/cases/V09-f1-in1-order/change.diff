@@ -1,7 +1,7 @@
 diff --git a/crypto/milenage.py b/crypto/milenage.py
 --- a/crypto/milenage.py
 +++ b/crypto/milenage.py
-@@ -75,7 +75,7 @@
+@@ -75,7 +75,7 @@ def f1_f1star(k: bytes, opc: bytes, rand: bytes, sqn: bytes, amf: bytes) -> tupl
      _check("SQN", sqn, 6)
      _check("AMF", amf, 2)
      temp = _temp(k, opc, rand)

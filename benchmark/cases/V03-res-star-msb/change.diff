@@ -1,7 +1,7 @@
 diff --git a/crypto/kdf.py b/crypto/kdf.py
 --- a/crypto/kdf.py
 +++ b/crypto/kdf.py
-@@ -42,7 +42,7 @@
+@@ -42,7 +42,7 @@ def derive_res_star(ck: bytes, ik: bytes, serving_network_name: str, rand: bytes
          raise ValueError("RAND must be 16 octets")
      if not 4 <= len(res) <= 16:
          raise ValueError("RES must be 4 to 16 octets")

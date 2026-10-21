@@ -1,7 +1,7 @@
 diff --git a/udm/arpf.py b/udm/arpf.py
 --- a/udm/arpf.py
 +++ b/udm/arpf.py
-@@ -8,6 +8,10 @@
+@@ -8,6 +8,10 @@ from dataclasses import dataclass
  from crypto import kdf, milenage
  from errors import AutsMacFailure
  from formats.autn import AMF_RESYNC, build_autn, separation_bit
@@ -12,7 +12,7 @@ diff --git a/udm/arpf.py b/udm/arpf.py
  
  
  @dataclass(frozen=True)
-@@ -37,7 +41,7 @@
+@@ -37,7 +41,7 @@ def generate_he_av(k: bytes, opc: bytes, sqn: int, amf: bytes, serving_network_n
          rand = os.urandom(16)
      sqn_bytes = sqn.to_bytes(6, "big")
      out = milenage.milenage(k, opc, rand, sqn_bytes, amf)
@@ -21,7 +21,7 @@ diff --git a/udm/arpf.py b/udm/arpf.py
      autn = build_autn(sqn_xor_ak, amf, out.mac_a)
      xres_star = kdf.derive_res_star(out.ck, out.ik, serving_network_name, rand, out.res)
      kausf = kdf.derive_kausf(out.ck, out.ik, serving_network_name, sqn_xor_ak)
-@@ -60,7 +64,7 @@
+@@ -60,7 +64,7 @@ def resynchronise(k: bytes, opc: bytes, rand: bytes, auts: bytes) -> ResyncResul
      if len(auts) != 14:
          raise ValueError("AUTS must be 14 octets")
      ak_star = milenage.f5star(k, opc, rand)

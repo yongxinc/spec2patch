@@ -7,6 +7,7 @@
   "summary": "Serving Network Name 的 MNC 不再補零到三位",
   "target_req": "REQ-007",
   "expected": "應指出 REQ-007:MNC 必須補零成三位,diff 移除了 zfill(3)。",
+  "needs_context": false,
   "upstream_tests_failed": 1,
   "upstream_failing_test_files": [
     "tests/test_formats.py"

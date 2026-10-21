@@ -7,6 +7,7 @@
   "summary": "ECIES 金鑰切分時 EK 與 ICB 對調",
   "target_req": "REQ-015",
   "expected": "應指出 REQ-015:EK 是最左 128 bits、ICB 是中間 128 bits,diff 把兩者對調。",
+  "needs_context": false,
   "upstream_tests_failed": 12,
   "upstream_failing_test_files": [
     "tests/test_cli_web.py",

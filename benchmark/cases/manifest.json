@@ -8,6 +8,7 @@
     "summary": "RES* 推導的 FC 值由 0x6B 改成 0x6A(K_AUSF 的 FC)",
     "target_req": "REQ-003",
     "expected": "應指出 REQ-003:RES*/XRES* 的 FC 必須是 0x6B,diff 把它改成 0x6A。",
+    "needs_context": false,
     "upstream_tests_failed": 13,
     "upstream_failing_test_files": [
       "tests/test_kdf_vectors.py"
@@ -23,6 +24,7 @@
     "summary": "K_SEAF 推導的 FC 值由 0x6C 改成 0x6D(K_AMF 的 FC)",
     "target_req": "REQ-005",
     "expected": "應指出 REQ-005:K_SEAF 的 FC 必須是 0x6C,diff 把它改成 0x6D。",
+    "needs_context": false,
     "upstream_tests_failed": 11,
     "upstream_failing_test_files": [
       "tests/test_kdf_vectors.py"
@@ -38,6 +40,7 @@
     "summary": "RES* 取 KDF 輸出的前 128 bits(最高位)而非後 128 bits(最低位)",
     "target_req": "REQ-003",
     "expected": "應指出 REQ-003:(X)RES* 是輸出的 128 least significant bits,diff 改取 [:16]。",
+    "needs_context": false,
     "upstream_tests_failed": 13,
     "upstream_failing_test_files": [
       "tests/test_kdf_vectors.py"
@@ -53,6 +56,7 @@
     "summary": "HXRES* 取 SHA-256 輸出的前 128 bits 而非後 128 bits",
     "target_req": "REQ-004",
     "expected": "應指出 REQ-004:H(X)RES* 是 SHA-256 的 128 least significant bits,diff 改取 [:16]。",
+    "needs_context": false,
     "upstream_tests_failed": 11,
     "upstream_failing_test_files": [
       "tests/test_kdf_vectors.py"
@@ -68,6 +72,7 @@
     "summary": "K_AUSF 推導的參數順序對調(P0=SQN xor AK, P1=SNN)",
     "target_req": "REQ-002",
     "expected": "應指出 REQ-002:P0 必須是 SNN、P1 必須是 SQN xor AK,diff 把順序對調。",
+    "needs_context": false,
     "upstream_tests_failed": 12,
     "upstream_failing_test_files": [
       "tests/test_kdf_vectors.py"
@@ -83,6 +88,7 @@
     "summary": "Serving Network Name 的 MNC 不再補零到三位",
     "target_req": "REQ-007",
     "expected": "應指出 REQ-007:MNC 必須補零成三位,diff 移除了 zfill(3)。",
+    "needs_context": false,
     "upstream_tests_failed": 1,
     "upstream_failing_test_files": [
       "tests/test_formats.py"
@@ -98,6 +104,7 @@
     "summary": "MILENAGE 旋轉常數 r3 由 32 改成 64",
     "target_req": "REQ-009",
     "expected": "應指出 REQ-009:r3 必須是 32 bits,diff 改成 64。",
+    "needs_context": false,
     "upstream_tests_failed": 34,
     "upstream_failing_test_files": [
       "tests/test_cli_web.py",
@@ -115,6 +122,7 @@
     "summary": "OPc 推導漏掉與 OP 的 XOR,直接回傳 E[OP]K",
     "target_req": "REQ-008",
     "expected": "應指出 REQ-008:OPc = OP xor E[OP]K,diff 只回傳 E[OP]K。",
+    "needs_context": false,
     "upstream_tests_failed": 21,
     "upstream_failing_test_files": [
       "tests/test_milenage_vectors.py"
@@ -130,6 +138,7 @@
     "summary": "f1 的 IN1 組成由 SQN||AMF||SQN||AMF 改成 AMF||SQN||AMF||SQN",
     "target_req": "REQ-010",
     "expected": "應指出 REQ-010:IN1 = SQN || AMF || SQN || AMF,diff 把 SQN 與 AMF 順序對調。",
+    "needs_context": false,
     "upstream_tests_failed": 34,
     "upstream_failing_test_files": [
       "tests/test_cli_web.py",
@@ -147,6 +156,7 @@
     "summary": "f3/f4 輸出對調:CK 取 OUT4、IK 取 OUT3",
     "target_req": "REQ-011",
     "expected": "應指出 REQ-011:CK = OUT3、IK = OUT4,diff 把兩者對調。",
+    "needs_context": false,
     "upstream_tests_failed": 34,
     "upstream_failing_test_files": [
       "tests/test_cli_web.py",
@@ -164,6 +174,7 @@
     "summary": "Profile B 的臨時公鑰不做點壓縮(compressed=False)",
     "target_req": "REQ-013",
     "expected": "應指出 REQ-013:Profile B 的臨時公鑰必須是壓縮點(33 octets),diff 改成 compressed=False。",
+    "needs_context": false,
     "upstream_tests_failed": 83,
     "upstream_failing_test_files": [
       "tests/test_roundtrip.py",
@@ -180,6 +191,7 @@
     "summary": "ECIES MAC tag 取 HMAC 輸出的最右 8 octets 而非最左 8 octets",
     "target_req": "REQ-017",
     "expected": "應指出 REQ-017:MAC tag 是 HMAC-SHA-256 最左 64 bits,diff 改取 [-MAC_LEN:]。",
+    "needs_context": false,
     "upstream_tests_failed": 12,
     "upstream_failing_test_files": [
       "tests/test_cli_web.py",
@@ -197,6 +209,7 @@
     "summary": "ECIES 金鑰切分時 EK 與 ICB 對調",
     "target_req": "REQ-015",
     "expected": "應指出 REQ-015:EK 是最左 128 bits、ICB 是中間 128 bits,diff 把兩者對調。",
+    "needs_context": false,
     "upstream_tests_failed": 12,
     "upstream_failing_test_files": [
       "tests/test_cli_web.py",
@@ -214,6 +227,7 @@
     "summary": "SUCI 解封裝先解密、後驗證 MAC(驗證順序顛倒;結果仍會拒絕,但違反先驗後解)",
     "target_req": "REQ-019",
     "expected": "應指出 REQ-019:必須先驗證 MAC 再解密,diff 把解密移到 MAC 驗證之前。",
+    "needs_context": false,
     "upstream_tests_failed": 4,
     "upstream_failing_test_files": [
       "tests/test_negative.py"
@@ -229,6 +243,7 @@
     "summary": "UE 先檢查 SQN 再驗證 AUTN 的 MAC(順序顛倒)",
     "target_req": "REQ-033",
     "expected": "應指出 REQ-033:必須先驗 AUTN MAC 再檢查 SQN,diff 把 SQN 檢查移到 MAC 檢查之前。",
+    "needs_context": false,
     "upstream_tests_failed": 0,
     "upstream_failing_test_files": [],
     "source_commit": "4f8f2b6"
@@ -242,6 +257,7 @@
     "summary": "移除 UE 的 SQN 範圍(新鮮度)檢查",
     "target_req": "REQ-032",
     "expected": "應指出 REQ-032:UE 必須檢查 SQN 在 (SQN_MS, SQN_MS+DELTA] 內,diff 移除了這段檢查。",
+    "needs_context": false,
     "upstream_tests_failed": 5,
     "upstream_failing_test_files": [
       "tests/test_negative.py"
@@ -257,6 +273,7 @@
     "summary": "移除 ME 對 AMF separation bit 的檢查",
     "target_req": "REQ-034",
     "expected": "應指出 REQ-034:ME 必須檢查 AMF separation bit 為 1,diff 移除了這段檢查。",
+    "needs_context": false,
     "upstream_tests_failed": 1,
     "upstream_failing_test_files": [
       "tests/test_negative.py"
@@ -272,6 +289,7 @@
     "summary": "AUSF 比對 RES* 與 XRES* 時只比對前 8 octets",
     "target_req": "REQ-037",
     "expected": "應指出 REQ-037:必須比對 RES* 與 XRES* 的完整長度,diff 只比對前 8 octets。",
+    "needs_context": false,
     "upstream_tests_failed": 1,
     "upstream_failing_test_files": [
       "tests/test_negative.py"
@@ -287,6 +305,7 @@
     "summary": "SEAF 計算 HRES* 時 RAND 與 RES* 的順序對調",
     "target_req": "REQ-038",
     "expected": "應指出 REQ-038:HRES* 必須用與 HXRES* 相同的函式(RAND || RES*),diff 把參數順序對調。",
+    "needs_context": true,
     "upstream_tests_failed": 122,
     "upstream_failing_test_files": [
       "tests/test_cli_web.py",
@@ -304,6 +323,7 @@
     "summary": "重同步時移除 MAC-S 驗證",
     "target_req": "REQ-030",
     "expected": "應指出 REQ-030:重同步必須驗證 AUTS 的 MAC-S,diff 移除了比對與拒絕。",
+    "needs_context": false,
     "upstream_tests_failed": 1,
     "upstream_failing_test_files": [
       "tests/test_negative.py"
@@ -319,6 +339,7 @@
     "summary": "把私有函式 _snn 改名為 _encode_snn(純改名)",
     "target_req": null,
     "expected": null,
+    "needs_context": false,
     "upstream_tests_failed": 0,
     "upstream_failing_test_files": [],
     "source_commit": "4f8f2b6"
@@ -332,6 +353,7 @@
     "summary": "在 authenticate 內加兩行說明註解(純註解)",
     "target_req": null,
     "expected": null,
+    "needs_context": false,
     "upstream_tests_failed": 0,
     "upstream_failing_test_files": [],
     "source_commit": "4f8f2b6"
@@ -345,6 +367,7 @@
     "summary": "把區域變數 hres_star 改名為 computed_hres_star(純改名)",
     "target_req": null,
     "expected": null,
+    "needs_context": false,
     "upstream_tests_failed": 0,
     "upstream_failing_test_files": [],
     "source_commit": "4f8f2b6"
@@ -358,6 +381,7 @@
     "summary": "把兩處 bytes(a ^ b ...) 抽成 _xor 輔助函式(重構,行為不變)",
     "target_req": null,
     "expected": null,
+    "needs_context": false,
     "upstream_tests_failed": 0,
     "upstream_failing_test_files": [],
     "source_commit": "4f8f2b6"
@@ -371,6 +395,7 @@
     "summary": "把 SNN 字串拆成 network_id 與前綴兩步組合(重構,行為不變)",
     "target_req": null,
     "expected": null,
+    "needs_context": false,
     "upstream_tests_failed": 0,
     "upstream_failing_test_files": [],
     "source_commit": "4f8f2b6"

@@ -1,11 +1,11 @@
-"""LangGraph 流程:load_spec → load_diff → analyze → report。無任何寫入動作。"""
+"""LangGraph 流程:load_spec → load_diff → scope → analyze → report。無任何寫入動作。"""
 import json
 from typing import TypedDict
 
 from langgraph.graph import END, START, StateGraph
 from pydantic import ValidationError
 
-from . import llm, tools
+from . import llm, scope as scope_mod, tools
 from .prompts import EXTRA_SYSTEM, REQ_SYSTEM, extra_prompt, req_prompt
 from .schema import Finding, Report
 
@@ -15,6 +15,7 @@ class State(TypedDict, total=False):
     diff_path: str
     requirements: list[dict]
     diff_files: list[dict]
+    scope: dict
     raw_findings: list[dict]
     warnings: list[str]
     report: Report
@@ -50,32 +51,56 @@ def _json_call(system: str, user: str) -> dict:
     raise RuntimeError(f"{type(last).__name__}: {last}")
 
 
+VERDICT_STATUS = {"violates": "violated", "satisfies": "covered", "insufficient_context": "insufficient_context"}
+
+
+def scope_node(state: State) -> State:
+    """機械式範圍限縮:哪些需求被這份 diff 碰到。沒碰到的直接 not_applicable,不問 LLM。"""
+    sc = scope_mod.scope(state["requirements"], state["diff_files"])
+    return {"scope": sc}
+
+
 def analyze(state: State) -> State:
-    """每條需求一次呼叫(小模型一次判斷多條容易混淆),再一次找規格外改動。"""
+    """只對被碰到的需求問 LLM(違反或滿足?);沒有錨點的需求無法判斷範圍,一律詢問。"""
     warnings = list(state.get("warnings", []))
     raw: list[dict] = []
     if not state["requirements"] or not state["diff_files"]:
         return {"raw_findings": raw, "warnings": warnings}
+    sc = state["scope"]
     view = tools.render_diff(state["diff_files"])
     for r in state["requirements"]:
+        rid = r["id"]
+        if sc["scoped"][rid] and not sc["touched"][rid]:
+            raw.append({"requirement": rid, "status": "not_applicable",
+                        "reason": "diff 沒有碰到此需求的程式碼(檔案、符號、行號皆未交集),未送入 LLM 判斷。"})
+            continue
         try:
             d = _json_call(REQ_SYSTEM, req_prompt(r, view))
             checks = d.get("checks")
             reason = d.get("reason") or (
                 "; ".join(map(str, checks)) if isinstance(checks, list) else "")
-            raw.append({"requirement": r["id"], "status": d.get("status"),
-                        "evidence": d.get("evidence") or [], "reason": reason})
+            raw.append({"requirement": rid, "status": VERDICT_STATUS.get(str(d.get("verdict")).strip().lower()),
+                        "evidence": d.get("evidence") or [], "reason": reason, "needs": d.get("needs") or ""})
         except RuntimeError as e:
-            warnings.append(f"{r['id']} 判斷失敗:{e}")
-    try:
-        d = _json_call(EXTRA_SYSTEM, extra_prompt(state["requirements"], view))
-        for x in d.get("extras") or []:
-            if isinstance(x, dict):
-                raw.append({"requirement": "-", "status": "unrelated",
-                            "evidence": [{"file": x.get("file", ""), "lines": x.get("lines", "")}],
-                            "reason": x.get("reason", "")})
-    except RuntimeError as e:
-        warnings.append(f"規格外改動判斷失敗:{e}")
+            warnings.append(f"{rid} 判斷失敗:{e}")
+    if all(sc["scoped"].values()):
+        # 每條需求都有錨點:沒歸屬到任何需求的變更就是「與需求無關」,不需要 LLM
+        for u in sc["unattributed"]:
+            nums = [c["new"] if c["sign"] == "+" else c["old"] for c in u["changes"]]
+            side = "new" if any(c["sign"] == "+" for c in u["changes"]) else "old"
+            raw.append({"requirement": "-", "status": "unrelated",
+                        "evidence": [{"file": u["file"], "lines": f"{min(nums)}-{max(nums)}", "side": side}],
+                        "reason": "這段改動未落在任何需求的程式碼錨點內。"})
+    else:
+        try:
+            d = _json_call(EXTRA_SYSTEM, extra_prompt(state["requirements"], view))
+            for x in d.get("extras") or []:
+                if isinstance(x, dict):
+                    raw.append({"requirement": "-", "status": "unrelated",
+                                "evidence": [{"file": x.get("file", ""), "lines": x.get("lines", "")}],
+                                "reason": x.get("reason", "")})
+        except RuntimeError as e:
+            warnings.append(f"規格外改動判斷失敗:{e}")
     return {"raw_findings": raw, "warnings": warnings}
 
 
@@ -105,8 +130,9 @@ def report(state: State) -> State:
     for r in state["requirements"]:
         if r["id"] not in seen:
             findings.append(Finding(
-                requirement=r["id"], status="missing",
-                reason="LLM 未回覆此條需求,保守標為 missing(未經判斷)。",
+                requirement=r["id"], status="insufficient_context",
+                needs="模型未給出有效判定(呼叫失敗或格式無效),未經判斷。",
+                reason="LLM 未回覆此條需求,不猜測。",
             ))
             if state.get("raw_findings"):
                 warnings.append(f"LLM 漏回 {r['id']}")
@@ -118,12 +144,13 @@ def report(state: State) -> State:
 
 def build_graph():
     g = StateGraph(State)
-    for name, fn in [("load_spec", load_spec), ("load_diff", load_diff),
+    for name, fn in [("load_spec", load_spec), ("load_diff", load_diff), ("scope", scope_node),
                      ("analyze", analyze), ("report", report)]:
         g.add_node(name, fn)
     g.add_edge(START, "load_spec")
     g.add_edge("load_spec", "load_diff")
-    g.add_edge("load_diff", "analyze")
+    g.add_edge("load_diff", "scope")
+    g.add_edge("scope", "analyze")
     g.add_edge("analyze", "report")
     g.add_edge("report", END)
     return g.compile()

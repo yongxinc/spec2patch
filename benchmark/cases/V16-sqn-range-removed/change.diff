@@ -1,7 +1,7 @@
 diff --git a/ue/auth.py b/ue/auth.py
 --- a/ue/auth.py
 +++ b/ue/auth.py
-@@ -59,10 +59,6 @@
+@@ -59,10 +59,6 @@ def authenticate(k: bytes, opc: bytes, rand: bytes, autn: bytes,
          raise AutnMacFailure(f"XMAC {out.mac_a.hex()} != MAC {mac.hex()}")
  
      sqn = int.from_bytes(sqn_bytes, "big")

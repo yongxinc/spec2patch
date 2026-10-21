@@ -7,6 +7,7 @@
   "summary": "K_AUSF 推導的參數順序對調(P0=SQN xor AK, P1=SNN)",
   "target_req": "REQ-002",
   "expected": "應指出 REQ-002:P0 必須是 SNN、P1 必須是 SQN xor AK,diff 把順序對調。",
+  "needs_context": false,
   "upstream_tests_failed": 12,
   "upstream_failing_test_files": [
     "tests/test_kdf_vectors.py"

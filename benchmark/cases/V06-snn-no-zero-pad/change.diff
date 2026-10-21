@@ -1,7 +1,7 @@
 diff --git a/formats/snn.py b/formats/snn.py
 --- a/formats/snn.py
 +++ b/formats/snn.py
-@@ -12,4 +12,4 @@
+@@ -12,4 +12,4 @@ def serving_network_name(mcc: str, mnc: str) -> str:
          raise ValueError("MCC must be 3 digits")
      if not (mnc.isdigit() and len(mnc) in (2, 3)):
          raise ValueError("MNC must be 2 or 3 digits")

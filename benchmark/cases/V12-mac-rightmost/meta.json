@@ -7,6 +7,7 @@
   "summary": "ECIES MAC tag 取 HMAC 輸出的最右 8 octets 而非最左 8 octets",
   "target_req": "REQ-017",
   "expected": "應指出 REQ-017:MAC tag 是 HMAC-SHA-256 最左 64 bits,diff 改取 [-MAC_LEN:]。",
+  "needs_context": false,
   "upstream_tests_failed": 12,
   "upstream_failing_test_files": [
     "tests/test_cli_web.py",

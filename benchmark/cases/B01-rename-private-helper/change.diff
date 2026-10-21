@@ -1,7 +1,7 @@
 diff --git a/crypto/kdf.py b/crypto/kdf.py
 --- a/crypto/kdf.py
 +++ b/crypto/kdf.py
-@@ -24,7 +24,7 @@
+@@ -24,7 +24,7 @@ def kdf(key: bytes, fc: int, *params: bytes) -> bytes:
      return hmac.new(key, s, hashlib.sha256).digest()
  
  
@@ -10,7 +10,7 @@ diff --git a/crypto/kdf.py b/crypto/kdf.py
      # TS 33.220 B.2.1.2: character strings are encoded to octets with UTF-8.
      return serving_network_name.encode("utf-8")
  
-@@ -33,7 +33,7 @@
+@@ -33,7 +33,7 @@ def derive_kausf(ck: bytes, ik: bytes, serving_network_name: str, sqn_xor_ak: by
      """TS 33.501 A.2. KEY = CK || IK, P0 = SNN, P1 = SQN xor AK."""
      if len(sqn_xor_ak) != 6:
          raise ValueError("SQN xor AK must be 6 octets")
@@ -19,7 +19,7 @@ diff --git a/crypto/kdf.py b/crypto/kdf.py
  
  
  def derive_res_star(ck: bytes, ik: bytes, serving_network_name: str, rand: bytes, res: bytes) -> bytes:
-@@ -42,7 +42,7 @@
+@@ -42,7 +42,7 @@ def derive_res_star(ck: bytes, ik: bytes, serving_network_name: str, rand: bytes
          raise ValueError("RAND must be 16 octets")
      if not 4 <= len(res) <= 16:
          raise ValueError("RES must be 4 to 16 octets")
@@ -28,7 +28,7 @@ diff --git a/crypto/kdf.py b/crypto/kdf.py
  
  
  def derive_hres_star(rand: bytes, res_star: bytes) -> bytes:
-@@ -52,4 +52,4 @@
+@@ -52,4 +52,4 @@ def derive_hres_star(rand: bytes, res_star: bytes) -> bytes:
  
  def derive_kseaf(kausf: bytes, serving_network_name: str) -> bytes:
      """TS 33.501 A.6. KEY = K_AUSF, P0 = SNN."""

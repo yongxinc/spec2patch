@@ -7,6 +7,7 @@
   "summary": "在 authenticate 內加兩行說明註解(純註解)",
   "target_req": null,
   "expected": null,
+  "needs_context": false,
   "upstream_tests_failed": 0,
   "upstream_failing_test_files": [],
   "source_commit": "4f8f2b6"

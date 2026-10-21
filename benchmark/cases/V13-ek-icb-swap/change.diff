@@ -1,7 +1,7 @@
 diff --git a/crypto/ecies.py b/crypto/ecies.py
 --- a/crypto/ecies.py
 +++ b/crypto/ecies.py
-@@ -105,7 +105,7 @@
+@@ -105,7 +105,7 @@ def _derive_keys(shared_key: bytes, eph_public_key: bytes) -> tuple[bytes, bytes
          length=ENC_KEY_LEN + ICB_LEN + MAC_KEY_LEN,
          sharedinfo=eph_public_key,
      ).derive(shared_key)

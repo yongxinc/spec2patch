@@ -1,7 +1,7 @@
 diff --git a/crypto/kdf.py b/crypto/kdf.py
 --- a/crypto/kdf.py
 +++ b/crypto/kdf.py
-@@ -7,7 +7,7 @@
+@@ -7,7 +7,7 @@ import hashlib
  import hmac
  
  FC_KAUSF = 0x6A          # TS 33.501 A.2

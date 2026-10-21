@@ -1,7 +1,7 @@
 diff --git a/seaf/seaf.py b/seaf/seaf.py
 --- a/seaf/seaf.py
 +++ b/seaf/seaf.py
-@@ -9,7 +9,7 @@
+@@ -9,7 +9,7 @@ from errors import ResStarMismatch
  
  def verify_res_star(rand: bytes, res_star: bytes, hxres_star: bytes) -> bytes:
      """Returns HRES*. Raises if HRES* != HXRES*."""

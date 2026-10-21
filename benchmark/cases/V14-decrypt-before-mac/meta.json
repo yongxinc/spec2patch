@@ -7,6 +7,7 @@
   "summary": "SUCI 解封裝先解密、後驗證 MAC(驗證順序顛倒;結果仍會拒絕,但違反先驗後解)",
   "target_req": "REQ-019",
   "expected": "應指出 REQ-019:必須先驗證 MAC 再解密,diff 把解密移到 MAC 驗證之前。",
+  "needs_context": false,
   "upstream_tests_failed": 4,
   "upstream_failing_test_files": [
     "tests/test_negative.py"

@@ -7,6 +7,7 @@
   "summary": "SEAF 計算 HRES* 時 RAND 與 RES* 的順序對調",
   "target_req": "REQ-038",
   "expected": "應指出 REQ-038:HRES* 必須用與 HXRES* 相同的函式(RAND || RES*),diff 把參數順序對調。",
+  "needs_context": true,
   "upstream_tests_failed": 122,
   "upstream_failing_test_files": [
     "tests/test_cli_web.py",

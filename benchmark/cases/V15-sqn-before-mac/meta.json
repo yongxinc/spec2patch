@@ -7,6 +7,7 @@
   "summary": "UE 先檢查 SQN 再驗證 AUTN 的 MAC(順序顛倒)",
   "target_req": "REQ-033",
   "expected": "應指出 REQ-033:必須先驗 AUTN MAC 再檢查 SQN,diff 把 SQN 檢查移到 MAC 檢查之前。",
+  "needs_context": false,
   "upstream_tests_failed": 0,
   "upstream_failing_test_files": [],
   "source_commit": "4f8f2b6"

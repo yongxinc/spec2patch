@@ -1,7 +1,7 @@
 diff --git a/ue/auth.py b/ue/auth.py
 --- a/ue/auth.py
 +++ b/ue/auth.py
-@@ -58,6 +58,7 @@
+@@ -58,6 +58,7 @@ def authenticate(k: bytes, opc: bytes, rand: bytes, autn: bytes,
      if out.mac_a != mac:
          raise AutnMacFailure(f"XMAC {out.mac_a.hex()} != MAC {mac.hex()}")
  
@@ -9,7 +9,7 @@ diff --git a/ue/auth.py b/ue/auth.py
      sqn = int.from_bytes(sqn_bytes, "big")
      if not (sqn_ms < sqn <= sqn_ms + delta):
          raise SynchronisationFailure(
-@@ -67,6 +68,7 @@
+@@ -67,6 +68,7 @@ def authenticate(k: bytes, opc: bytes, rand: bytes, autn: bytes,
      if separation_bit(amf) != 1:
          raise AmfSeparationBitNotSet(f"AMF {amf.hex()} has separation bit 0")
  

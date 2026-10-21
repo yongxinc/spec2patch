@@ -1,7 +1,7 @@
 diff --git a/udm/arpf.py b/udm/arpf.py
 --- a/udm/arpf.py
 +++ b/udm/arpf.py
-@@ -62,6 +62,4 @@
+@@ -62,6 +62,4 @@ def resynchronise(k: bytes, opc: bytes, rand: bytes, auts: bytes) -> ResyncResul
      ak_star = milenage.f5star(k, opc, rand)
      sqn_ms_bytes = bytes(a ^ b for a, b in zip(auts[:6], ak_star))
      _, xmac_s = milenage.f1_f1star(k, opc, rand, sqn_ms_bytes, AMF_RESYNC)

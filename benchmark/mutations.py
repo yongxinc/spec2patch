@@ -4,6 +4,9 @@ V01-V20: each breaks exactly one rule of the specification (`target` = the REQ i
 requirements/ts33501-subset.md that it violates).
 B01-B05: behaviour-preserving edits (rename, comment, refactor); no finding is expected.
 
+`needs_context=True` marks a case whose verdict cannot be reached from the diff alone (V19: the
+parameter order of `derive_hres_star` is not visible in the diff).
+
 `edits` is a list of (old, new, count): `old` must occur exactly `count` times in the file.
 """
 
@@ -124,7 +127,7 @@ VIOLATIONS = [
          summary="AUSF 比對 RES* 與 XRES* 時只比對前 8 octets",
          expected="應指出 REQ-037:必須比對 RES* 與 XRES* 的完整長度,diff 只比對前 8 octets。",
          edits=[("if res_star != context.xres_star:", "if res_star[:8] != context.xres_star[:8]:", 1)]),
-    dict(id="V19", slug="hres-arg-swap", file="seaf/seaf.py", target="REQ-038",
+    dict(id="V19", slug="hres-arg-swap", file="seaf/seaf.py", target="REQ-038", needs_context=True,
          summary="SEAF 計算 HRES* 時 RAND 與 RES* 的順序對調",
          expected="應指出 REQ-038:HRES* 必須用與 HXRES* 相同的函式(RAND || RES*),diff 把參數順序對調。",
          edits=[("hres_star = kdf.derive_hres_star(rand, res_star)", "hres_star = kdf.derive_hres_star(res_star, rand)", 1)]),

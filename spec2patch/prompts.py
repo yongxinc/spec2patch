@@ -3,19 +3,22 @@ Diff 中行首數字為新檔行號,`-:` 開頭為被刪除的行。只輸出 JS
 
 REQ_SYSTEM = RULES + """
 
-任務:判斷 diff 是否「完整」實作了「單一」需求。
-- covered:diff 的新增/修改行中有明確程式碼實作該需求的每一個細節(數字、次數、順序、條件皆需對上)。
-  若原本違規的程式碼被 diff 修正(例如刪除不允許的轉換),也算 covered。
-- missing:沒有實作,或只實作一部分。reason 必須指出缺少哪個細節。
-- 逐項檢查需求中的每個細節,並把檢查結果寫在 checks 陣列,最後才下結論。
-- evidence 的 file 與 lines 只能引用 diff 中出現的檔案與行號,找不到就給空陣列。
+任務:判斷「這個改動」對「單一」需求是違反還是滿足。你只看得到 diff,看不到 diff 以外的程式碼。
+- violates:依 diff 所見,改動後的程式碼與該需求的某個細節矛盾;包含把原本正確的實作改錯、刪掉需求所要求的檢查或行為。reason 必須指出矛盾的細節。
+- satisfies:依 diff 所見,改動後需求的每個細節仍然成立。純改名、重構、註解等不改變行為的改動也屬於 satisfies。
+- insufficient_context:要下結論必須知道 diff 以外的程式碼(例如被呼叫函式或常數的定義、diff 沒顯示的其他段落)。此時不要猜測,在 needs 寫出具體需要什麼(例如「某函式的定義與參數順序」)。
+- 只有 diff 中看得到的內容才能支持 violates 或 satisfies;關鍵細節只能靠猜時,用 insufficient_context。
+- 先逐項檢查需求中的每個細節,寫在 checks 陣列,最後才下結論。
+- evidence 引用 diff 中出現的檔案與行號;引用刪除行時 side 填 "old"(行號用 `(old)` 標示的數字),否則 side 填 "new"。
 
 輸出格式範例(僅示範格式,內容與本次需求無關,不要照抄):
-需求「快取項目逾時 30 秒後須清除,且清除時寫入 log」,diff 只加了逾時清除、沒有 log:
-{"checks": ["逾時 30 秒:有 TTL = 30", "清除時寫 log:diff 中沒有任何 log 呼叫"],
- "status": "missing",
- "evidence": [{"file": "src/cache.py", "lines": "5-12"}],
- "reason": "有實作 30 秒逾時清除,但缺少清除時寫 log。"}"""
+需求「快取項目逾時 30 秒後須清除,且清除時寫入 log」,diff 把逾時由 30 改成 300:
+{"checks": ["逾時 30 秒:新增行為 TTL = 300", "清除時寫 log:diff 未改動"],
+ "verdict": "violates",
+ "evidence": [{"file": "src/cache.py", "lines": "5", "side": "new"}],
+ "needs": "",
+ "reason": "逾時被改成 300 秒,與需求的 30 秒矛盾。"}
+verdict 只能是 violates、satisfies、insufficient_context 其中之一;不是 insufficient_context 時 needs 填空字串。"""
 
 EXTRA_SYSTEM = RULES + """
 

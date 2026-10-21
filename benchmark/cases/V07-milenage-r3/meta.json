@@ -7,6 +7,7 @@
   "summary": "MILENAGE 旋轉常數 r3 由 32 改成 64",
   "target_req": "REQ-009",
   "expected": "應指出 REQ-009:r3 必須是 32 bits,diff 改成 64。",
+  "needs_context": false,
   "upstream_tests_failed": 34,
   "upstream_failing_test_files": [
     "tests/test_cli_web.py",

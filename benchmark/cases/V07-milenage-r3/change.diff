@@ -1,7 +1,7 @@
 diff --git a/crypto/milenage.py b/crypto/milenage.py
 --- a/crypto/milenage.py
 +++ b/crypto/milenage.py
-@@ -14,7 +14,7 @@
+@@ -14,7 +14,7 @@ C2 = bytes(15) + b"\x01"
  C3 = bytes(15) + b"\x02"
  C4 = bytes(15) + b"\x04"
  C5 = bytes(15) + b"\x08"

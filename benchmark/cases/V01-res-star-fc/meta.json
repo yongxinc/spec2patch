@@ -7,6 +7,7 @@
   "summary": "RES* 推導的 FC 值由 0x6B 改成 0x6A(K_AUSF 的 FC)",
   "target_req": "REQ-003",
   "expected": "應指出 REQ-003:RES*/XRES* 的 FC 必須是 0x6B,diff 把它改成 0x6A。",
+  "needs_context": false,
   "upstream_tests_failed": 13,
   "upstream_failing_test_files": [
     "tests/test_kdf_vectors.py"

@@ -7,6 +7,7 @@
   "summary": "f1 的 IN1 組成由 SQN||AMF||SQN||AMF 改成 AMF||SQN||AMF||SQN",
   "target_req": "REQ-010",
   "expected": "應指出 REQ-010:IN1 = SQN || AMF || SQN || AMF,diff 把 SQN 與 AMF 順序對調。",
+  "needs_context": false,
   "upstream_tests_failed": 34,
   "upstream_failing_test_files": [
     "tests/test_cli_web.py",

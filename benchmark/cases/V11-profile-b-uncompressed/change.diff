@@ -1,7 +1,7 @@
 diff --git a/crypto/ecies.py b/crypto/ecies.py
 --- a/crypto/ecies.py
 +++ b/crypto/ecies.py
-@@ -138,7 +138,7 @@
+@@ -138,7 +138,7 @@ def encrypt(profile: Profile, hn_public_key: bytes, plaintext: bytes,
      if eph_private_key is None:
          eph_private_key = generate_private_key(profile)
      # Profile A has no point compression; Profile B always sends the compressed point.

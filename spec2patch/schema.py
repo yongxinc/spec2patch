@@ -3,14 +3,24 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
-# out-of-spec:改動違反規格(與規格矛盾或超出規格允許的範圍)。
-# unrelated:改動與任何一條需求都無關(例如重構、改名、註解);不是違規。
-Status = Literal["covered", "missing", "out-of-spec", "unrelated"]
+# covered:改動後需求仍然成立(滿足)。
+# violated:改動違反這條需求。
+# insufficient_context:要判斷必須看 diff 以外的程式碼;不猜,在 needs 說明需要什麼。
+# not_applicable:diff 沒有碰到這條需求的程式碼(機械式判斷,未送進 LLM)。
+# out-of-spec:改動違反規格但不屬於任何一條需求(目前流程不產生,保留給未來)。
+# unrelated:改動不屬於任何一條需求(例如重構、改名、註解);不是違規。
+Status = Literal["covered", "violated", "insufficient_context", "not_applicable", "out-of-spec", "unrelated"]
 
 
 class Evidence(BaseModel):
     file: str
     lines: str = ""  # 例如 "12-20"
+    side: Literal["new", "old"] = "new"  # 引用刪除行時為 "old",行號是變更前的位置
+
+    @field_validator("side", mode="before")
+    @classmethod
+    def _side(cls, v):
+        return "old" if isinstance(v, str) and v.strip().lower() == "old" else "new"
 
     @field_validator("file", "lines", mode="before")
     @classmethod
@@ -28,6 +38,7 @@ class Finding(BaseModel):
     status: Status
     evidence: list[Evidence] = Field(default_factory=list)
     reason: str = "(LLM 未提供理由)"
+    needs: str = ""  # insufficient_context 時:需要看到什麼才能判斷
 
     @field_validator("reason", mode="before")
     @classmethod

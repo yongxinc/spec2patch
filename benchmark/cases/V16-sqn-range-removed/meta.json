@@ -7,6 +7,7 @@
   "summary": "移除 UE 的 SQN 範圍(新鮮度)檢查",
   "target_req": "REQ-032",
   "expected": "應指出 REQ-032:UE 必須檢查 SQN 在 (SQN_MS, SQN_MS+DELTA] 內,diff 移除了這段檢查。",
+  "needs_context": false,
   "upstream_tests_failed": 5,
   "upstream_failing_test_files": [
     "tests/test_negative.py"

@@ -1,7 +1,7 @@
 diff --git a/crypto/milenage.py b/crypto/milenage.py
 --- a/crypto/milenage.py
 +++ b/crypto/milenage.py
-@@ -94,8 +94,8 @@
+@@ -94,8 +94,8 @@ def milenage(k: bytes, opc: bytes, rand: bytes, sqn: bytes, amf: bytes) -> Milen
          mac_s=mac_s,
          res=out2[8:16],
          ak=out2[0:6],

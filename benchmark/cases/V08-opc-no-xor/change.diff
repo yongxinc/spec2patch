@@ -1,7 +1,7 @@
 diff --git a/crypto/milenage.py b/crypto/milenage.py
 --- a/crypto/milenage.py
 +++ b/crypto/milenage.py
-@@ -43,7 +43,7 @@
+@@ -43,7 +43,7 @@ def compute_opc(k: bytes, op: bytes) -> bytes:
      """OPc = OP xor E[OP]K (TS 35.206 4.1)."""
      _check("K", k, 16)
      _check("OP", op, 16)

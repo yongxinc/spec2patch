@@ -2,6 +2,8 @@
 
 ## REQ-003 佈建重試
 裝置在佈建階段無回應時,系統應重試最多三次,採指數退避（1s / 2s / 4s）。三次皆失敗則將狀態標記為 provision_failed 並寫入錯誤記錄。
+Code: src/provisioning.py::provision
 
 ## REQ-004 狀態轉換限制
 已撤銷（revoked）的裝置不得直接轉為已佈建（provisioned）,須先回到待佈建（pending）。
+Code: src/device_registry.py::ALLOWED_TRANSITIONS, REVOKED, transition

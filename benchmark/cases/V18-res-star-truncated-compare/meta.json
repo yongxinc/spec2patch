@@ -7,6 +7,7 @@
   "summary": "AUSF 比對 RES* 與 XRES* 時只比對前 8 octets",
   "target_req": "REQ-037",
   "expected": "應指出 REQ-037:必須比對 RES* 與 XRES* 的完整長度,diff 只比對前 8 octets。",
+  "needs_context": false,
   "upstream_tests_failed": 1,
   "upstream_failing_test_files": [
     "tests/test_negative.py"

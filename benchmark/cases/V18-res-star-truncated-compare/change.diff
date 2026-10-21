@@ -1,7 +1,7 @@
 diff --git a/ausf/ausf.py b/ausf/ausf.py
 --- a/ausf/ausf.py
 +++ b/ausf/ausf.py
-@@ -33,7 +33,7 @@
+@@ -33,7 +33,7 @@ def prepare(rand: bytes, autn: bytes, xres_star: bytes, kausf: bytes,
  def confirm(context: AusfContext, res_star: bytes) -> bytes:
      """Steps 11-12: compare RES* with the stored XRES*; release K_SEAF only on success."""
      # Not constant time on purpose: side-channel resistance is out of scope (README).

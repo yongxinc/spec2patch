@@ -1,7 +1,7 @@
 diff --git a/crypto/kdf.py b/crypto/kdf.py
 --- a/crypto/kdf.py
 +++ b/crypto/kdf.py
-@@ -33,7 +33,7 @@
+@@ -33,7 +33,7 @@ def derive_kausf(ck: bytes, ik: bytes, serving_network_name: str, sqn_xor_ak: by
      """TS 33.501 A.2. KEY = CK || IK, P0 = SNN, P1 = SQN xor AK."""
      if len(sqn_xor_ak) != 6:
          raise ValueError("SQN xor AK must be 6 octets")

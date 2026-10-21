@@ -1,7 +1,7 @@
 diff --git a/crypto/ecies.py b/crypto/ecies.py
 --- a/crypto/ecies.py
 +++ b/crypto/ecies.py
-@@ -127,7 +127,7 @@
+@@ -127,7 +127,7 @@ def _aes128_ctr(enc_key: bytes, icb: bytes, data: bytes) -> bytes:
  
  def _mac(mac_key: bytes, ciphertext: bytes) -> bytes:
      # C.3.4.0: the MAC tag is the maclen most significant octets of HMAC-SHA-256.

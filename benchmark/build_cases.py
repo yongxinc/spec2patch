@@ -8,6 +8,7 @@ cases/<id>-<slug>/{change.diff, spec.md, meta.json}. Aborts if a benign change b
 """
 import difflib
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -45,13 +46,30 @@ def run_tests(tree: Path) -> tuple[int, list[str]]:
     return n, failed
 
 
+def git_style_diff(path: str, old_text: str, new_text: str) -> str:
+    """unified diff with git's default hunk-header function context (`@@ ... @@ def foo(...)`)."""
+    old_lines = old_text.splitlines(True)
+    out = []
+    for line in difflib.unified_diff(old_lines, new_text.splitlines(True),
+                                     fromfile=f"a/{path}", tofile=f"b/{path}", n=3):
+        m = re.match(r"^@@ -(\d+)(?:,\d+)? \+\d+(?:,\d+)? @@\n$", line)
+        if m:
+            start = int(m.group(1))
+            ctx = next((l.rstrip("\n")[:80] for l in reversed(old_lines[:max(start - 1, 0)])
+                        if re.match(r"[A-Za-z_$]", l)), "")
+            line = line.rstrip("\n") + (f" {ctx}" if ctx else "") + "\n"
+        out.append(line)
+    return f"diff --git a/{path} b/{path}\n" + "".join(out)
+
+
 def scoped_spec(files: list[str], scope: dict) -> str:
     wanted = {r for f in files for r in scope.get(f, [])}
     reqs = tools.list_requirements(REQ_FILE.read_text())
     out = ["# 5G SUCI / 5G-AKA requirements (scoped to the files touched by the change)\n"]
     for r in reqs:
         if r["id"] in wanted:
-            out.append(f"## {r['id']} {r['title']}\n{r['text']}\n")
+            code = "; ".join(f"{a['file']}::{', '.join(a['symbols'])}" for a in r["anchors"])
+            out.append(f"## {r['id']} {r['title']}\n{r['text']}\nCode: {code}\n")
     return "\n".join(out)
 
 
@@ -74,10 +92,7 @@ def main(repo: Path):
             n_fail, failed_files = run_tests(tree)
             if kind == "benign" and n_fail:
                 raise SystemExit(f"{label} is supposed to be harmless but breaks {n_fail} tests")
-            diff = "".join(difflib.unified_diff(
-                old_text.splitlines(True), new_text.splitlines(True),
-                fromfile=f"a/{m['file']}", tofile=f"b/{m['file']}", n=3))
-            diff = f"diff --git a/{m['file']} b/{m['file']}\n" + diff
+            diff = git_style_diff(m["file"], old_text, new_text)
             d = HERE / "cases" / label
             d.mkdir(parents=True, exist_ok=True)
             (d / "change.diff").write_text(diff)
@@ -85,6 +100,7 @@ def main(repo: Path):
             meta = {
                 "id": m["id"], "kind": kind, "files": [m["file"]], "summary": m["summary"],
                 "target_req": m.get("target"), "expected": m.get("expected"),
+                "needs_context": m.get("needs_context", False),
                 "upstream_tests_failed": n_fail, "upstream_failing_test_files": failed_files,
                 "source_commit": SOURCE_COMMIT,
             }
