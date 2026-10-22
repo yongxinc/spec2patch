@@ -86,5 +86,5 @@ python benchmark/eval.py --name baseline-llama3.1-8b          # 預設後端(Oll
 **修正的評分盲點：刪除型違規**
 - 症狀：v1 的 Claude 在 V17（移除 separation bit 檢查）把目標條文判對（missing），但依規則被算成漏報。
 - 原因：被刪掉的程式碼沒有新檔行號。v1 的 diff 片段把刪除行顯示為 `-: -code`，prompt 又要求引用「新檔行號」，所以模型只能給 `evidence: []`；規則要求 evidence 指到被改動的檔案，於是正確的判斷被判成沒指到。規則本身的意圖（判斷必須指向 diff 裡的程式碼）沒有錯，錯在 evidence 的座標系統無法表示「被刪除的程式碼」。
-- 修法：（1） 刪除行改顯示變更前的行號（`65(old): -code`），`Evidence` 新增 `side: new|old`，刪除行用 `old`；（2） 評分規則明文接受 `old` 側 evidence（仍只檢查檔案是否在被改動的檔案內，沒有加嚴）；（3） 單元測試涵蓋「只有舊側 evidence 的刪除型 TP」與「完全沒有 evidence 仍算漏報」。
+- 修法：（1）刪除行改顯示變更前的行號（`65(old): -code`），`Evidence` 新增 `side: new|old`，刪除行用 `old`；（2）評分規則明文接受 `old` 側 evidence（仍只檢查檔案是否在被改動的檔案內，沒有加嚴）；（3）單元測試涵蓋「只有舊側 evidence 的刪除型 TP」與「完全沒有 evidence 仍算漏報」。
 - 沒做的事：v1 的 Claude V17 結果無法重新評分（它的 evidence 是空的），要驗證只能重跑；依指示這次沒有跑 Claude。

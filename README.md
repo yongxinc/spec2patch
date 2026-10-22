@@ -28,7 +28,7 @@ python -m spec2patch demo-provisioning/specs/sprint-retry.md demo-provisioning/d
 SPEC2PATCH_BACKEND=claude-cli SPEC2PATCH_MODEL=sonnet python -m spec2patch <規格> <diff>
 ```
 
-這只是為了比較模型能力，不是正式的後端切換機制；需要本機已安裝並登入 `claude`，且每個 diff 會呼叫 （需求數 + 1） 次。
+這只是為了比較模型能力，不是正式的後端切換機制；需要本機已安裝並登入 `claude`，且每個 diff 會呼叫（需求數 + 1）次。
 測試（不需要 Ollama）：`pytest`。
 
 ## 完整範例
