@@ -41,8 +41,8 @@
     "seconds": 159.5
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B01-rename-private-helper/change.diff",
+    "spec": "benchmark/cases/B01-rename-private-helper/spec.md",
+    "diff": "benchmark/cases/B01-rename-private-helper/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

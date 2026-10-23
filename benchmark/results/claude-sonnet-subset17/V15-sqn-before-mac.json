@@ -38,8 +38,8 @@
     "seconds": 132.3
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V15-sqn-before-mac/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V15-sqn-before-mac/change.diff",
+    "spec": "benchmark/cases/V15-sqn-before-mac/spec.md",
+    "diff": "benchmark/cases/V15-sqn-before-mac/change.diff",
     "findings": [
       {
         "requirement": "REQ-031",

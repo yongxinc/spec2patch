@@ -35,8 +35,8 @@
     "seconds": 10.7
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/requirements/ts33501-subset.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/change.diff",
+    "spec": "benchmark/requirements/ts33501-subset.md",
+    "diff": "benchmark/cases/V02-kseaf-fc/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

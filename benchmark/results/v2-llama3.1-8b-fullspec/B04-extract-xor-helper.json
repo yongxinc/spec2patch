@@ -27,8 +27,8 @@
     "seconds": 27.2
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/requirements/ts33501-subset.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/change.diff",
+    "spec": "benchmark/requirements/ts33501-subset.md",
+    "diff": "benchmark/cases/B04-extract-xor-helper/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

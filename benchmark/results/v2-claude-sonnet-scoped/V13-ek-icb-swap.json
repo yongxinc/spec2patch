@@ -37,8 +37,8 @@
     "seconds": 40.2
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V13-ek-icb-swap/change.diff",
+    "spec": "benchmark/cases/V13-ek-icb-swap/spec.md",
+    "diff": "benchmark/cases/V13-ek-icb-swap/change.diff",
     "findings": [
       {
         "requirement": "REQ-012",

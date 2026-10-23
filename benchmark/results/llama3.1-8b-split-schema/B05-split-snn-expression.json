@@ -24,8 +24,8 @@
     "seconds": 28.7
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/change.diff",
+    "spec": "benchmark/cases/B05-split-snn-expression/spec.md",
+    "diff": "benchmark/cases/B05-split-snn-expression/change.diff",
     "findings": [
       {
         "requirement": "REQ-007",

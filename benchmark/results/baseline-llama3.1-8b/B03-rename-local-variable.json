@@ -29,8 +29,8 @@
     "seconds": 28.5
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B03-rename-local-variable/change.diff",
+    "spec": "benchmark/cases/B03-rename-local-variable/spec.md",
+    "diff": "benchmark/cases/B03-rename-local-variable/change.diff",
     "findings": [
       {
         "requirement": "REQ-038",

@@ -30,8 +30,8 @@
     "seconds": 8.3
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/requirements/ts33501-subset.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V08-opc-no-xor/change.diff",
+    "spec": "benchmark/requirements/ts33501-subset.md",
+    "diff": "benchmark/cases/V08-opc-no-xor/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

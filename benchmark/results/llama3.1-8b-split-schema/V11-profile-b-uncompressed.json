@@ -49,8 +49,8 @@
     "seconds": 87.6
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V11-profile-b-uncompressed/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V11-profile-b-uncompressed/change.diff",
+    "spec": "benchmark/cases/V11-profile-b-uncompressed/spec.md",
+    "diff": "benchmark/cases/V11-profile-b-uncompressed/change.diff",
     "findings": [
       {
         "requirement": "REQ-012",

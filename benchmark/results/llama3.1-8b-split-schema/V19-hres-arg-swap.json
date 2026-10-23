@@ -29,8 +29,8 @@
     "seconds": 18.3
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V19-hres-arg-swap/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V19-hres-arg-swap/change.diff",
+    "spec": "benchmark/cases/V19-hres-arg-swap/spec.md",
+    "diff": "benchmark/cases/V19-hres-arg-swap/change.diff",
     "findings": [
       {
         "requirement": "REQ-038",

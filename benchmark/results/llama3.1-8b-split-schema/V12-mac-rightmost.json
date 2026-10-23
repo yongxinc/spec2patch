@@ -50,8 +50,8 @@
     "seconds": 87.3
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V12-mac-rightmost/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V12-mac-rightmost/change.diff",
+    "spec": "benchmark/cases/V12-mac-rightmost/spec.md",
+    "diff": "benchmark/cases/V12-mac-rightmost/change.diff",
     "findings": [
       {
         "requirement": "REQ-012",

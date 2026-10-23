@@ -48,8 +48,8 @@
     "seconds": 87.6
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V02-kseaf-fc/change.diff",
+    "spec": "benchmark/cases/V02-kseaf-fc/spec.md",
+    "diff": "benchmark/cases/V02-kseaf-fc/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

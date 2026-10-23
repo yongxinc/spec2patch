@@ -32,8 +32,8 @@
     "seconds": 11.8
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/requirements/ts33501-subset.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V07-milenage-r3/change.diff",
+    "spec": "benchmark/requirements/ts33501-subset.md",
+    "diff": "benchmark/cases/V07-milenage-r3/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

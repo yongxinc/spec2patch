@@ -38,8 +38,8 @@
     "seconds": 78.2
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V07-milenage-r3/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V07-milenage-r3/change.diff",
+    "spec": "benchmark/cases/V07-milenage-r3/spec.md",
+    "diff": "benchmark/cases/V07-milenage-r3/change.diff",
     "findings": [
       {
         "requirement": "REQ-008",

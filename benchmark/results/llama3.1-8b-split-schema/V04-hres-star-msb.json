@@ -36,8 +36,8 @@
     "seconds": 57.7
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V04-hres-star-msb/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V04-hres-star-msb/change.diff",
+    "spec": "benchmark/cases/V04-hres-star-msb/spec.md",
+    "diff": "benchmark/cases/V04-hres-star-msb/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

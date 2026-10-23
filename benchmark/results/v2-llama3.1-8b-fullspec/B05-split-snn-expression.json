@@ -32,8 +32,8 @@
     "seconds": 13.4
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/requirements/ts33501-subset.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B05-split-snn-expression/change.diff",
+    "spec": "benchmark/requirements/ts33501-subset.md",
+    "diff": "benchmark/cases/B05-split-snn-expression/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",
