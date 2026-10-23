@@ -30,8 +30,8 @@
     "seconds": 13.9
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V01-res-star-fc/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V01-res-star-fc/change.diff",
+    "spec": "benchmark/cases/V01-res-star-fc/spec.md",
+    "diff": "benchmark/cases/V01-res-star-fc/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",

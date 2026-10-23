@@ -35,8 +35,8 @@
     "seconds": 21.5
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V14-decrypt-before-mac/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V14-decrypt-before-mac/change.diff",
+    "spec": "benchmark/cases/V14-decrypt-before-mac/spec.md",
+    "diff": "benchmark/cases/V14-decrypt-before-mac/change.diff",
     "findings": [
       {
         "requirement": "REQ-012",

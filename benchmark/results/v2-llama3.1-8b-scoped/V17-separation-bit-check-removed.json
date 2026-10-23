@@ -30,8 +30,8 @@
     "seconds": 12.5
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V17-separation-bit-check-removed/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V17-separation-bit-check-removed/change.diff",
+    "spec": "benchmark/cases/V17-separation-bit-check-removed/spec.md",
+    "diff": "benchmark/cases/V17-separation-bit-check-removed/change.diff",
     "findings": [
       {
         "requirement": "REQ-031",

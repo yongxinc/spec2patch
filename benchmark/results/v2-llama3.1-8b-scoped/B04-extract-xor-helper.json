@@ -27,8 +27,8 @@
     "seconds": 27.0
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/B04-extract-xor-helper/change.diff",
+    "spec": "benchmark/cases/B04-extract-xor-helper/spec.md",
+    "diff": "benchmark/cases/B04-extract-xor-helper/change.diff",
     "findings": [
       {
         "requirement": "REQ-029",

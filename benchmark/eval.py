@@ -1,12 +1,14 @@
 """Run Spec2Patch on every benchmark case and score it. Scoring rules: benchmark/README.md."""
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent  # repo root; paths written into the results are relative to it
 sys.path.insert(0, str(HERE.parent))
 
 
@@ -93,6 +95,7 @@ def main():
                     help="case: the per-case scoped spec.md (default); full: the whole 38-requirement spec, scoping done by the tool")
     args = ap.parse_args()
 
+    os.chdir(ROOT)  # so that relative paths resolve and no absolute path leaks into results/
     from spec2patch import graph, llm  # imported late: backend env vars are read at import time
 
     manifest = json.loads((HERE / "cases" / "manifest.json").read_text())
@@ -107,7 +110,7 @@ def main():
         d = next((HERE / "cases").glob(f"{meta['id']}-*"))
         t0 = time.time()
         spec_path = d / "spec.md" if args.spec == "case" else HERE / "requirements" / "ts33501-subset.md"
-        report = graph.run(str(spec_path), str(d / "change.diff"))
+        report = graph.run(str(spec_path.relative_to(ROOT)), str((d / "change.diff").relative_to(ROOT)))
         findings = [f.model_dump() for f in report.findings]
         row = classify(meta, findings, report.warnings)
         row["seconds"] = round(time.time() - t0, 1)

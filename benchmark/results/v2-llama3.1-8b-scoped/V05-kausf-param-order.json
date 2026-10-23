@@ -39,8 +39,8 @@
     "seconds": 22.5
   },
   "report": {
-    "spec": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/spec.md",
-    "diff": "/Users/idsl/Documents/spec2patch/benchmark/cases/V05-kausf-param-order/change.diff",
+    "spec": "benchmark/cases/V05-kausf-param-order/spec.md",
+    "diff": "benchmark/cases/V05-kausf-param-order/change.diff",
     "findings": [
       {
         "requirement": "REQ-001",
